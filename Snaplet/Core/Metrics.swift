@@ -32,8 +32,7 @@ final class Metrics {
         let start = ContinuousClock.now
         defer {
             signposter.endInterval("measure", state)
-            record(name, duration: Double(start.duration(to: .now).components.attoseconds) / 1e18
-                   + Double(start.duration(to: .now).components.seconds))
+            record(name, duration: start.secondsElapsed)
         }
         return try await body()
     }

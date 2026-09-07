@@ -1,0 +1,53 @@
+name: Feature request
+description: Suggest something Snaplet should be able to do
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please read [ROADMAP.md](../blob/main/ROADMAP.md) first — some ideas are
+        already planned, and a few are deliberately out of scope (anything
+        needing a server, an account, or telemetry).
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do
+      description: Describe the situation, not the solution. What is awkward today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you would like Snaplet to do
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part of Snaplet
+      options:
+        - Capture and shortcuts
+        - Screenshot editor
+        - Share-ready styling
+        - Screen recording
+        - Video editing and export
+        - Text recognition
+        - History
+        - Bug report flow
+        - Settings
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you have considered
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Constraints
+      options:
+        - label: This does not require a network connection, an account or telemetry.
+          required: true
+        - label: I have checked the roadmap and the known limitations in the README.
+          required: true

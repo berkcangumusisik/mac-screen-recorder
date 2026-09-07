@@ -14,12 +14,12 @@ final class SelectionOverlayView: NSView {
     private let imageLayer = CALayer()
     private let dimLayer = CAShapeLayer()
     private let borderLayer = CAShapeLayer()
-    private let infoLayer = CATextLayer()
-    private let hintLayer = CATextLayer()
+    private let infoLabel: PillLabel
+    private let hintLabel: PillLabel
     private let loupeLayer = CALayer()
     private let loupeContent = CALayer()
     private let loupeCrosshair = CAShapeLayer()
-    private let loupeReadout = CATextLayer()
+    private let loupeReadout: PillLabel
 
     private var anchorPoint: CGPoint?
     private var currentPoint: CGPoint?
@@ -35,6 +35,9 @@ final class SelectionOverlayView: NSView {
     init(snapshot: DisplaySnapshot, mode: SelectionOverlayController.Mode) {
         self.snapshot = snapshot
         self.mode = mode
+        infoLabel = PillLabel(fontSize: 12, contentsScale: snapshot.scale)
+        hintLabel = PillLabel(fontSize: 12, contentsScale: snapshot.scale)
+        loupeReadout = PillLabel(fontSize: 11, contentsScale: snapshot.scale)
         super.init(frame: CGRect(origin: .zero, size: snapshot.frame.size))
         wantsLayer = true
         configureLayers()
@@ -72,13 +75,9 @@ final class SelectionOverlayView: NSView {
         borderLayer.frame = bounds
         root.addSublayer(borderLayer)
 
-        styleText(infoLayer, fontSize: 12)
-        infoLayer.isHidden = true
-        root.addSublayer(infoLayer)
-
-        styleText(hintLayer, fontSize: 12)
-        hintLayer.alignmentMode = .center
-        root.addSublayer(hintLayer)
+        infoLabel.isHidden = true
+        root.addSublayer(infoLabel.container)
+        root.addSublayer(hintLabel.container)
 
         loupeLayer.frame = CGRect(x: 0, y: 0, width: Self.loupeSide, height: Self.loupeSide + 22)
         loupeLayer.isHidden = true
@@ -99,25 +98,13 @@ final class SelectionOverlayView: NSView {
         loupeCrosshair.fillColor = nil
         loupeLayer.addSublayer(loupeCrosshair)
 
-        styleText(loupeReadout, fontSize: 11)
-        loupeReadout.alignmentMode = .center
         loupeReadout.frame = CGRect(x: 0, y: 0, width: Self.loupeSide, height: 20)
-        loupeLayer.addSublayer(loupeReadout)
+        loupeLayer.addSublayer(loupeReadout.container)
 
         root.addSublayer(loupeLayer)
 
         updateHintText()
         refresh()
-    }
-
-    private func styleText(_ text: CATextLayer, fontSize: CGFloat) {
-        text.contentsScale = snapshot.scale
-        text.font = NSFont.monospacedDigitSystemFont(ofSize: fontSize, weight: .medium)
-        text.fontSize = fontSize
-        text.foregroundColor = NSColor.white.cgColor
-        text.backgroundColor = NSColor.black.withAlphaComponent(0.72).cgColor
-        text.cornerRadius = 5
-        text.alignmentMode = .center
     }
 
     override func layout() {
@@ -130,7 +117,7 @@ final class SelectionOverlayView: NSView {
     }
 
     private func updateHintText() {
-        hintLayer.string = mode == .area
+        hintLabel.string = mode == .area
             ? String(localized: "Drag to select · Space to move · ⇧ square · ⌥ from center · Esc to cancel")
             : String(localized: "Click a window to capture it · Esc to cancel")
         positionHint()
@@ -138,14 +125,11 @@ final class SelectionOverlayView: NSView {
 
     private func positionHint() {
         let width: CGFloat = 620
-        let height: CGFloat = 26
-        hintLayer.frame = CGRect(x: (bounds.width - width) / 2,
+        let height: CGFloat = 28
+        hintLabel.frame = CGRect(x: (bounds.width - width) / 2,
                                  y: bounds.height - height - 40,
                                  width: width,
                                  height: height)
-        // Vertically centre the single line of text inside the pill.
-        hintLayer.frame = hintLayer.frame.insetBy(dx: 0, dy: 0)
-        hintLayer.contentsScale = snapshot.scale
     }
 
     override func updateTrackingAreas() {
@@ -338,10 +322,10 @@ final class SelectionOverlayView: NSView {
 
         if let highlight, highlight.width > 0, highlight.height > 0 {
             borderLayer.path = CGPath(rect: highlight.insetBy(dx: -0.5, dy: -0.5), transform: nil)
-            updateInfoLayer(for: highlight)
+            updateInfoLabel(for: highlight)
         } else {
             borderLayer.path = nil
-            infoLayer.isHidden = true
+            infoLabel.isHidden = true
         }
 
         if mode == .area, let cursor {
@@ -355,22 +339,24 @@ final class SelectionOverlayView: NSView {
         rect.offsetBy(dx: -snapshot.frame.minX, dy: -snapshot.frame.minY)
     }
 
-    private func updateInfoLayer(for rect: CGRect) {
+    private func updateInfoLabel(for rect: CGRect) {
         let widthPixels = Int((rect.width * snapshot.scale).rounded())
         let heightPixels = Int((rect.height * snapshot.scale).rounded())
+        let text: String
         if mode == .window, let hoveredCandidate {
-            infoLayer.string = "\(hoveredCandidate.applicationName) · \(widthPixels) × \(heightPixels) px"
+            text = "\(hoveredCandidate.applicationName) · \(widthPixels) × \(heightPixels) px"
         } else {
-            infoLayer.string = "\(widthPixels) × \(heightPixels) px"
+            text = "\(widthPixels) × \(heightPixels) px"
         }
-        let text = (infoLayer.string as? String) ?? ""
+        infoLabel.string = text
+
         let width = max(96, CGFloat(text.count) * 7.4 + 18)
-        let height: CGFloat = 22
+        let height: CGFloat = 24
         var origin = CGPoint(x: rect.midX - width / 2, y: rect.minY - height - 8)
         if origin.y < 6 { origin.y = min(rect.maxY + 8, bounds.height - height - 6) }
         origin.x = min(max(6, origin.x), bounds.width - width - 6)
-        infoLayer.frame = CGRect(origin: origin, size: CGSize(width: width, height: height))
-        infoLayer.isHidden = false
+        infoLabel.frame = CGRect(origin: origin, size: CGSize(width: width, height: height))
+        infoLabel.isHidden = false
     }
 
     private func updateLoupe(at cursor: CGPoint) {
@@ -393,7 +379,6 @@ final class SelectionOverlayView: NSView {
 
         loupeContent.contents = cropped
         loupeReadout.string = "\(Int(pixelX))  \(Int(pixelYFromTop))"
-        loupeReadout.contentsScale = scale
 
         // Centre crosshair sized to one source pixel.
         let cell = Self.loupeSide / source
@@ -411,5 +396,52 @@ final class SelectionOverlayView: NSView {
         origin.x = max(8, origin.x)
         loupeLayer.frame = CGRect(origin: origin, size: loupeLayer.bounds.size)
         loupeLayer.isHidden = false
+    }
+}
+
+/// A rounded pill with a single centred line of text.
+///
+/// `CATextLayer` draws its string flush with the top of its own bounds, so the
+/// text needs its own layer inset inside the background to look centred.
+final class PillLabel {
+    let container = CALayer()
+    private let textLayer = CATextLayer()
+    private let fontSize: CGFloat
+
+    init(fontSize: CGFloat, contentsScale: CGFloat) {
+        self.fontSize = fontSize
+        container.backgroundColor = NSColor.black.withAlphaComponent(0.72).cgColor
+        container.cornerRadius = 6
+        container.contentsScale = contentsScale
+
+        textLayer.font = NSFont.monospacedDigitSystemFont(ofSize: fontSize, weight: .medium)
+        textLayer.fontSize = fontSize
+        textLayer.foregroundColor = NSColor.white.cgColor
+        textLayer.alignmentMode = .center
+        textLayer.truncationMode = .middle
+        textLayer.contentsScale = contentsScale
+        container.addSublayer(textLayer)
+    }
+
+    var string: String? {
+        get { textLayer.string as? String }
+        set { textLayer.string = newValue }
+    }
+
+    var isHidden: Bool {
+        get { container.isHidden }
+        set { container.isHidden = newValue }
+    }
+
+    var frame: CGRect {
+        get { container.frame }
+        set {
+            container.frame = newValue
+            let lineHeight = (fontSize * 1.22).rounded()
+            textLayer.frame = CGRect(x: 0,
+                                     y: ((newValue.height - lineHeight) / 2).rounded(),
+                                     width: newValue.width,
+                                     height: lineHeight)
+        }
     }
 }

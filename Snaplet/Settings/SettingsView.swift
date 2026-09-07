@@ -31,7 +31,6 @@ struct SettingsView: View {
     }
 
     let environment: AppEnvironment
-    @ObservedObject private var settings = SettingsStore.shared
     @State private var selection: Tab = .general
 
     init(environment: AppEnvironment) {

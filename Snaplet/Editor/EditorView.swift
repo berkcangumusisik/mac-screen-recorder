@@ -9,8 +9,6 @@ struct EditorView: View {
     @ObservedObject private var settings = SettingsStore.shared
     @State private var inspectorTab: InspectorTab = .annotate
     @State private var zoom: Double = 0
-    @State private var isExporting = false
-    @State private var isTextFieldFocused = false
 
     enum InspectorTab: String, CaseIterable, Identifiable {
         case annotate, style, text
@@ -40,8 +38,8 @@ struct EditorView: View {
         }
         .frame(minWidth: 820, minHeight: 560)
         .onReceive(NotificationCenter.default.publisher(for: .snapletEditTextRequested)) { _ in
+            // Double-clicking a text annotation reveals the field that edits it.
             inspectorTab = .annotate
-            isTextFieldFocused = true
         }
     }
 

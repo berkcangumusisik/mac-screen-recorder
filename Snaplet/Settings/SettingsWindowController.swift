@@ -11,7 +11,7 @@ final class SettingsWindowController {
         self.environment = environment
     }
 
-    func show(selecting tab: SettingsView.Tab? = nil) {
+    func show() {
         if window == nil {
             let hosting = NSHostingController(rootView: SettingsView(environment: environment))
             let window = NSWindow(contentViewController: hosting)

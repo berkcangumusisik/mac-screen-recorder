@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Build and test
+    # Snaplet targets macOS 15, so the runner needs at least the macOS 15 SDK
+    # and Xcode 16 (the project uses filesystem-synchronised groups).
+    runs-on: macos-15
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show toolchain
+        run: |
+          sw_vers
+          xcodebuild -version
+          swift --version
+          xcodebuild -showsdks | grep -i macos || true
+
+      - name: Check Turkish translations are complete
+        run: python3 scripts/turkish_strings.py --check
+
+      - name: Build and test
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project Snaplet.xcodeproj \
+            -scheme Snaplet \
+            -configuration Debug \
+            -destination 'platform=macOS' \
+            -resultBundlePath TestResults.xcresult \
+            test 2>&1 | grep -vE '\[Connection\]|linkd\.autoShortcut'
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: TestResults.xcresult
+          if-no-files-found: ignore
+
+  release-build:
+    name: Release build
+    runs-on: macos-15
+    timeout-minutes: 30
+    needs: test
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Ad hoc signing only. Distributable builds need a Developer ID
+      # certificate and notarisation credentials, which are not available to
+      # pull requests from forks and are therefore not part of CI.
+      - name: Build Release and package
+        run: ./scripts/build-release.sh
+
+      - name: Upload app
+        uses: actions/upload-artifact@v4
+        with:
+          name: Snaplet-ad-hoc-signed
+          path: dist/*.zip
+          if-no-files-found: error

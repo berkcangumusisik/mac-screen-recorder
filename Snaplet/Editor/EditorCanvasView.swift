@@ -289,19 +289,14 @@ final class EditorCanvasView: NSView {
 
     // MARK: - Interaction helpers
 
+    /// Dragging a handle resizes the current crop; dragging anywhere else
+    /// starts a new one.
     private func beginCropDrag(at viewPoint: CGPoint, source point: CGPoint) {
         isDraggingCrop = true
-        if let cropDraft {
-            let rect = viewRect(fromSource: cropDraft)
-            if let handle = handle(at: viewPoint, for: cropDraft) {
-                activeHandle = handle
-                frameAtDragStart = cropDraft
-                return
-            }
-            if rect.contains(viewPoint) {
-                activeHandle = nil
-                frameAtDragStart = cropDraft
-            }
+        if let cropDraft, let handle = handle(at: viewPoint, for: cropDraft) {
+            activeHandle = handle
+            frameAtDragStart = cropDraft
+            return
         }
         activeHandle = nil
         frameAtDragStart = nil

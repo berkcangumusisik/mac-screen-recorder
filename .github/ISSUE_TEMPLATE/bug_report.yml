@@ -1,0 +1,95 @@
+name: Bug report
+description: Something in Snaplet does not work the way it should
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Snaplet's editor can build most of this for you:
+        capture the problem, then use **Create Bug Report…** and paste the
+        Markdown here. Remember to attach the media yourself — Snaplet never
+        uploads anything.
+
+        Please check the screenshot or recording you attach for anything you do
+        not want public. The editor's redaction tool draws an opaque block;
+        blur and pixelate do not guarantee the content cannot be reconstructed.
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened
+      description: A short description of the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version
+      placeholder: "macOS 15.4"
+    validations:
+      required: true
+  - type: input
+    id: commit
+    attributes:
+      label: Snaplet version or commit
+      placeholder: "0.1.0 (1), or a commit hash"
+    validations:
+      required: true
+  - type: dropdown
+    id: hardware
+    attributes:
+      label: Hardware
+      options:
+        - Apple silicon
+        - Intel
+        - Not sure
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part of Snaplet
+      options:
+        - Capture and shortcuts
+        - Screenshot editor
+        - Share-ready styling
+        - Screen recording
+        - Video editing and export
+        - Text recognition
+        - History
+        - Bug report flow
+        - Settings
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: displays
+    attributes:
+      label: Display setup
+      description: Number of displays, resolutions and scale factors, if the problem might involve them.
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else
+      description: Media, logs or notes. Please redact anything sensitive first.

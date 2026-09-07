@@ -33,6 +33,7 @@ final class AppEnvironment: ObservableObject, CaptureCoordinatorDelegate {
         settings.applyAppearance()
         captureCoordinator.delegate = self
         menuBar = MenuBarController(environment: self)
+        MainMenu.install(environment: self)
 
         previewController.onEdit = { [weak self] capture in self?.openEditor(for: capture) }
         previewController.onSave = { [weak self] capture in self?.saveOnDemand(capture) }
