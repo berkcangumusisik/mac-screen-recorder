@@ -74,6 +74,19 @@ final class ShortcutAndNamingTests: XCTestCase {
         XCTAssertEqual(second.lastPathComponent, "Shot 2.png")
     }
 
+    func testAnExplicitlyUnboundShortcutSurvivesAJSONRoundTrip() throws {
+        var preferences = Preferences()
+        preferences.shortcuts[HotkeyAction.captureArea.rawValue] = .some(nil)
+        let data = try JSONEncoder().encode(preferences)
+        let decoded = try JSONDecoder().decode(Preferences.self, from: data)
+
+        XCTAssertNil(decoded.shortcut(for: .captureArea),
+                     "an unbound shortcut must not silently return to its default")
+        XCTAssertEqual(decoded.shortcut(for: .captureWindow),
+                       HotkeyAction.captureWindow.defaultShortcut)
+        XCTAssertNil(decoded.resolvedShortcuts[.captureArea] ?? nil)
+    }
+
     func testPreferencesSurviveAJSONRoundTrip() throws {
         var preferences = Preferences()
         preferences.videoFrameRate = 30

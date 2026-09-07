@@ -91,7 +91,7 @@ source.
 **Project**
 - English and Turkish interfaces through a String Catalog.
 - Full keyboard access, VoiceOver labels, and light and dark support.
-- 106 unit and integration tests, including censored-output pixel checks for
+- 111 unit and integration tests, including censored-output pixel checks for
   both images and video.
 - GitHub Actions workflow that builds and tests on a macOS runner.
 - Release build and packaging scripts.

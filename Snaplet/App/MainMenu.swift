@@ -10,6 +10,7 @@ import AppKit
 enum MainMenu {
 
     static func install(environment: AppEnvironment) {
+        MenuActions.shared.environment = environment
         let menu = NSApp.mainMenu ?? NSMenu()
 
         if menu.items.isEmpty {
@@ -43,7 +44,6 @@ enum MainMenu {
                                   keyEquivalent: ",")
         settings.target = MenuActions.shared
         submenu.addItem(settings)
-        MenuActions.shared.environment = environment
 
         submenu.addItem(.separator())
         submenu.addItem(withTitle: String(localized: "Hide Snaplet"),
