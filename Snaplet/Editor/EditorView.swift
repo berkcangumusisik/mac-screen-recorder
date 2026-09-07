@@ -13,10 +13,14 @@ struct EditorView: View {
     @State private var isTextFieldFocused = false
 
     enum InspectorTab: String, CaseIterable, Identifiable {
-        case annotate, style
+        case annotate, style, text
         var id: String { rawValue }
         var title: String {
-            self == .annotate ? String(localized: "Annotate") : String(localized: "Style")
+            switch self {
+            case .annotate: return String(localized: "Annotate")
+            case .style: return String(localized: "Style")
+            case .text: return String(localized: "Text")
+            }
         }
     }
 
@@ -129,7 +133,8 @@ struct EditorView: View {
                 .keyboardShortcut("c", modifiers: [.command, .shift])
 
             Button {
-                environment.openBugReport(forRenderedImage: renderedImage())
+                environment.openBugReport(forRenderedImage: renderedImage(),
+                                          stepCount: document.annotations.filter { $0.kind == .step }.count)
             } label: { Label(String(localized: "Bug report"), systemImage: "ladybug") }
 
             Button {
@@ -175,6 +180,9 @@ struct EditorView: View {
                         .padding(12)
                 case .style:
                     StyleInspector(document: document)
+                        .padding(12)
+                case .text:
+                    TextInspector(document: document)
                         .padding(12)
                 }
             }

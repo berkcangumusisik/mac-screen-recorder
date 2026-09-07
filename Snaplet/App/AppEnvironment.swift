@@ -194,8 +194,8 @@ final class AppEnvironment: ObservableObject, CaptureCoordinatorDelegate {
         bugReportPresenter.present(image: capture.result.image, mediaURL: capture.savedURL)
     }
 
-    func openBugReport(forRenderedImage image: CGImage?) {
-        bugReportPresenter.present(image: image, mediaURL: nil)
+    func openBugReport(forRenderedImage image: CGImage?, stepCount: Int = 0) {
+        bugReportPresenter.present(image: image, mediaURL: nil, stepCount: stepCount)
     }
 
     /// Called after an editor export so the history reflects the new file.
@@ -215,6 +215,26 @@ final class AppEnvironment: ObservableObject, CaptureCoordinatorDelegate {
 
     func clearLibrary() {
         library.clearAll()
+    }
+
+    /// Reopens a stored capture in the right editor.
+    func openFromLibrary(_ item: CaptureRecord) {
+        switch item.kind {
+        case .video:
+            videoEditorPresenter.present(url: item.url)
+        case .image:
+            guard let source = CGImageSourceCreateWithURL(item.url as CFURL, nil),
+                  let image = CGImageSourceCreateImageAtIndex(source, 0, nil) else {
+                ErrorPresenter.present(.unsupportedImageData)
+                return
+            }
+            let scale = NSScreen.main?.backingScaleFactor ?? 2
+            let result = CaptureResult(image: image,
+                                       scale: scale,
+                                       source: .importedFile(item.url),
+                                       capturedAt: item.createdAt)
+            editorPresenter.present(result, savedURL: item.url)
+        }
     }
 
     func editClipboardImage() {

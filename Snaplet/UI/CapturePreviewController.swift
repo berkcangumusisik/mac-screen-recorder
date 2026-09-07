@@ -6,12 +6,12 @@ import SwiftUI
 final class PendingCapture: ObservableObject, Identifiable {
     let id = UUID()
     let result: CaptureResult
-    let kind: LibraryItemKind
+    let kind: CaptureKind
     @Published var savedURL: URL?
     /// Temporary file used for drag-and-drop when nothing was saved yet.
     private var dragURL: URL?
 
-    init(result: CaptureResult, savedURL: URL?, kind: LibraryItemKind = .image) {
+    init(result: CaptureResult, savedURL: URL?, kind: CaptureKind = .image) {
         self.result = result
         self.savedURL = savedURL
         self.kind = kind
