@@ -5,7 +5,12 @@ import CoreImage
 ///
 /// Overlays are drawn before the zoom transform so a redaction keeps covering
 /// the same content even while the frame is being magnified.
-final class VideoFrameRenderer {
+///
+/// AVFoundation may call the composition handler from more than one thread, so
+/// every stored property is set during `init` and never mutated afterwards.
+/// `Sendable` is unchecked only because `CIImage` carries no such annotation;
+/// reading one from several threads is supported.
+final class VideoFrameRenderer: @unchecked Sendable {
 
     let sourceSize: CGSize
     let contentSize: CGSize
@@ -15,7 +20,7 @@ final class VideoFrameRenderer {
     private let layout: PresentationRenderer.Layout?
     private let plate: CIImage?
     private let contentMask: CIImage?
-    private var textImages: [UUID: CIImage] = [:]
+    private let textImages: [UUID: CIImage]
 
     init(edit: VideoEdit, sourceSize: CGSize) {
         self.edit = edit
@@ -36,11 +41,13 @@ final class VideoFrameRenderer {
             self.contentMask = nil
         }
 
+        var images: [UUID: CIImage] = [:]
         for overlay in edit.overlays where overlay.kind == .text {
             if let image = Self.textImage(for: overlay, sourceSize: sourceSize) {
-                textImages[overlay.id] = CIImage(cgImage: image)
+                images[overlay.id] = CIImage(cgImage: image)
             }
         }
+        textImages = images
     }
 
     /// `time` is in source asset seconds.
