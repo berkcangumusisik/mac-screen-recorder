@@ -16,6 +16,7 @@ final class AppEnvironment: ObservableObject, CaptureCoordinatorDelegate {
 
     lazy var editorPresenter = EditorPresenter(environment: self)
     lazy var recordingPresenter = RecordingPresenter(environment: self)
+    lazy var videoEditorPresenter = VideoEditorPresenter(environment: self)
     lazy var textRecognitionPresenter = TextRecognitionPresenter()
     lazy var bugReportPresenter = BugReportPresenter(environment: self)
     lazy var libraryWindow = LibraryWindowController(environment: self)
@@ -44,6 +45,7 @@ final class AppEnvironment: ObservableObject, CaptureCoordinatorDelegate {
     }
 
     func stop() {
+        recordingPresenter.finalizeForTermination()
         HotkeyManager.shared.unregisterAll()
         previewController.dismiss()
         TemporaryFiles.sweep()
@@ -175,8 +177,18 @@ final class AppEnvironment: ObservableObject, CaptureCoordinatorDelegate {
     }
 
     func openEditor(for capture: PendingCapture) {
-        editorPresenter.present(capture.result, savedURL: capture.savedURL)
+        if capture.kind == .video, let url = capture.savedURL {
+            videoEditorPresenter.present(url: url)
+        } else {
+            editorPresenter.present(capture.result, savedURL: capture.savedURL)
+        }
     }
+
+    func startRecording(_ kind: RecordingPresenter.TargetKind) {
+        recordingPresenter.start(kind: kind)
+    }
+
+    var isRecording: Bool { recordingPresenter.isActive }
 
     func openBugReport(for capture: PendingCapture) {
         bugReportPresenter.present(image: capture.result.image, mediaURL: capture.savedURL)

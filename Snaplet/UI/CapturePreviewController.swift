@@ -6,13 +6,15 @@ import SwiftUI
 final class PendingCapture: ObservableObject, Identifiable {
     let id = UUID()
     let result: CaptureResult
+    let kind: LibraryItemKind
     @Published var savedURL: URL?
     /// Temporary file used for drag-and-drop when nothing was saved yet.
     private var dragURL: URL?
 
-    init(result: CaptureResult, savedURL: URL?) {
+    init(result: CaptureResult, savedURL: URL?, kind: LibraryItemKind = .image) {
         self.result = result
         self.savedURL = savedURL
+        self.kind = kind
     }
 
     var thumbnail: NSImage {
@@ -22,6 +24,7 @@ final class PendingCapture: ObservableObject, Identifiable {
     /// A file URL suitable for dragging into another app, created on demand.
     func fileURLForDragging(format: ImageFormat, quality: Double) -> URL? {
         if let savedURL, FileManager.default.fileExists(atPath: savedURL.path) { return savedURL }
+        guard kind == .image else { return nil }
         if let dragURL, FileManager.default.fileExists(atPath: dragURL.path) { return dragURL }
         do {
             let data = try ImageExporter.data(from: result.image, format: format, quality: quality)

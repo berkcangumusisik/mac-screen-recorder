@@ -46,6 +46,17 @@ final class MenuBarController: NSObject, NSMenuDelegate {
         menu.addItem(.separator())
 
         addAction(.toggleRecording, to: menu, title: environment.recordingMenuTitle)
+        if !environment.isRecording {
+            for kind in [RecordingPresenter.TargetKind.screen, .area, .window] {
+                let item = NSMenuItem(title: Self.title(for: kind),
+                                      action: #selector(startRecording(_:)),
+                                      keyEquivalent: "")
+                item.target = self
+                item.representedObject = kind.rawValue
+                item.indentationLevel = 1
+                menu.addItem(item)
+            }
+        }
         menu.addItem(.separator())
 
         addAction(.copyTextOnScreen, to: menu)
@@ -103,6 +114,20 @@ final class MenuBarController: NSObject, NSMenuDelegate {
         guard let raw = sender.representedObject as? String,
               let action = HotkeyAction(rawValue: raw) else { return }
         environment?.perform(action)
+    }
+
+    private static func title(for kind: RecordingPresenter.TargetKind) -> String {
+        switch kind {
+        case .screen: return String(localized: "Record Screen")
+        case .area: return String(localized: "Record Area…")
+        case .window: return String(localized: "Record Window…")
+        }
+    }
+
+    @objc private func startRecording(_ sender: NSMenuItem) {
+        guard let raw = sender.representedObject as? String,
+              let kind = RecordingPresenter.TargetKind(rawValue: raw) else { return }
+        environment?.startRecording(kind)
     }
 
     @objc private func openSettings() { environment?.showSettings() }

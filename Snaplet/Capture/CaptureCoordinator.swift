@@ -157,6 +157,43 @@ final class CaptureCoordinator {
         }
     }
 
+    /// Lets the user pick a region to record. Returns the display and the
+    /// rectangle in global AppKit points.
+    func selectRecordingArea() async -> (displayID: CGDirectDisplayID, rect: CGRect)? {
+        guard !isBusy, await ensurePermission() else { return nil }
+        isBusy = true
+        defer { isBusy = false }
+        do {
+            let snapshots = try await screenshots.captureAllDisplays()
+            let outcome = await overlay.present(mode: .area, snapshots: snapshots, candidates: [])
+            guard case .area(let snapshot, let rect) = outcome,
+                  rect.width >= 16, rect.height >= 16 else { return nil }
+            return (snapshot.displayID, rect)
+        } catch {
+            report(error)
+            return nil
+        }
+    }
+
+    /// Lets the user pick a window to record.
+    func selectRecordingWindow() async -> CGWindowID? {
+        guard !isBusy, await ensurePermission() else { return nil }
+        isBusy = true
+        defer { isBusy = false }
+        do {
+            let content = try await screenshots.shareableContent()
+            let snapshots = try await screenshots.captureAllDisplays()
+            let candidates = screenshots.windowCandidates(from: content, geometry: .current)
+            guard !candidates.isEmpty else { throw SnapletError.noCaptureSource }
+            let outcome = await overlay.present(mode: .window, snapshots: snapshots, candidates: candidates)
+            guard case .window(let candidate) = outcome else { return nil }
+            return candidate.scWindow.windowID
+        } catch {
+            report(error)
+            return nil
+        }
+    }
+
     // MARK: - Plumbing
 
     private func run(_ body: () async throws -> CaptureResult?) async {
