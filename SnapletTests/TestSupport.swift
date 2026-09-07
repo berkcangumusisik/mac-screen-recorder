@@ -1,3 +1,4 @@
+import AVFoundation
 import AppKit
 import XCTest
 @testable import Snaplet
@@ -92,5 +93,74 @@ struct PixelSampler {
         return abs(pixel.r - expected.0) <= tolerance
             && abs(pixel.g - expected.1) <= tolerance
             && abs(pixel.b - expected.2) <= tolerance
+    }
+}
+
+/// Writes a short, solid-colour H.264 file so tests can exercise the real
+/// composition and export paths instead of mocking them.
+enum TestVideo {
+
+    static func make(url: URL,
+                     size: CGSize = CGSize(width: 320, height: 240),
+                     seconds: Double = 2,
+                     frameRate: Int = 10,
+                     color: NSColor = .red) async throws {
+        try? FileManager.default.removeItem(at: url)
+        let writer = try AVAssetWriter(outputURL: url, fileType: .mp4)
+        let input = AVAssetWriterInput(mediaType: .video, outputSettings: [
+            AVVideoCodecKey: AVVideoCodecType.h264,
+            AVVideoWidthKey: Int(size.width),
+            AVVideoHeightKey: Int(size.height)
+        ])
+        input.expectsMediaDataInRealTime = false
+        let adaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: input,
+                                                           sourcePixelBufferAttributes: [
+                                                            kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA,
+                                                            kCVPixelBufferWidthKey as String: Int(size.width),
+                                                            kCVPixelBufferHeightKey as String: Int(size.height)
+                                                           ])
+        writer.add(input)
+        writer.startWriting()
+        writer.startSession(atSourceTime: .zero)
+
+        let total = Int(seconds * Double(frameRate))
+        for index in 0..<total {
+            while !input.isReadyForMoreMediaData {
+                try await Task.sleep(for: .milliseconds(5))
+            }
+            guard let pool = adaptor.pixelBufferPool else { break }
+            var pixelBuffer: CVPixelBuffer?
+            CVPixelBufferPoolCreatePixelBuffer(nil, pool, &pixelBuffer)
+            guard let pixelBuffer else { break }
+            fill(pixelBuffer, with: color)
+            adaptor.append(pixelBuffer,
+                           withPresentationTime: CMTime(value: CMTimeValue(index),
+                                                        timescale: CMTimeScale(frameRate)))
+        }
+        input.markAsFinished()
+        await writer.finishWriting()
+    }
+
+    private static func fill(_ pixelBuffer: CVPixelBuffer, with color: NSColor) {
+        CVPixelBufferLockBaseAddress(pixelBuffer, [])
+        defer { CVPixelBufferUnlockBaseAddress(pixelBuffer, []) }
+        guard let base = CVPixelBufferGetBaseAddress(pixelBuffer) else { return }
+        let width = CVPixelBufferGetWidth(pixelBuffer)
+        let height = CVPixelBufferGetHeight(pixelBuffer)
+        let bytesPerRow = CVPixelBufferGetBytesPerRow(pixelBuffer)
+        let converted = color.usingColorSpace(.sRGB) ?? .red
+        let blue = UInt8(converted.blueComponent * 255)
+        let green = UInt8(converted.greenComponent * 255)
+        let red = UInt8(converted.redComponent * 255)
+        let pointer = base.assumingMemoryBound(to: UInt8.self)
+        for y in 0..<height {
+            for x in 0..<width {
+                let offset = y * bytesPerRow + x * 4
+                pointer[offset] = blue
+                pointer[offset + 1] = green
+                pointer[offset + 2] = red
+                pointer[offset + 3] = 255
+            }
+        }
     }
 }

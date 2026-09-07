@@ -72,6 +72,15 @@ enum PresentationRenderer {
                       subtitleRect: subtitleRect)
     }
 
+    /// Everything except the content: background, shadow, window chrome and
+    /// caption. The video editor renders this once and reuses it for every
+    /// frame, which is what makes styled video preview affordable.
+    static func plate(contentSize: CGSize, style: StylePreset) -> (image: CGImage, layout: Layout)? {
+        let layout = layout(contentSize: contentSize, style: style)
+        guard let image = draw(content: nil, style: style, layout: layout) else { return nil }
+        return (image, layout)
+    }
+
     static func render(content: CGImage, style: StylePreset, maxLongestEdge: CGFloat? = nil) -> CGImage? {
         let contentSize = CGSize(width: content.width, height: content.height)
         let layout = layout(contentSize: contentSize, style: style)
@@ -86,7 +95,7 @@ enum PresentationRenderer {
                                                 height: CGFloat(image.height) * factor))
     }
 
-    private static func draw(content: CGImage, style: StylePreset, layout: Layout) -> CGImage? {
+    private static func draw(content: CGImage?, style: StylePreset, layout: Layout) -> CGImage? {
         let width = Int(layout.canvasSize.width)
         let height = Int(layout.canvasSize.height)
         guard width > 0, height > 0,
@@ -130,7 +139,9 @@ enum PresentationRenderer {
         if style.showsWindowFrame {
             drawWindowChrome(style: style, layout: layout)
         }
-        NSImage(cgImage: content, size: layout.contentRect.size).draw(in: layout.contentRect)
+        if let content {
+            NSImage(cgImage: content, size: layout.contentRect.size).draw(in: layout.contentRect)
+        }
         NSGraphicsContext.restoreGraphicsState()
 
         drawCaption(style: style, layout: layout)
