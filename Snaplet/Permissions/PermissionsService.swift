@@ -44,21 +44,57 @@ final class PermissionsService: ObservableObject {
         }
     }
 
-    /// Triggers the system prompt the first time, and afterwards simply reports
-    /// the stored answer. Callers should offer `openSystemSettings` when this
-    /// returns `false`.
+    /// Triggers the system prompt the first time, and afterwards reports whether
+    /// capture actually works. Callers should offer `openSystemSettings` when
+    /// this returns `false`.
+    ///
+    /// `CGPreflightScreenCaptureAccess` answers from a value cached per process,
+    /// so it keeps saying "no" after the user grants the permission in System
+    /// Settings while Snaplet is running. Asking ScreenCaptureKit for the
+    /// shareable content is the only answer that reflects reality, so a negative
+    /// preflight is treated as a hint and confirmed before anything is reported
+    /// to the user.
     @discardableResult
     func ensureScreenRecording() async -> Bool {
         if CGPreflightScreenCaptureAccess() {
             screenRecording = .authorized
             return true
         }
+
+        if await canActuallyCapture() {
+            Log.permissions.notice("Preflight reported no screen access, but capture works")
+            screenRecording = .authorized
+            return true
+        }
+
+        // Only prompts the first time; afterwards it returns the stored answer
+        // without showing anything, which is why the caller has to explain
+        // where the setting lives.
         let granted = CGRequestScreenCaptureAccess()
-        screenRecording = granted ? .authorized : .denied
-        if !granted {
+        if granted {
+            screenRecording = .authorized
+            return true
+        }
+
+        // The prompt is silent once a decision exists, and the user may have
+        // just granted it in System Settings, so confirm once more.
+        let works = await canActuallyCapture()
+        screenRecording = works ? .authorized : .denied
+        if !works {
             Log.permissions.notice("Screen recording permission not granted")
         }
-        return granted
+        return works
+    }
+
+    /// The authoritative check: can Snaplet enumerate shareable content?
+    private func canActuallyCapture() async -> Bool {
+        do {
+            let content = try await SCShareableContent.excludingDesktopWindows(false,
+                                                                               onScreenWindowsOnly: true)
+            return !content.displays.isEmpty
+        } catch {
+            return false
+        }
     }
 
     @discardableResult

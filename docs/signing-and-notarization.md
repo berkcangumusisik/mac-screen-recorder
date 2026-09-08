@@ -25,6 +25,53 @@ is the correct behaviour and Snaplet's documentation will never ask anyone to
 disable Gatekeeper, run `spctl --master-disable`, or strip quarantine
 attributes system-wide.
 
+## 1b. Keeping permissions across rebuilds
+
+Worth knowing before you spend an afternoon confused: macOS binds Screen &
+System Audio Recording to the app's **code signature**, not to its path or
+bundle identifier alone. An ad hoc signature is derived from the binary, so it
+changes on every build — and every build therefore looks like a different app to
+TCC. The symptom is unmistakable:
+
+- System Settings still lists Snaplet with its switch on.
+- Snaplet still says it needs the permission.
+- `CGPreflightScreenCaptureAccess()` returns `false`.
+
+Nothing is broken; the stored grant simply no longer matches the binary.
+
+You have three options.
+
+**Grant it again after each build.** Fine for an occasional build. Turn Snaplet
+off and on again in System Settings › Privacy & Security › Screen & System Audio
+Recording, then quit and reopen Snaplet. macOS reads this permission when the
+process starts, so reopening matters.
+
+**Reset the entry** when the stale one gets in the way:
+
+```bash
+tccutil reset ScreenCapture app.snaplet.Snaplet
+```
+
+This clears Snaplet's screen-recording decision so the next launch asks cleanly.
+It changes your privacy settings, so run it yourself and only for this app.
+
+**Sign with a stable self-signed certificate** (recommended while developing).
+The grant then binds to the certificate rather than to the binary's hash, and it
+survives every rebuild.
+
+Create the certificate once, in Keychain Access:
+*Keychain Access › Certificate Assistant › Create a Certificate…*, name it
+`Snaplet Dev`, identity type **Self Signed Root**, certificate type **Code
+Signing**. Then build with it:
+
+```bash
+SIGN_IDENTITY="Snaplet Dev" ./scripts/build-release.sh
+```
+
+Grant the permission once to that build and it stays granted. This certificate
+is only good on your own Mac — it is not a substitute for a Developer ID, and it
+does not let anyone else run the app.
+
 ## 2. Signing with a Developer ID
 
 Needed before the app can run on someone else's Mac.

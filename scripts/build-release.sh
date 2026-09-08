@@ -44,6 +44,11 @@ ZIP="$DIST_DIR/Snaplet-$VERSION-$BUILD_NUMBER.zip"
 rm -rf "$DIST_DIR/Snaplet.app" "$ZIP"
 cp -R "$APP" "$DIST_DIR/Snaplet.app"
 
+# Leave exactly one Snaplet.app behind. Two bundles with the same identifier
+# confuse Launch Services, which would then happily open the intermediate copy
+# that the next build deletes out from under the running app.
+rm -rf "$BUILD_DIR"
+
 echo "Packaging…"
 # ditto keeps the bundle's symlinks and extended attributes intact.
 ditto -c -k --sequesterRsrc --keepParent "$DIST_DIR/Snaplet.app" "$ZIP"
@@ -62,5 +67,11 @@ if [ "$SIGN_IDENTITY" = "-" ]; then
 This build is signed ad hoc. It runs on this Mac, but other machines will refuse
 it until it is signed with a Developer ID and notarised. Do not tell users to
 turn Gatekeeper off — see docs/signing-and-notarization.md.
+
+An ad hoc signature is derived from the binary, so it changes on every build,
+and macOS ties Screen & System Audio Recording to the signature. Expect to grant
+that permission again after each rebuild. Signing with a stable self-signed
+certificate avoids this while developing — see the "Keeping permissions across
+rebuilds" section of docs/signing-and-notarization.md.
 NOTE
 fi

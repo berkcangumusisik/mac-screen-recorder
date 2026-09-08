@@ -71,7 +71,7 @@ enum SnapletError: LocalizedError, Equatable {
     var recoverySuggestion: String? {
         switch self {
         case .screenRecordingPermissionDenied:
-            return String(localized: "Open System Settings › Privacy & Security › Screen & System Audio Recording and enable Snaplet.")
+            return String(localized: "Open System Settings › Privacy & Security › Screen & System Audio Recording and enable Snaplet. If Snaplet is already listed and switched on, turn it off and on again, then quit and reopen Snaplet — macOS ties this permission to the exact build, so it is dropped whenever Snaplet is rebuilt.")
         case .microphonePermissionDenied:
             return String(localized: "Open System Settings › Privacy & Security › Microphone and enable Snaplet.")
         case .cameraPermissionDenied:
