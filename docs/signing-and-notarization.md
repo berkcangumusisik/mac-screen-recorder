@@ -59,18 +59,28 @@ It changes your privacy settings, so run it yourself and only for this app.
 The grant then binds to the certificate rather than to the binary's hash, and it
 survives every rebuild.
 
-Create the certificate once, in Keychain Access:
-*Keychain Access › Certificate Assistant › Create a Certificate…*, name it
-`Snaplet Dev`, identity type **Self Signed Root**, certificate type **Code
-Signing**. Then build with it:
+```bash
+./scripts/setup-dev-signing.sh        # once
+SIGN_IDENTITY="Snaplet Dev" ./scripts/build-release.sh
+```
+
+The setup script generates a self-signed code-signing certificate, imports it
+into your **login** keychain and marks it trusted for code signing. It touches
+your keychain, so run it yourself — macOS will ask for your password. It refuses
+to do anything if the identity already exists.
+
+Prefer to do it by hand? *Keychain Access › Certificate Assistant › Create a
+Certificate…*, name it `Snaplet Dev`, identity type **Self Signed Root**,
+certificate type **Code Signing**. Either way, verify with:
 
 ```bash
-SIGN_IDENTITY="Snaplet Dev" ./scripts/build-release.sh
+security find-identity -v -p codesigning
 ```
 
 Grant the permission once to that build and it stays granted. This certificate
 is only good on your own Mac — it is not a substitute for a Developer ID, and it
-does not let anyone else run the app.
+does not let anyone else run the app. If macOS asks for keychain access the
+first time you build, choose **Always Allow**.
 
 ## 2. Signing with a Developer ID
 
