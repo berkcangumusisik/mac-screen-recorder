@@ -178,11 +178,18 @@ final class RecordingWriterTests: XCTestCase {
                                          hasAudio: true,
                                          needsPixelBufferInput: false)
 
-        // Video starts at 10 s on the host clock; audio has been running since 9 s.
-        for early in stride(from: 9.0, to: 10.0, by: 0.1) {
+        // The first video frame opens the session at 10 s on the host clock.
+        while !writer.isReadyForVideo { usleep(500) }
+        writer.appendVideo(videoSampleAt(CMTime(seconds: 10, preferredTimescale: 600),
+                                         width: 640, height: 480))
+
+        // The audio tap was already running, so its first delivery carries
+        // timestamps from before the session opened.
+        for early in stride(from: 9.5, to: 10.0, by: 0.1) {
             writer.appendAudio(audioSample(at: early))
         }
-        for frame in 0..<20 {
+
+        for frame in 1..<20 {
             while !writer.isReadyForVideo { usleep(500) }
             let time = CMTime(seconds: 10 + Double(frame) / 30, preferredTimescale: 600)
             writer.appendVideo(videoSampleAt(time, width: 640, height: 480))

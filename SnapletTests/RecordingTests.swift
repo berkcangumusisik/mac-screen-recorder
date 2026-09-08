@@ -17,10 +17,16 @@ final class RecordingStateTests: XCTestCase {
         XCTAssertTrue(recording.canTransition(to: .stopping))
     }
 
-    func testFinalisationRunsBeforeReturningToIdle() {
+    func testFinalisationIsTheNormalRouteBackToIdle() {
         XCTAssertTrue(RecordingState.stopping.canTransition(to: .finalizing))
-        XCTAssertFalse(RecordingState.stopping.canTransition(to: .idle))
         XCTAssertTrue(RecordingState.finalizing.canTransition(to: .idle))
+    }
+
+    /// A live recording owns an open file, so it must never be abandoned — it
+    /// has to be stopped and finalised so the file is closed properly.
+    func testALiveRecordingCannotJumpStraightToIdle() {
+        XCTAssertFalse(RecordingState.recording(startedAt: Date()).canTransition(to: .idle))
+        XCTAssertFalse(RecordingState.recording(startedAt: Date()).canTransition(to: .finalizing))
     }
 
     func testFailureIsReachableFromEveryStateAndRecoverable() {
