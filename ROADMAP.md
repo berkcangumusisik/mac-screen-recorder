@@ -15,7 +15,6 @@ and a local bug-report flow — in English and Turkish.
 
 Roughly in order of how much they would improve daily use.
 
-- **An app icon.** The menu-bar item currently uses an SF Symbol.
 - **Screenshots and a demo recording for the README.** The scenarios are already
   written down in [docs/demo-scenarios.md](docs/demo-scenarios.md); they need a
   machine with screen-recording permission.

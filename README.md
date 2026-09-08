@@ -187,6 +187,20 @@ Build a Release `.app` and a zip into `dist/`:
 ./scripts/build-release.sh
 ```
 
+The app icon is generated from source rather than checked in as artwork, so it
+can be reviewed and adjusted like any other file. Re-render it after changing
+`scripts/make-app-icon.swift`:
+
+```bash
+swift scripts/make-app-icon.swift
+```
+
+It writes every size into `Snaplet/Resources/Assets.xcassets/AppIcon.appiconset`
+plus a 1024 px preview at `build/icon-preview.png`. The 16 and 32 pixel sizes
+are drawn with their own bolder geometry, because downsampling the full artwork
+turns it into a smudge at those sizes. The menu-bar item deliberately keeps an
+SF Symbol so it follows the system's template-image behaviour in light and dark.
+
 The default build signs ad hoc (`CODE_SIGN_IDENTITY = "-"`), which is enough to
 run Snaplet on the Mac that built it. Distributing to other machines needs
 signing and notarisation — see [docs/signing-and-notarization.md](docs/signing-and-notarization.md).
@@ -321,7 +335,6 @@ Security issues: see [SECURITY.md](SECURITY.md).
 - Snaplet has not been tested on an Intel Mac.
 - The Turkish translation ships complete for the current strings; new strings
   need `./scripts/sync-strings.sh` before release.
-- There is no app icon yet; the menu-bar item uses an SF Symbol.
 - No screenshots or demo video are included, because they would have to be
   produced on a machine with screen-recording permission. The scenarios to
   record are written down in [docs/demo-scenarios.md](docs/demo-scenarios.md).

@@ -193,6 +193,21 @@ Testleri çalıştırma:
 ./scripts/build-release.sh
 ```
 
+Uygulama simgesi hazır bir görsel olarak depoya konmak yerine kaynaktan üretilir;
+böylece diğer dosyalar gibi incelenip değiştirilebilir. `scripts/make-app-icon.swift`
+dosyasını değiştirdikten sonra yeniden üretmek için:
+
+```bash
+swift scripts/make-app-icon.swift
+```
+
+Bütün boyutları `Snaplet/Resources/Assets.xcassets/AppIcon.appiconset` içine ve
+1024 px'lik bir önizlemeyi `build/icon-preview.png` konumuna yazar. 16 ve 32
+piksellik boyutlar kendi daha kalın geometrileriyle çizilir; çünkü tam çizimi
+küçültmek bu boyutlarda okunmaz bir lekeye dönüşüyor. Menü çubuğu öğesi bilinçli
+olarak SF Symbol kullanmaya devam eder, böylece açık ve koyu temada sistemin
+template görsel davranışını izler.
+
 Varsayılan derleme ad-hoc imzalar (`CODE_SIGN_IDENTITY = "-"`); bu, Snaplet'i
 derlendiği Mac'te çalıştırmak için yeterlidir. Başka makinelere dağıtım için
 imzalama ve notarization gerekir — bkz.
@@ -329,7 +344,6 @@ Güvenlik konuları: bkz. [SECURITY.md](SECURITY.md).
 - Snaplet bir Intel Mac'te test edilmedi.
 - Türkçe çeviri mevcut metinler için eksiksizdir; yeni metinler için sürümden
   önce `./scripts/sync-strings.sh` çalıştırılmalıdır.
-- Henüz bir uygulama simgesi yok; menü çubuğu öğesi bir SF Symbol kullanıyor.
 - Ekran görüntüsü veya demo videosu eklenmedi; bunlar ekran kaydı izni olan bir
   makinede üretilmelidir. Çekilecek senaryolar
   [docs/demo-scenarios.md](docs/demo-scenarios.md) dosyasında yazılıdır.

@@ -7,7 +7,14 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ## [Unreleased]
 
-Nothing yet.
+### Added
+
+- App icon, generated from source by `scripts/make-app-icon.swift` and rendered
+  into an asset catalogue at every size macOS asks for. The 16 and 32 pixel
+  variants use their own bolder geometry, because downsampling the full artwork
+  is illegible at that scale.
+- An accent colour in the asset catalogue, matching the icon and the Studio
+  presentation preset.
 
 ## [0.1.0] — 2026-09-07
 
