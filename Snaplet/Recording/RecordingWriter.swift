@@ -16,6 +16,7 @@ final class RecordingWriter {
     private let lock = NSLock()
 
     private var didStartSession = false
+    private var isFinishing = false
     private var sessionStartTime: CMTime = .invalid
     private var lastVideoTime: CMTime = .invalid
     private(set) var droppedOutOfOrderSamples = 0
@@ -104,8 +105,9 @@ final class RecordingWriter {
         guard checkWriterHealth() else { return }
         let time = sampleBuffer.presentationTimeStamp
         guard time.isValid else { return }
-        // A frame that does not advance the timeline makes AVAssetWriter fail
-        // the whole session, so drop it rather than lose the recording.
+        // AVAssetWriter tolerates a repeated or rewound timestamp, but the
+        // resulting file confuses players and breaks the trimming maths in the
+        // video editor, which assumes a monotonic timeline.
         guard !lastVideoTime.isValid || time > lastVideoTime else {
             droppedOutOfOrderSamples += 1
             return
@@ -135,9 +137,9 @@ final class RecordingWriter {
 
     func appendAudio(_ sampleBuffer: CMSampleBuffer) {
         guard checkWriterHealth(), let audioInput else { return }
-        // Audio before the first video frame has nowhere to go. Appending a
-        // sample that starts before the session does fails the writer, and the
-        // system audio tap is usually running before the first frame arrives.
+        // Audio before the first video frame has nowhere to go. AVFoundation
+        // would trim a sample stamped before the session, but dropping it here
+        // keeps the two tracks starting at the same instant.
         guard didStartSession, sessionStartTime.isValid else { return }
         let time = sampleBuffer.presentationTimeStamp
         guard time.isValid, time >= sessionStartTime else {
@@ -158,6 +160,14 @@ final class RecordingWriter {
     }
 
     private func checkWriterHealth() -> Bool {
+        // Capture callbacks arrive on their own queue and can still be in
+        // flight when finishing starts. Appending during finishWriting is not
+        // defined, so close the door before it can happen.
+        lock.lock()
+        let finishing = isFinishing
+        lock.unlock()
+        guard !finishing else { return false }
+
         guard failure == nil else { return false }
         guard writer.status != .failed else {
             failure = Self.mapped(writer.error)
@@ -179,6 +189,10 @@ final class RecordingWriter {
     /// Completion-based variant, used on app termination where there is no
     /// opportunity to await.
     func finish(completion: @escaping (Result<URL, Error>) -> Void) {
+        lock.lock()
+        isFinishing = true
+        lock.unlock()
+
         guard writer.status == .writing else {
             completion(.failure(failure ?? .recordingWriteFailed("writer was not running")))
             return
@@ -207,6 +221,9 @@ final class RecordingWriter {
     }
 
     func cancel() {
+        lock.lock()
+        isFinishing = true
+        lock.unlock()
         if writer.status == .writing { writer.cancelWriting() }
         try? FileManager.default.removeItem(at: outputURL)
     }

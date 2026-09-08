@@ -168,9 +168,8 @@ final class RecordingWriterTests: XCTestCase {
     // MARK: - Input the capture stream really produces
 
     /// The system audio tap is already running when the first video frame
-    /// arrives, so audio routinely turns up with a timestamp before the session
-    /// starts. Appending it fails the whole writer, which used to end the
-    /// recording with an unexplained write error.
+    /// arrives, so audio routinely turns up stamped before the session opened.
+    /// Dropping it keeps both tracks starting at the same instant.
     func testAudioFromBeforeTheFirstVideoFrameIsDroppedNotFatal() throws {
         let writer = try RecordingWriter(outputURL: outputURL,
                                          videoSize: CGSize(width: 640, height: 480),
@@ -214,7 +213,8 @@ final class RecordingWriterTests: XCTestCase {
         }
     }
 
-    /// A frame that does not advance the timeline fails the session outright.
+    /// A non-monotonic timeline confuses players and the editor's trimming,
+    /// so those frames are dropped rather than written.
     func testRepeatedOrRewoundTimestampsAreDroppedNotFatal() throws {
         let writer = try RecordingWriter(outputURL: outputURL,
                                          videoSize: CGSize(width: 640, height: 480),
@@ -238,6 +238,33 @@ final class RecordingWriterTests: XCTestCase {
         var result: Result<URL, Error>!
         writer.finish { result = $0; semaphore.signal() }
         _ = semaphore.wait(timeout: .now() + 30)
+        XCTAssertNotNil(try? result?.get())
+    }
+
+    /// Appends racing with finishing must be refused rather than reaching
+    /// AVAssetWriter, where the behaviour is undefined.
+    func testAppendsAfterFinishingStartsAreRefused() throws {
+        let writer = try RecordingWriter(outputURL: outputURL,
+                                         videoSize: CGSize(width: 640, height: 480),
+                                         frameRate: 30,
+                                         hasAudio: false,
+                                         needsPixelBufferInput: false)
+        for frame in 0..<5 {
+            while !writer.isReadyForVideo { usleep(500) }
+            writer.appendVideo(videoSampleAt(CMTime(seconds: Double(frame) / 30, preferredTimescale: 600),
+                                             width: 640, height: 480))
+        }
+        let before = writer.appendedVideoFrames
+
+        let semaphore = DispatchSemaphore(value: 0)
+        var result: Result<URL, Error>!
+        writer.finish { result = $0; semaphore.signal() }
+        // A late frame from the capture queue, arriving after finishing began.
+        writer.appendVideo(videoSampleAt(CMTime(seconds: 1, preferredTimescale: 600),
+                                         width: 640, height: 480))
+        _ = semaphore.wait(timeout: .now() + 30)
+
+        XCTAssertEqual(writer.appendedVideoFrames, before, "a late frame must not be appended")
         XCTAssertNotNil(try? result?.get())
     }
 
