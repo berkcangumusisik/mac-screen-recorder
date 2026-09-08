@@ -15,6 +15,34 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
   is illegible at that scale.
 - An accent colour in the asset catalogue, matching the icon and the Studio
   presentation preset.
+- A log line recording whether the system actually placed the status item. It is
+  the app's only permanent surface, and macOS hides items when the menu bar runs
+  out of room, so a missing one was otherwise silent.
+
+### Fixed
+
+- Recording could stop working entirely until the app was relaunched. Cancelling
+  the area or window picker, or the countdown, tried to move the presenter from
+  `.preparing` or `.countingDown` straight to `.idle`; neither transition was
+  legal, so it was rejected and the presenter never returned to `.idle`. Every
+  later start request was then silently ignored.
+- Snaplet kept asking for Screen & System Audio Recording after the permission
+  had been granted. `CGPreflightScreenCaptureAccess` answers from a value cached
+  per process, so it keeps saying no while the app is running; the permission is
+  now confirmed against ScreenCaptureKit before anything is reported.
+- Write failures reported only "the operation could not be completed". They now
+  carry the domain, the code and any underlying error.
+- Capture callbacks could still be in flight when finishing began, where
+  appending to `AVAssetWriter` is undefined.
+- `build-release.sh` left a second `Snaplet.app` in `build/`, which Launch
+  Services would happily open and the next build would delete out from under the
+  running app.
+
+### Changed
+
+- Permission guidance now covers the case where Snaplet is already listed and
+  switched on, which is what an ad hoc rebuild produces.
+- 122 tests, up from 111.
 
 ## [0.1.0] — 2026-09-07
 
@@ -98,7 +126,7 @@ source.
 **Project**
 - English and Turkish interfaces through a String Catalog.
 - Full keyboard access, VoiceOver labels, and light and dark support.
-- 111 unit and integration tests, including censored-output pixel checks for
+- 111 unit and integration tests at the time of that entry, including censored-output pixel checks for
   both images and video.
 - GitHub Actions workflow that builds and tests on a macOS runner.
 - Release build and packaging scripts.
