@@ -22,6 +22,14 @@ final class MenuBarController: NSObject, NSMenuDelegate {
         let menu = NSMenu()
         menu.delegate = self
         statusItem.menu = menu
+
+        // The status item is Snaplet's only permanent surface, so record whether
+        // the system actually placed one. macOS hides items when the menu bar
+        // runs out of room, and a missing item is otherwise completely silent.
+        let state = "visible=\(statusItem.isVisible) "
+            + "button=\(statusItem.button != nil) "
+            + "placed=\(statusItem.button?.window != nil)"
+        Log.app.notice("status item: \(state, privacy: .public)")
     }
 
     /// Shows the elapsed recording time next to the icon while recording.
