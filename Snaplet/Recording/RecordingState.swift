@@ -42,7 +42,14 @@ enum RecordingState: Equatable {
              (.recording, .stopping),
              (.stopping, .finalizing),
              (.finalizing, .idle),
-             (.idle, .idle):
+             (.idle, .idle),
+             // Abandoning before anything was captured: the user cancelled the
+             // area or window picker, cancelled the countdown, or setup gave up.
+             // Without these the presenter would be stuck outside .idle and
+             // every later start request would be silently ignored.
+             (.preparing, .idle),
+             (.countingDown, .idle),
+             (.stopping, .idle):
             return true
         case (_, .failed):
             return true

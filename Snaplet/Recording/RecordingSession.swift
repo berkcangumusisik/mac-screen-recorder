@@ -301,7 +301,7 @@ final class RecordingSession {
     private static func mapped(_ error: Error) -> SnapletError {
         let nsError = error as NSError
         guard nsError.domain == SCStreamErrorDomain else {
-            return .recordingSetupFailed(nsError.localizedDescription)
+            return .recordingSetupFailed(RecordingWriter.describe(nsError))
         }
         switch nsError.code {
         case -3801, -3803: return .screenRecordingPermissionDenied
@@ -309,7 +309,7 @@ final class RecordingSession {
         case -3817: return .recordingWriteFailed("stopped by the user")
         case -3820: return .microphonePermissionDenied
         case -3821: return .recordingWriteFailed("stopped by the system")
-        default: return .recordingSetupFailed(nsError.localizedDescription)
+        default: return .recordingSetupFailed(RecordingWriter.describe(nsError))
         }
     }
 }

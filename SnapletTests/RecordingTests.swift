@@ -32,6 +32,31 @@ final class RecordingStateTests: XCTestCase {
         XCTAssertTrue(RecordingState.failed(.diskFull).canTransition(to: .idle))
     }
 
+    /// Cancelling before anything is captured has to reach .idle. When it
+    /// could not, the presenter stayed outside .idle and silently ignored every
+    /// later start request — recording appeared to stop working entirely.
+    func testAbandoningBeforeCaptureReturnsToIdle() {
+        XCTAssertTrue(RecordingState.preparing.canTransition(to: .idle),
+                      "a cancelled area or window picker must release the presenter")
+        XCTAssertTrue(RecordingState.countingDown(remaining: 2).canTransition(to: .idle),
+                      "cancelling during the countdown must release the presenter")
+        XCTAssertTrue(RecordingState.stopping.canTransition(to: .idle),
+                      "stopping with nothing to finalise must release the presenter")
+    }
+
+    func testEveryStateCanReachIdleWithoutGettingStuck() {
+        let states: [RecordingState] = [.idle, .preparing, .countingDown(remaining: 3),
+                                        .recording(startedAt: Date()), .stopping,
+                                        .finalizing, .failed(.diskFull)]
+        for state in states {
+            let direct = state.canTransition(to: .idle)
+            let viaStopping = state.canTransition(to: .stopping)
+                && RecordingState.stopping.canTransition(to: .idle)
+            XCTAssertTrue(direct || viaStopping,
+                          "\(state) has no way back to idle, so recording would lock up")
+        }
+    }
+
     func testStopRespondsOnlyWhileSomethingIsRunning() {
         XCTAssertTrue(RecordingState.recording(startedAt: Date()).respondsToStop)
         XCTAssertTrue(RecordingState.countingDown(remaining: 2).respondsToStop)

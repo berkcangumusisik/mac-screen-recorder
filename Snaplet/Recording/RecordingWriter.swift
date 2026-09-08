@@ -16,11 +16,16 @@ final class RecordingWriter {
     private let lock = NSLock()
 
     private var didStartSession = false
+    private var sessionStartTime: CMTime = .invalid
     private var lastVideoTime: CMTime = .invalid
+    private(set) var droppedOutOfOrderSamples = 0
     private(set) var failure: SnapletError?
     private(set) var appendedVideoFrames = 0
 
     var pixelBufferPool: CVPixelBufferPool? { pixelBufferAdaptor?.pixelBufferPool }
+
+    /// Whether the encoder can accept another video frame right now.
+    var isReadyForVideo: Bool { videoInput.isReadyForMoreMediaData }
 
     init(outputURL: URL,
          videoSize: CGSize,
@@ -99,6 +104,12 @@ final class RecordingWriter {
         guard checkWriterHealth() else { return }
         let time = sampleBuffer.presentationTimeStamp
         guard time.isValid else { return }
+        // A frame that does not advance the timeline makes AVAssetWriter fail
+        // the whole session, so drop it rather than lose the recording.
+        guard !lastVideoTime.isValid || time > lastVideoTime else {
+            droppedOutOfOrderSamples += 1
+            return
+        }
         startSessionIfNeeded(at: time)
         guard videoInput.isReadyForMoreMediaData else { return }
         if videoInput.append(sampleBuffer) {
@@ -110,6 +121,10 @@ final class RecordingWriter {
     func appendVideo(pixelBuffer: CVPixelBuffer, at time: CMTime) {
         guard checkWriterHealth(), let pixelBufferAdaptor else { return }
         guard time.isValid else { return }
+        guard !lastVideoTime.isValid || time > lastVideoTime else {
+            droppedOutOfOrderSamples += 1
+            return
+        }
         startSessionIfNeeded(at: time)
         guard videoInput.isReadyForMoreMediaData else { return }
         if pixelBufferAdaptor.append(pixelBuffer, withPresentationTime: time) {
@@ -120,8 +135,16 @@ final class RecordingWriter {
 
     func appendAudio(_ sampleBuffer: CMSampleBuffer) {
         guard checkWriterHealth(), let audioInput else { return }
-        // Audio before the first video frame has nowhere to go.
-        guard didStartSession, audioInput.isReadyForMoreMediaData else { return }
+        // Audio before the first video frame has nowhere to go. Appending a
+        // sample that starts before the session does fails the writer, and the
+        // system audio tap is usually running before the first frame arrives.
+        guard didStartSession, sessionStartTime.isValid else { return }
+        let time = sampleBuffer.presentationTimeStamp
+        guard time.isValid, time >= sessionStartTime else {
+            droppedOutOfOrderSamples += 1
+            return
+        }
+        guard audioInput.isReadyForMoreMediaData else { return }
         audioInput.append(sampleBuffer)
     }
 
@@ -130,6 +153,7 @@ final class RecordingWriter {
         defer { lock.unlock() }
         guard !didStartSession else { return }
         writer.startSession(atSourceTime: time)
+        sessionStartTime = time
         didStartSession = true
     }
 
@@ -187,12 +211,27 @@ final class RecordingWriter {
         try? FileManager.default.removeItem(at: outputURL)
     }
 
+    /// AVFoundation often reports only "the operation could not be completed",
+    /// which is useless in a bug report. Carry the domain, the code and any
+    /// underlying error through to the message the user sees.
+    static func describe(_ error: Error?) -> String {
+        guard let error = error as NSError? else { return "unknown error" }
+        var parts = [error.localizedDescription, "\(error.domain) \(error.code)"]
+        if let underlying = error.userInfo[NSUnderlyingErrorKey] as? NSError {
+            parts.append("underlying \(underlying.domain) \(underlying.code)")
+        }
+        if let reason = error.localizedFailureReason {
+            parts.append(reason)
+        }
+        return parts.joined(separator: " · ")
+    }
+
     private static func mapped(_ error: Error?) -> SnapletError {
         guard let error = error as NSError? else { return .recordingWriteFailed("unknown error") }
         if error.code == NSFileWriteOutOfSpaceError ||
             (error.underlyingErrors.contains { ($0 as NSError).code == NSFileWriteOutOfSpaceError }) {
             return .diskFull
         }
-        return .recordingWriteFailed(error.localizedDescription)
+        return .recordingWriteFailed(describe(error))
     }
 }
