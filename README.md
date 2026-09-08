@@ -1,41 +1,75 @@
+<div align="center">
+
+<img src="docs/images/icon.png" width="128" alt="Snaplet">
+
 # Snaplet
 
 **Capture instantly. Explain clearly. Share beautifully.**
 
-Snaplet is an open-source macOS capture tool that lives in the menu bar. Take a
-screenshot or record your screen, mark it up, hide what should not be shared,
-and produce something worth posting — all in one app, all on your Mac.
+An open-source macOS capture tool that lives in the menu bar.<br>
+Screenshot, record, annotate, hide what shouldn't be shared, and ship it — in one app, on your Mac.
 
-- No account, no subscription, no ads, no watermark.
-- No telemetry and no server. Snaplet makes no network requests.
-- MIT licensed.
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![macOS 15+](https://img.shields.io/badge/macOS-15%2B-000000?logo=apple&logoColor=white)](#requirements)
+[![Swift](https://img.shields.io/badge/Swift-Xcode%2026-F05138?logo=swift&logoColor=white)](#build-from-source)
+[![Telemetry: none](https://img.shields.io/badge/telemetry-none-2ea44f)](#privacy)
+[![CI](https://github.com/berkcangumusisik/mac-screen-recorder/actions/workflows/ci.yml/badge.svg)](https://github.com/berkcangumusisik/mac-screen-recorder/actions/workflows/ci.yml)
 
+[Türkçe README](README.tr.md)
+
+</div>
+
+---
+
+## Why Snaplet
+
+Most capture tools make you choose: a fast screenshot key, or a real editor, or a
+recorder, or something that makes the result presentable. Snaplet is all four,
+and it never sends your screen anywhere.
+
+- **Everything stays on your Mac.** No account, no subscription, no ads, no
+  watermark, no telemetry. Snaplet contains no networking code at all.
+- **One app, end to end.** Press a key, mark it up, redact the token you forgot
+  about, drop it on a gradient, export. No round trip through three apps.
+- **Honest about limits.** Redaction is opaque; blur is called a visual effect,
+  not a guarantee. Nothing in this README claims a feature that isn't built.
+- **MIT licensed**, no third-party dependencies — only Apple frameworks.
+
+> [!NOTE]
 > **The name is provisional.** "Snaplet" has not been checked for trademark or
 > App Store conflicts. Rename the product and the bundle identifier before
 > publishing anything under it.
 
 ---
 
-## Contents
+## Quick start
 
-- [What works today](#what-works-today)
-- [Requirements](#requirements)
-- [Build from source](#build-from-source)
-- [Permissions](#permissions)
-- [Keyboard shortcuts](#keyboard-shortcuts)
-- [Where your data goes](#where-your-data-goes)
-- [Architecture](#architecture)
-- [Contributing](#contributing)
-- [Known limitations](#known-limitations)
-- [License](#license)
+```bash
+git clone https://github.com/berkcangumusisik/mac-screen-recorder.git
+cd mac-screen-recorder
+open Snaplet.xcodeproj      # select the Snaplet scheme and Run
+```
+
+Snaplet appears in the menu bar — no dock icon, no window. Press **⌃⌥⌘A** and
+drag to capture; the image is on your clipboard before you let go of the key.
 
 ---
 
-## What works today
+## Features
 
-Every item below is implemented and reachable in the app.
+| | |
+|---|---|
+| **Instant capture** | Area, window, full screen, repeat-last-area — each on its own configurable global shortcut |
+| **Screenshot editor** | Non-destructive: arrows, shapes, freehand, text, callouts, numbered steps, magnifier, blur, pixelate, opaque redaction |
+| **Share-ready styling** | Backgrounds, padding, shadows, a neutral window frame, captions, social aspect ratios, savable presets |
+| **Screen recording** | MP4 with system audio, microphone, cursor, click highlighting and a composited webcam overlay |
+| **Light video editing** | Trim, zoom emphases, time-ranged text and redaction, MP4 and GIF export with progress and cancel |
+| **On-device text recognition** | Copy text off the screen, search your history by it, get suggestions for regions that look sensitive |
+| **Local history** | Thumbnails, favourites, filters, search over file names and recognised text |
+| **Bug report flow** | A local Markdown report with the media beside it, and nothing added that you didn't tick |
 
-### Instant capture
+<details>
+<summary><strong>Instant capture — details</strong></summary>
 
 - Menu-bar app with no dock icon and no window until you need one.
 - Configurable global shortcuts for area, window, full-screen, repeat-last-area,
@@ -44,7 +78,8 @@ Every item below is implemented and reachable in the app.
   loupe. ⇧ constrains to a square, ⌥ draws from the centre, Space moves the
   selection, Esc cancels.
 - The overlay draws a snapshot taken *before* it appeared, so Snaplet's own
-  overlay, preview panel and recording control can never appear in a capture.
+  overlay, preview panel and recording control can never appear in a capture —
+  and confirming a selection needs no second capture.
 - Retina and mixed-scale displays are handled; a selection stays within one
   display in this version.
 - Repeating the last area re-checks that the display is still connected and that
@@ -53,7 +88,10 @@ Every item below is implemented and reachable in the app.
 - A small preview panel appears without stealing focus: edit, save, reveal in
   Finder, or drag the file straight into another app.
 
-### Screenshot editor
+</details>
+
+<details>
+<summary><strong>Screenshot editor — details</strong></summary>
 
 Non-destructive: the source image is never modified. Crop, rotation and every
 annotation are stored separately and applied when you export.
@@ -69,10 +107,13 @@ annotation are stored separately and applied when you export.
 Redaction draws an opaque block and is the recommended way to hide something.
 Blur and pixelate are presented as visual effects, not as a security guarantee.
 Export always rasterises: the exported file contains one flat image, and the
-original pixels under a redaction are not written into it. This is covered by
-tests that read the exported pixels back.
+original pixels under a redaction are not written into it. Tests read the
+exported pixels back to prove it.
 
-### Share-ready styling
+</details>
+
+<details>
+<summary><strong>Share-ready styling — details</strong></summary>
 
 - Solid, gradient or image backgrounds, or none at all.
 - Padding, corner radius and shadow.
@@ -82,7 +123,10 @@ tests that read the exported pixels back.
 - Five starting presets — Clean, Midnight, Studio, Docs, Social — plus your own
   saved presets.
 
-### Screen recording
+</details>
+
+<details>
+<summary><strong>Screen recording — details</strong></summary>
 
 - Record the full screen, a window or a selected area.
 - System audio and microphone toggle independently. With both on they are mixed
@@ -98,7 +142,10 @@ tests that read the exported pixels back.
   still leaves a playable file. Snaplet only reports success after the file is
   finalised.
 
-### Light video editing
+</details>
+
+<details>
+<summary><strong>Light video editing — details</strong></summary>
 
 - Trim start and end, scrub the preview, save any frame as an image.
 - Presentation styling and aspect ratio for the output.
@@ -111,99 +158,88 @@ tests that read the exported pixels back.
 Preview and export run through the same composition, so what you see playing is
 what gets written.
 
-### Bug report flow
+</details>
 
-- A local form: title, steps to reproduce, expected, actual.
-- Numbered markers from the editor can seed the steps list.
-- Environment lines are opt-in and shown in full before you share them. Snaplet
-  never adds your computer name, account name or file paths.
-- Output as Markdown on the clipboard, or an export folder containing
-  `report.md` and copies of the media.
+<details>
+<summary><strong>Text recognition, history and bug reports — details</strong></summary>
 
-Snaplet does not connect to GitHub. The report says plainly that the media has
-not been uploaded and must be attached to the issue by you.
-
-### Text recognition
+**Text recognition** uses Apple's Vision framework on this Mac, off the main
+thread. No cloud AI, no API key, no remote OCR service.
 
 - Copy the text in a selected area straight to the clipboard with a shortcut.
 - Read a screenshot's text in the editor and copy selected lines.
 - Search your history by recognised text.
 - Suggestions for possibly sensitive regions — email addresses, key-shaped
   strings, tokens, IP addresses, long numbers — which you approve before
-  anything is hidden.
+  anything is hidden. They are pattern matches over text Vision could read:
+  they will miss things and they will flag harmless ones.
 
-Recognition uses Apple's Vision framework on this Mac, off the main thread.
-There is no cloud AI, no API key and no remote OCR service. The suggestions are
-pattern matching over recognised text: they will miss things and they will flag
-harmless ones.
+**History** stores metadata only — path, size, recognised text and a small
+thumbnail file. Media stays in your output folder and is never copied into the
+database. Reopen an item, reveal it in Finder, remove it from the history, or
+move the file to the Trash; the difference between the last two is stated in
+the interface. Snaplet never deletes your capture files on its own.
 
-### History and settings
+**Bug reports** are written locally: a form for title, steps, expected and
+actual, with numbered markers from the editor able to seed the steps list.
+Environment lines are opt-in and shown in full before you share them — your
+computer name, account name and file paths are never added. Output is Markdown
+on the clipboard, or an export folder with the media beside it. Snaplet does not
+connect to GitHub, and the report says plainly that the media must be attached
+by you.
 
-- Local history with image/video filters, thumbnails, favourites and search over
-  file names and recognised text.
-- Reopen an item in the editor, reveal it in Finder, remove it from the history,
-  or move the file to the Trash — the difference between the last two is stated
-  in the interface.
-- Metadata lives in a small SwiftData store; media files stay in your output
-  folder and are never copied into the database.
-- Settings for shortcuts, output folder, clipboard and auto-save behaviour,
-  image format, default style, recording quality and audio, webcam overlay,
-  theme, language, open-at-login, and clearing the history and text index.
-- Snaplet never deletes your capture files on its own.
+</details>
 
 ---
 
 ## Requirements
 
-- macOS 15 or later.
-- Xcode 26 or later to build from source.
-- Apple silicon is the development and test target. The project builds for
-  Intel, but Snaplet has not been tested on an Intel Mac, so no claim is made
-  about it.
+| | |
+|---|---|
+| macOS | 15 or later |
+| Xcode | 26 or later (to build from source) |
+| Architecture | Apple silicon is the development and test target. The project builds for Intel, but Snaplet has not been tested there, so no claim is made about it. |
+| Dependencies | None. Apple frameworks only. |
 
 ## Build from source
-
-```bash
-git clone https://github.com/berkcangumusisik/mac-screen-recorder.git
-cd mac-screen-recorder
-open Snaplet.xcodeproj
-```
-
-Select the **Snaplet** scheme and run. From the command line:
 
 ```bash
 xcodebuild -project Snaplet.xcodeproj -scheme Snaplet -configuration Debug -destination 'platform=macOS' build
 ```
 
-Run the tests:
-
 ```bash
-./scripts/run-tests.sh
+./scripts/run-tests.sh        # full test suite
+./scripts/build-release.sh    # Release .app + zip into dist/
 ```
 
-Build a Release `.app` and a zip into `dist/`:
+The default build signs ad hoc, which is enough to run Snaplet on the Mac that
+built it. Distributing to other machines needs signing and notarisation — see
+[docs/signing-and-notarization.md](docs/signing-and-notarization.md).
 
-```bash
-./scripts/build-release.sh
-```
+> [!IMPORTANT]
+> An ad hoc signature is derived from the binary, so it changes on every build,
+> and macOS ties Screen & System Audio Recording to the signature. Expect to
+> grant that permission again after each rebuild. Signing with a stable
+> self-signed certificate avoids this while developing — see
+> [Keeping permissions across rebuilds](docs/signing-and-notarization.md#1b-keeping-permissions-across-rebuilds).
 
-The app icon is generated from source rather than checked in as artwork, so it
-can be reviewed and adjusted like any other file. Re-render it after changing
-`scripts/make-app-icon.swift`:
+<details>
+<summary><strong>Regenerating the app icon</strong></summary>
+
+The icon is generated from source rather than checked in as finished artwork, so
+it can be reviewed and adjusted like any other file:
 
 ```bash
 swift scripts/make-app-icon.swift
 ```
 
 It writes every size into `Snaplet/Resources/Assets.xcassets/AppIcon.appiconset`
-plus a 1024 px preview at `build/icon-preview.png`. The 16 and 32 pixel sizes
-are drawn with their own bolder geometry, because downsampling the full artwork
-turns it into a smudge at those sizes. The menu-bar item deliberately keeps an
-SF Symbol so it follows the system's template-image behaviour in light and dark.
+plus a 1024 px preview at `build/icon-preview.png`. The 16 and 32 pixel sizes are
+drawn with their own bolder geometry, because downsampling the full artwork turns
+it into a smudge at those sizes. The menu-bar item deliberately keeps an SF
+Symbol so it follows the system's template-image behaviour in light and dark.
 
-The default build signs ad hoc (`CODE_SIGN_IDENTITY = "-"`), which is enough to
-run Snaplet on the Mac that built it. Distributing to other machines needs
-signing and notarisation — see [docs/signing-and-notarization.md](docs/signing-and-notarization.md).
+</details>
 
 ## Permissions
 
@@ -215,17 +251,16 @@ Snaplet asks for a permission only when you first use the feature that needs it.
 | Microphone | Narration in a recording | The first recording with "Record microphone" on |
 | Camera | The webcam overlay | The first recording with the overlay on |
 
-Nothing else is requested. Snaplet does not need Accessibility permission: its
-global shortcuts use Carbon hot keys, which the system delivers only for the
+Nothing else is requested. Snaplet does **not** need Accessibility permission:
+its global shortcuts use Carbon hot keys, which the system delivers only for the
 exact combinations Snaplet registered. Snaplet never observes general keyboard
 input. Click highlighting is drawn by the system's capture pipeline and needs no
 extra permission.
 
 If you deny a permission, Snaplet says what is missing and offers to open the
-right System Settings pane. Granting it later works without restarting.
-
-Because a Debug build is signed ad hoc, macOS may ask again after a rebuild
-changes the signature.
+right System Settings pane. Granting it later works without restarting: Snaplet
+confirms with ScreenCaptureKit rather than trusting the value macOS caches for
+the process.
 
 ## Keyboard shortcuts
 
@@ -235,24 +270,27 @@ any that the system refuses is reported there.
 
 | Action | Default |
 | --- | --- |
-| Capture area | ⌃⌥⌘A |
-| Capture window | ⌃⌥⌘W |
-| Capture full screen | ⌃⌥⌘F |
-| Repeat last area | ⌃⌥⌘R |
-| Start / stop recording | ⌃⌥⌘V |
-| Copy text on screen | ⌃⌥⌘T |
-| Edit clipboard image | ⌃⌥⌘E |
+| Capture area | <kbd>⌃⌥⌘A</kbd> |
+| Capture window | <kbd>⌃⌥⌘W</kbd> |
+| Capture full screen | <kbd>⌃⌥⌘F</kbd> |
+| Repeat last area | <kbd>⌃⌥⌘R</kbd> |
+| Start / stop recording | <kbd>⌃⌥⌘V</kbd> |
+| Copy text on screen | <kbd>⌃⌥⌘T</kbd> |
+| Edit clipboard image | <kbd>⌃⌥⌘E</kbd> |
 
-While selecting: ⇧ square, ⌥ from centre, Space to move, Esc to cancel.
-In the editor, single keys switch tools (V, C, A, L, R, O, D, H, T, B, S, M, U,
-P, X) and ⌘Z / ⇧⌘Z undo and redo.
+While selecting: <kbd>⇧</kbd> square, <kbd>⌥</kbd> from centre, <kbd>Space</kbd>
+to move, <kbd>Esc</kbd> to cancel. In the editor, single keys switch tools
+(V, C, A, L, R, O, D, H, T, B, S, M, U, P, X) and <kbd>⌘Z</kbd> / <kbd>⇧⌘Z</kbd>
+undo and redo.
 
-## Where your data goes
+---
+
+## Privacy
 
 Every capture, edit, recognition pass and export happens on your Mac:
 
-- Screenshots and recordings are produced by ScreenCaptureKit and written to
-  your chosen output folder (default `~/Pictures/Snaplet`).
+- Screenshots and recordings are produced by ScreenCaptureKit and written to your
+  chosen output folder (default `~/Pictures/Snaplet`).
 - Editing is in-memory; exports are written with ImageIO and AVFoundation.
 - Text recognition uses Apple's Vision framework locally.
 - History metadata is stored in `~/Library/Application Support/Snaplet`, with
@@ -261,12 +299,11 @@ Every capture, edit, recognition pass and export happens on your Mac:
 - Preferences live in the app's `UserDefaults`.
 
 Snaplet contains no analytics SDK, no crash reporter and no networking code. Its
-only dependencies are Apple frameworks; there are no third-party packages, so
-there is nothing else to audit.
+only dependencies are Apple frameworks, so there is nothing else to audit.
 
-Logging is deliberately narrow: Snaplet logs lifecycle and error information
-only. Captured pixels, recognised text, window titles and file paths are never
-written to the log.
+Logging is deliberately narrow: lifecycle and error information only. Captured
+pixels, recognised text, window titles and file paths are never written to the
+log.
 
 ## Architecture
 
@@ -290,25 +327,32 @@ Snaplet/
 
 Three ideas hold it together:
 
-1. **One coordinate authority.** `ScreenGeometry` is the only place that
-   converts between AppKit points, Core Graphics display points and image
-   pixels. Every capture path goes through it, and it is covered by tests
-   including negative-origin and secondary-display layouts.
+1. **One coordinate authority.** `ScreenGeometry` is the only place that converts
+   between AppKit points, Core Graphics display points and image pixels. Every
+   capture path goes through it, and it is covered by tests including
+   negative-origin and secondary-display layouts.
 2. **One renderer per medium.** Screenshots have `AnnotationRenderer`; video has
    `VideoFrameRenderer`. The editor preview and the exporter call the same code,
    so a preview cannot drift from what is written.
-3. **Explicit lifecycles.** Recording has a real state machine
-   (`RecordingState`) whose transitions are validated and tested; exports are
-   cancellable jobs; streams, observers and tasks are torn down on the paths
-   that create them.
+3. **Explicit lifecycles.** Recording has a real state machine (`RecordingState`)
+   whose transitions are validated and tested; exports are cancellable jobs;
+   streams, observers and tasks are torn down on the paths that create them.
 
 Handled edge cases: permission denied and later granted, rapid repeated hot-key
-presses, starting a recording while one is running, the target window closing,
-a display being unplugged, sleep, a full disk, export cancellation, and quitting
+presses, starting a recording while one is running, the target window closing, a
+display being unplugged, sleep, a full disk, export cancellation, and quitting
 with a recording in progress (the partial file is finalised and kept).
 
-Measured performance numbers and how to reproduce them are in
+**Tests.** 122 unit and integration tests, aimed at the places where mistakes
+are expensive: coordinate conversion, rotation transforms, recording-state
+transitions, audio mixing, time ranges, file integrity, and censored output —
+including a real MP4 written by the test and rendered back to confirm a
+redaction covers every frame of its range under zoom and styling.
+
+Measured performance numbers, and how to reproduce them, are in
 [docs/performance.md](docs/performance.md).
+
+---
 
 ## Contributing
 
@@ -329,8 +373,8 @@ Security issues: see [SECURITY.md](SECURITY.md).
 - Video editing is deliberately small: trim, styling, zoom, text and redaction.
   It is not a timeline editor and has no multi-clip support.
 - GIF export is capped at 30 seconds, 15 FPS and 800 px wide.
-- Sensitive-text suggestions only see what Vision could read, and match on
-  shape. Treat them as a prompt to look, not as a guarantee.
+- Sensitive-text suggestions only see what Vision could read, and match on shape.
+  Treat them as a prompt to look, not as a guarantee.
 - Blur and pixelate are visual effects. Use redaction for anything that matters.
 - Snaplet has not been tested on an Intel Mac.
 - The Turkish translation ships complete for the current strings; new strings
