@@ -116,6 +116,23 @@ codesign --verify --deep --strict --verbose=2 dist/Snaplet.app
 codesign --display --entitlements - dist/Snaplet.app
 ```
 
+## 2b. Packaging a disk image
+
+```bash
+SIGN_IDENTITY="Developer ID Application: Your Name (TEAMID)" \
+DEVELOPMENT_TEAM="TEAMID" ./scripts/build-dmg.sh
+```
+
+The result is `dist/Snaplet-<version>.dmg`: the app, a symlink to
+`/Applications` so dragging to install is obvious, and the app's own icon on the
+mounted volume. The disk image itself is signed with the same identity.
+
+The script checks the signature it produced and prints a warning whenever the
+image is not distributable, so an ad hoc or self-signed build cannot be mistaken
+for a download link.
+
+Releases are cut from a git tag — see [releasing.md](releasing.md).
+
 ## 3. Notarising for distribution
 
 Gatekeeper will still block a signed-but-not-notarised app downloaded from the

@@ -1,0 +1,130 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to build, e.g. 0.2.0'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  dmg:
+    name: Build and publish the disk image
+    runs-on: macos-15
+    timeout-minutes: 40
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Work out the version
+        id: version
+        run: |
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            VERSION="${GITHUB_REF_NAME#v}"
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Building Snaplet $VERSION"
+
+      # The tag is the source of truth, so the download, the About pane and the
+      # release can never disagree about which version this is.
+      - name: Stamp the version
+        run: ./scripts/set-version.sh "${{ steps.version.outputs.version }}" "${{ github.run_number }}"
+
+      - name: Run tests
+        run: ./scripts/run-tests.sh
+
+      # Signing and notarisation are optional. Without the secrets the job still
+      # produces a working disk image — it just needs the right-click Open step
+      # on other Macs, which the release notes explain.
+      - name: Import Developer ID certificate
+        id: signing
+        if: ${{ secrets.DEVELOPER_ID_CERTIFICATE != '' }}
+        env:
+          CERTIFICATE: ${{ secrets.DEVELOPER_ID_CERTIFICATE }}
+          CERTIFICATE_PASSWORD: ${{ secrets.DEVELOPER_ID_CERTIFICATE_PASSWORD }}
+        run: |
+          KEYCHAIN=$RUNNER_TEMP/signing.keychain-db
+          PASSWORD=$(uuidgen)
+          security create-keychain -p "$PASSWORD" "$KEYCHAIN"
+          security set-keychain-settings -lut 1800 "$KEYCHAIN"
+          security unlock-keychain -p "$PASSWORD" "$KEYCHAIN"
+          echo "$CERTIFICATE" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+          security import "$RUNNER_TEMP/cert.p12" -k "$KEYCHAIN" \
+            -P "$CERTIFICATE_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple:,codesign: \
+            -k "$PASSWORD" "$KEYCHAIN" >/dev/null
+          security list-keychain -d user -s "$KEYCHAIN" login.keychain-db
+          rm -f "$RUNNER_TEMP/cert.p12"
+          IDENTITY=$(security find-identity -v -p codesigning "$KEYCHAIN" \
+            | grep "Developer ID Application" | head -1 | sed 's/.*"\(.*\)"/\1/')
+          echo "identity=$IDENTITY" >> "$GITHUB_OUTPUT"
+
+      - name: Build the disk image
+        env:
+          SIGN_IDENTITY: ${{ steps.signing.outputs.identity || '-' }}
+          DEVELOPMENT_TEAM: ${{ secrets.DEVELOPMENT_TEAM }}
+        run: ./scripts/build-dmg.sh
+
+      - name: Notarise and staple
+        id: notarise
+        if: ${{ steps.signing.outputs.identity != '' && secrets.NOTARY_PASSWORD != '' }}
+        env:
+          APPLE_ID: ${{ secrets.NOTARY_APPLE_ID }}
+          TEAM_ID: ${{ secrets.DEVELOPMENT_TEAM }}
+          PASSWORD: ${{ secrets.NOTARY_PASSWORD }}
+        run: |
+          DMG=$(ls dist/*.dmg | head -1)
+          xcrun notarytool submit "$DMG" \
+            --apple-id "$APPLE_ID" --team-id "$TEAM_ID" --password "$PASSWORD" --wait
+          xcrun stapler staple "$DMG"
+          xcrun stapler validate "$DMG"
+          echo "notarised=yes" >> "$GITHUB_OUTPUT"
+
+      - name: Write the install notes
+        id: notes
+        run: |
+          DMG=$(ls dist/*.dmg | head -1)
+          {
+            echo "## Install"
+            echo
+            echo "Download \`$(basename "$DMG")\`, open it and drag Snaplet to Applications."
+            echo
+            if [ "${{ steps.notarise.outputs.notarised }}" = "yes" ]; then
+              echo "This build is signed with a Developer ID and notarised by Apple, so it opens normally."
+            else
+              echo "> [!IMPORTANT]"
+              echo "> This build is **not notarised by Apple**, so macOS will refuse it on the first launch."
+              echo "> Right-click Snaplet in Applications and choose **Open**, then confirm. That is Apple's"
+              echo "> own per-app override — you do not need to turn Gatekeeper off, and you should not."
+            fi
+            echo
+            echo "Snaplet needs macOS 15 or later. On first capture it asks for Screen & System Audio"
+            echo "Recording permission; the microphone and camera are only requested if you turn those on."
+            echo
+            echo "\`\`\`"
+            echo "sha256  $(shasum -a 256 "$DMG" | cut -d' ' -f1)"
+            echo "\`\`\`"
+          } > release-notes.md
+          cat release-notes.md
+
+      - name: Upload the disk image
+        uses: actions/upload-artifact@v4
+        with:
+          name: Snaplet-${{ steps.version.outputs.version }}-dmg
+          path: dist/*.dmg
+          if-no-files-found: error
+
+      - name: Publish the release
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.dmg
+          body_path: release-notes.md
+          generate_release_notes: true
