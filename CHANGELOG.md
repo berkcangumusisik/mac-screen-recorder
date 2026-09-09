@@ -7,6 +7,12 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ## [Unreleased]
 
+## [0.2.0] — 2026-09-09
+
+First release with a download. The disk image is signed ad hoc rather than
+with a Developer ID, so it is not notarised by Apple and macOS refuses it on
+the first launch until the app is opened once from the right-click menu.
+
 ### Added
 
 - App icon, generated from source by `scripts/make-app-icon.swift` and rendered
@@ -143,8 +149,7 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ## [0.1.0] — 2026-09-07
 
-First working version. Not tagged or released; the app builds and runs from
-source.
+First working version. Never tagged; it only ever built and ran from source.
 
 ### Added
 

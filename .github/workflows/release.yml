@@ -116,6 +116,22 @@ jobs:
             echo "Snaplet needs macOS 15 or later. On first capture it asks for Screen & System Audio"
             echo "Recording permission; the microphone and camera are only requested if you turn those on."
             echo
+            echo "## Kurulum"
+            echo
+            echo "\`$(basename "$DMG")\` dosyasını indirin, açın ve Snaplet'i Uygulamalar'a sürükleyin."
+            echo
+            if [ "${{ steps.notarise.outputs.notarised }}" = "yes" ]; then
+              echo "Bu sürüm Developer ID ile imzalı ve Apple tarafından noter onaylı, normal şekilde açılır."
+            else
+              echo "> [!IMPORTANT]"
+              echo "> Bu sürüm **Apple tarafından noter onaylı değil**, bu yüzden macOS ilk açılışta reddeder."
+              echo "> Uygulamalar klasöründe Snaplet'e sağ tıklayıp **Aç** deyin ve onaylayın. Bu, Apple'ın"
+              echo "> kendi uygulama bazlı istisnası — Gatekeeper'ı kapatmanız gerekmez, kapatmayın da."
+            fi
+            echo
+            echo "Snaplet macOS 15 veya sonrasını ister. İlk çekimde Ekran ve Sistem Sesi Kaydı izni"
+            echo "sorar; mikrofon ve kamera yalnızca siz açarsanız istenir."
+            echo
             echo "\`\`\`"
             echo "sha256  $(shasum -a 256 "$DMG" | cut -d' ' -f1)"
             echo "\`\`\`"
