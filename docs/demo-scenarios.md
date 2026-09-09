@@ -1,42 +1,52 @@
 # Demo scenarios
 
-No screenshots or demo video ship with this repository. Producing them requires
-a machine with Screen & System Audio Recording permission granted to a build of
-Snaplet, so rather than inventing images, the shots worth taking are written
-down here.
+## What already ships
+
+The three images in the README are generated, not hand-made. They render
+Snaplet's real views and renderers over a synthetic desktop drawn by the test
+itself, so they contain no personal content and anyone can reproduce them:
+
+```bash
+xcodebuild -project Snaplet.xcodeproj -scheme Snaplet \
+  -destination 'platform=macOS,arch=arm64' \
+  test -only-testing:SnapletTests/DocumentationScreenshotTests
+cp /tmp/snaplet-docs/*.png docs/images/
+```
+
+The scheme runs tests with `-AppleLanguages (en)`, so the interface in those
+images is English whatever language the machine is set to.
+
+What they cover: the selection overlay with the loupe and colour readout, the
+editor with annotations and a redaction, and the Studio presentation preset.
+
+## Still to record
+
+A moving demo of the app in use cannot be generated — it needs a machine with
+Screen & System Audio Recording permission and a clean desktop. The shots worth
+taking are written down below.
 
 Record these on a clean desktop, at 1× or 2×, with a neutral wallpaper and no
 personal content on screen. Check every frame before committing anything.
 
 ## Still images for the README
 
-1. **The selection overlay** — ⌃⌥⌘A over a text-heavy window, mid-drag, with the
-   pixel dimensions and the loupe visible. This is the shot that explains the
-   overlay in one frame.
-   Suggested file: `docs/images/selection-overlay.png`
+1. **The editor window in full** — the generated image shows the canvas only.
+   A real screenshot would also show the tool palette on the left and the
+   inspector on the right.
+   Suggested file: `docs/images/editor-window.png`
 
-2. **The editor with annotations** — an arrow, two numbered step markers, a
-   callout and a redaction over a settings pane. Shows the tool palette on the
-   left and the inspector on the right.
-   Suggested file: `docs/images/editor.png`
-
-3. **Share-ready styling** — the same screenshot with the Studio preset: gradient
-   background, window frame, 16:9, a short title. Before and after, side by
-   side, is more convincing than the result alone.
-   Suggested file: `docs/images/styling.png`
-
-4. **Recording in progress** — the menu-bar timer and the floating control,
+2. **Recording in progress** — the menu-bar timer and the floating control,
    captured from a second Mac or a second display so the control is genuinely on
    screen rather than composited.
    Suggested file: `docs/images/recording.png`
 
-5. **Sensitive-text suggestions** — the editor's Text tab after scanning a
+3. **Sensitive-text suggestions** — the editor's Text tab after scanning a
    screenshot containing an obviously fake email address and API key, with the
    suggestions listed and one already redacted. Use invented values such as
    `ada@example.com` and `sk_test_0000000000000000`.
    Suggested file: `docs/images/sensitive-text.png`
 
-6. **History** — a populated history window with a mix of images and videos and
+4. **History** — a populated history window with a mix of images and videos and
    a search term matching recognised text.
    Suggested file: `docs/images/history.png`
 

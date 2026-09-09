@@ -117,6 +117,12 @@ final class DocumentationScreenshotTests: XCTestCase {
                                               space: colorSpace,
                                               bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue))
         context.scaleBy(x: 2, y: 2)
+        // A view that draws with a top-left origin renders upside down into a
+        // plain bottom-up bitmap, so match its coordinate system first.
+        if view.isFlipped {
+            context.translateBy(x: 0, y: size.height)
+            context.scaleBy(x: 1, y: -1)
+        }
         if let layer = view.layer {
             layer.render(in: context)
         } else {
@@ -149,47 +155,75 @@ final class DocumentationScreenshotTests: XCTestCase {
         let controller = SelectionOverlayController()
         view.controller = controller
 
-        // Drive a drag the way the real overlay does.
-        controller.beginDrag(at: CGPoint(x: 140, y: 150))
-        controller.updateDrag(to: CGPoint(x: 700, y: 470))
+        // The desktop is drawn in pixels; the overlay works in points with y
+        // running up from the bottom, so the configuration lines sit here.
+        let lineTopFromTop: CGFloat = 206      // "api_key = …"
+        let lineBottomFromTop: CGFloat = 228   // below "owner = …"
+        let top = size.height - lineTopFromTop
+        let bottom = size.height - lineBottomFromTop
+
+        controller.beginDrag(at: CGPoint(x: 112, y: top + 12))
+        controller.updateDrag(to: CGPoint(x: 300, y: bottom - 8))
 
         view.frame = CGRect(origin: .zero, size: size)
         view.layoutSubtreeIfNeeded()
-        view.refresh(at: CGPoint(x: 700, y: 470))
+
+        // Put the cursor on an actual glyph so the loupe shows a real colour
+        // instead of the white between letters. Scanning from the right also
+        // keeps the loupe clear of the dimensions label.
+        let rowFromTop: CGFloat = 211
+        var cursor = CGPoint(x: 280, y: size.height - rowFromTop)
+        for x in stride(from: CGFloat(285), to: CGFloat(150), by: -1) {
+            let sampled = SelectionOverlayView.color(in: snapshot.image,
+                                                     atX: Int(x * snapshot.scale),
+                                                     y: Int(rowFromTop * snapshot.scale))
+            if let sampled, sampled.redComponent > 0.5, sampled.blueComponent < 0.6,
+               sampled.greenComponent < 0.5 {
+                cursor = CGPoint(x: x, y: size.height - rowFromTop)
+                break
+            }
+        }
+        view.refresh(at: cursor)
 
         try write(try renderLayerBacked(view, size: size), "selection-overlay")
     }
 
     private func renderEditor(desktop: CGImage) throws {
-        // A crop of the desktop, marked up the way a bug report would be.
-        let cropped = try XCTUnwrap(desktop.cropping(to: CGRect(x: 180, y: 120, width: 1640, height: 1000)))
+        // Crop tightly around the content so the frame is not mostly empty.
+        let crop = CGRect(x: 180, y: 120, width: 1560, height: 480)
+        let cropped = try XCTUnwrap(desktop.cropping(to: crop))
         let document = EditorDocument(image: cropped, scale: 2, sourceURL: nil, capturedAt: Date())
 
-        var arrow = Annotation.line(kind: .arrow,
-                                    from: CGPoint(x: 1180, y: 300),
-                                    to: CGPoint(x: 820, y: 470))
-        arrow.lineWidth = 10
-        document.annotations.append(arrow)
-
-        var step = Annotation(kind: .step, frame: CGRect(x: 120, y: 150, width: 62, height: 62))
-        step.number = 1
-        document.annotations.append(step)
-
-        var box = Annotation(kind: .rectangle, frame: CGRect(x: 96, y: 430, width: 760, height: 70))
+        // Coordinates are in the cropped image's pixels: the heading sits near
+        // the top, the two configuration lines about 290 px down.
+        var box = Annotation(kind: .rectangle, frame: CGRect(x: 40, y: 84, width: 296, height: 48))
         box.lineWidth = 6
         document.annotations.append(box)
 
-        var redaction = Annotation(kind: .redaction, frame: CGRect(x: 300, y: 690, width: 430, height: 34))
+        var step = Annotation(kind: .step, frame: CGRect(x: 366, y: 82, width: 54, height: 54))
+        step.number = 1
+        document.annotations.append(step)
+
+        var arrow = Annotation.line(kind: .arrow,
+                                    from: CGPoint(x: 900, y: 170),
+                                    to: CGPoint(x: 420, y: 292))
+        arrow.lineWidth = 9
+        document.annotations.append(arrow)
+
+        // The point of the whole picture: the secret is covered.
+        var redaction = Annotation(kind: .redaction,
+                                   frame: CGRect(x: 46, y: 284, width: 336, height: 56))
         redaction.strokeColor = RGBAColor(red: 0.06, green: 0.06, blue: 0.07)
         document.annotations.append(redaction)
 
         let canvas = EditorCanvasView(document: document)
-        let size = CGSize(width: 820, height: 500)
-        try write(try renderLayerBacked(canvas, size: size), "editor")
+        try write(try renderLayerBacked(canvas, size: CGSize(width: 780, height: 240)), "editor")
     }
 
     private func renderStyling(desktop: CGImage) throws {
-        let content = try XCTUnwrap(desktop.cropping(to: CGRect(x: 180, y: 120, width: 1640, height: 1000)))
+        // Crop to the window's body, not the window: Snaplet supplies the frame,
+        // and two nested title bars would just look like a mistake.
+        let content = try XCTUnwrap(desktop.cropping(to: CGRect(x: 202, y: 194, width: 1560, height: 440)))
         var preset = StylePreset.studio
         preset.title = "Deploy in one click"
         preset.subtitle = "Release notes · v2.4"

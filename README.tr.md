@@ -58,6 +58,31 @@ sürükleyip yakalayın; tuşu bırakmadan görüntü panonuzda olur.
 
 ---
 
+## Nasıl görünüyor
+
+Kısayola basıp sürükleyin. Katman ekranı karartır, tam piksel ölçüsünü gösterir
+ve büyüteç imlecin altındakini büyütür — <kbd>C</kbd> tuşuna basınca rengi
+panonuza gider.
+
+![Piksel büyüteci ve renk okumasıyla alan seçimi](docs/images/selection-overlay.png)
+
+Orijinale dokunmadan işaretleyin: oklar, numaralı adımlar, şekiller ve
+makinenizden çıkmaması gereken kısmın üstüne opak bir karartma.
+
+![Ok, numaralı adım ve karartma içeren düzenleyici](docs/images/editor.png)
+
+Sonra boşluk, nötr bir pencere çerçevesi ve başlıkla bir arka plana yerleştirip
+istediğiniz boyutta dışa aktarın.
+
+![Aynı çekime Stüdyo preseti uygulanmış hâli](docs/images/styling.png)
+
+> Bu görseller `DocumentationScreenshotTests` tarafından üretilir; Snaplet'in
+> gerçek görünümlerini ve renderer'larını, kendi tasarımı olan sentetik bir
+> masaüstü üzerinde çizer. Yeniden üretme komutu
+> [docs/demo-scenarios.md](docs/demo-scenarios.md) içinde.
+
+---
+
 ## Özellikler
 
 | | |
@@ -416,9 +441,9 @@ Güvenlik konuları: bkz. [SECURITY.md](SECURITY.md).
 - Snaplet bir Intel Mac'te test edilmedi.
 - Türkçe çeviri mevcut metinler için eksiksizdir; yeni metinler için sürümden
   önce `./scripts/sync-strings.sh` çalıştırılmalıdır.
-- Ekran görüntüsü veya demo videosu eklenmedi; bunlar ekran kaydı izni olan bir
-  makinede üretilmelidir. Çekilecek senaryolar
-  [docs/demo-scenarios.md](docs/demo-scenarios.md) dosyasında yazılıdır.
+- Yukarıdaki görseller Snaplet'in kendi görünümlerinden sentetik bir masaüstü
+  üzerinde üretilmiştir. Uygulamanın çalışırken kaydedilmiş bir demosu henüz yok;
+  senaryolar [docs/demo-scenarios.md](docs/demo-scenarios.md) dosyasında yazılı.
 
 Planlanan işler [ROADMAP.md](ROADMAP.md) dosyasındadır.
 
