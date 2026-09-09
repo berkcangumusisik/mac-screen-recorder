@@ -162,7 +162,7 @@ enum PresentationRenderer {
             let colors = [start.cgColor, end.cgColor] as CFArray
             guard let space = CGColorSpace(name: CGColorSpace.sRGB),
                   let gradient = CGGradient(colorsSpace: space, colors: colors, locations: [0, 1]) else { return }
-            let radians = angle * .pi / 180
+            let radians = CGFloat(angle) * .pi / 180
             let dx = cos(radians) * size.width / 2
             let dy = sin(radians) * size.height / 2
             let center = CGPoint(x: size.width / 2, y: size.height / 2)

@@ -160,7 +160,10 @@ enum AnnotationRenderer {
     private static func drawArrow(_ annotation: Annotation) {
         let start = annotation.startPoint
         let end = annotation.endPoint
-        let width = max(2, annotation.lineWidth)
+        // Annotation stores line width as Double for Codable stability, but every
+        // point below is CGFloat. Converting once here keeps the arithmetic in a
+        // single type: mixing the two leaves `cos` ambiguous on Xcode 16.
+        let width = CGFloat(max(2, annotation.lineWidth))
         let headLength = max(width * 3.2, 12)
         let angle = atan2(end.y - start.y, end.x - start.x)
         let length = hypot(end.x - start.x, end.y - start.y)

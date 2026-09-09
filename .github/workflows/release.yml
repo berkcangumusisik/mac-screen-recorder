@@ -18,6 +18,14 @@ jobs:
     runs-on: macos-15
     timeout-minutes: 40
 
+    # A step-level `if:` cannot read the secrets context, so the two questions
+    # the job needs to ask are answered once here. Only the answers are exported,
+    # never the secrets themselves, so no later step can read a certificate it
+    # has no business touching.
+    env:
+      HAS_SIGNING_CERTIFICATE: ${{ secrets.DEVELOPER_ID_CERTIFICATE != '' }}
+      HAS_NOTARY_CREDENTIALS: ${{ secrets.NOTARY_PASSWORD != '' }}
+
     steps:
       - uses: actions/checkout@v4
 
@@ -45,7 +53,7 @@ jobs:
       # on other Macs, which the release notes explain.
       - name: Import Developer ID certificate
         id: signing
-        if: ${{ secrets.DEVELOPER_ID_CERTIFICATE != '' }}
+        if: env.HAS_SIGNING_CERTIFICATE == 'true'
         env:
           CERTIFICATE: ${{ secrets.DEVELOPER_ID_CERTIFICATE }}
           CERTIFICATE_PASSWORD: ${{ secrets.DEVELOPER_ID_CERTIFICATE_PASSWORD }}
@@ -74,7 +82,7 @@ jobs:
 
       - name: Notarise and staple
         id: notarise
-        if: ${{ steps.signing.outputs.identity != '' && secrets.NOTARY_PASSWORD != '' }}
+        if: steps.signing.outputs.identity != '' && env.HAS_NOTARY_CREDENTIALS == 'true'
         env:
           APPLE_ID: ${{ secrets.NOTARY_APPLE_ID }}
           TEAM_ID: ${{ secrets.DEVELOPMENT_TEAM }}
