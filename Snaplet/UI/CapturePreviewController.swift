@@ -54,6 +54,7 @@ final class CapturePreviewController {
     var onEdit: ((PendingCapture) -> Void)?
     var onSave: ((PendingCapture) -> Void)?
     var onCreateBugReport: ((PendingCapture) -> Void)?
+    var onPin: ((PendingCapture) -> Void)?
 
     func show(_ capture: PendingCapture, autoDismissAfter seconds: TimeInterval = 9) {
         dismiss()
@@ -62,13 +63,21 @@ final class CapturePreviewController {
                                       onEdit: { [weak self] in self?.onEdit?(capture); self?.dismiss() },
                                       onSave: { [weak self] in self?.onSave?(capture) },
                                       onBugReport: { [weak self] in self?.onCreateBugReport?(capture); self?.dismiss() },
+                                      onPin: { [weak self] in self?.onPin?(capture); self?.dismiss() },
                                       onClose: { [weak self] in self?.dismiss() },
                                       onHoverChange: { [weak self] hovering in
                                           if hovering { self?.dismissTask?.cancel() }
                                       })
 
         let hosting = NSHostingView(rootView: view)
-        hosting.frame = CGRect(x: 0, y: 0, width: 260, height: 190)
+        // A fixed height clipped the action row once button labels grew in
+        // translation; the panel takes its height from its content instead.
+        hosting.frame = CGRect(x: 0, y: 0, width: 300, height: 206)
+        hosting.layoutSubtreeIfNeeded()
+        let fitting = hosting.fittingSize
+        if fitting.height > 1 {
+            hosting.frame = CGRect(x: 0, y: 0, width: 300, height: max(180, ceil(fitting.height)))
+        }
 
         let panel = NSPanel(contentRect: hosting.frame,
                             styleMask: [.borderless, .nonactivatingPanel],

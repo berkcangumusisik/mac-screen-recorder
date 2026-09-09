@@ -20,6 +20,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool { true }
 
+    /// Files dropped on the Dock icon, or opened with `open -a Snaplet`.
+    func application(_ application: NSApplication, open urls: [URL]) {
+        environment.open(urls: urls)
+    }
+
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
         if !flag { environment.showSettings() }
         return true

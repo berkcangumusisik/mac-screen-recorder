@@ -32,11 +32,15 @@ ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --
 
 ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
 
-Build description signature: 8228e2053766bef5d9cdbe33680ef67a
-Build description path: /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/XCBuildData/8228e2053766bef5d9cdbe33680ef67a.xcbuilddata
+Build description signature: e634c5589d1bbf5245a92dd8d7f59a64
+Build description path: /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/XCBuildData/e634c5589d1bbf5245a92dd8d7f59a64.xcbuilddata
 ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk /Users/berkcan/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/macosx26.5-25F70-e082c4a02f00227109f4ed75e425c832.sdkstatcache
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder/Snaplet.xcodeproj
     /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -o /Users/berkcan/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/macosx26.5-25F70-e082c4a02f00227109f4ed75e425c832.sdkstatcache
+
+MkDir /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/PlugIns/SnapletTests.xctest (in target 'SnapletTests' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    /bin/mkdir -p /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/PlugIns/SnapletTests.xctest
 
 MkDir /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/PlugIns/SnapletTests.xctest/Contents (in target 'SnapletTests' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
@@ -46,7 +50,6 @@ MkDir /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmnc
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
     /bin/mkdir -p /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/PlugIns/SnapletTests.xctest/Contents/MacOS
 
-note: Disabling hardened runtime with ad-hoc codesigning. (in target 'Snaplet' from project 'Snaplet')
 MkDir /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/PlugIns (in target 'Snaplet' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
     /bin/mkdir -p /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/PlugIns
@@ -72,9 +75,21 @@ ProcessProductPackagingDER /Users/berkcan/Library/Developer/Xcode/DerivedData/Sn
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
     /usr/bin/derq query -f xml -i /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Snaplet.app.xcent -o /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Snaplet.app.xcent.der --raw
 
-Copy /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/Testing.framework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/Testing.framework (in target 'Snaplet' from project 'Snaplet')
+Copy /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCTestCore.framework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks/XCTestCore.framework (in target 'Snaplet' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
-    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -resolve-src-symlinks /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/Testing.framework /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -resolve-src-symlinks /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks/XCTestCore.framework /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks
+
+Copy /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCTest.framework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework (in target 'Snaplet' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -resolve-src-symlinks /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks
+
+Copy /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCTAutomationSupport.framework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks/XCTAutomationSupport.framework (in target 'Snaplet' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -resolve-src-symlinks /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks/XCTAutomationSupport.framework /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks
+
+Copy /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCTestSupport.framework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks/XCTestSupport.framework (in target 'Snaplet' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -resolve-src-symlinks /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks/XCTestSupport.framework /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks
 
 Copy /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCUnit.framework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks/XCUnit.framework (in target 'Snaplet' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
@@ -88,33 +103,17 @@ Copy /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncw
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
     builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -resolve-src-symlinks /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/libXCTestBundleInject.dylib /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks
 
+SwiftDriver Snaplet normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Snaplet' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Snaplet -Onone @/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -target arm64-apple-macos15.0 -g -module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug -F /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug -emit-localized-strings -emit-localized-strings-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64 -c -j15 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/berkcan/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/macosx26.5-25F70-e082c4a02f00227109f4ed75e425c832.sdkstatcache -output-file-map /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet_const_extract_protocols.json -Xcc -iquote -Xcc /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Snaplet-generated-files.hmap -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Snaplet-own-target-headers.hmap -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Snaplet-all-target-headers.hmap -Xcc -iquote -Xcc /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Snaplet-project-headers.hmap -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/include -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/DerivedSources-normal/arm64 -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/DerivedSources/arm64 -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet-Swift.h -working-directory /Users/berkcan/Documents/GitHub/mac-screen-recorder -experimental-emit-module-separately -disable-cmo
+
 Copy /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCUIAutomation.framework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/XCUIAutomation.framework (in target 'Snaplet' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
     builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -resolve-src-symlinks /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/XCUIAutomation.framework /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks
 
-Copy /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCTestSupport.framework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks/XCTestSupport.framework (in target 'Snaplet' from project 'Snaplet')
+Copy /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/Testing.framework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/Testing.framework (in target 'Snaplet' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
-    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -resolve-src-symlinks /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks/XCTestSupport.framework /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks
-
-Copy /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCTestCore.framework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks/XCTestCore.framework (in target 'Snaplet' from project 'Snaplet')
-    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
-    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -resolve-src-symlinks /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks/XCTestCore.framework /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks
-
-SwiftDriver SnapletTests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'SnapletTests' from project 'Snaplet')
-    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
-    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name SnapletTests -Onone @/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests.SwiftFileList -DDEBUG -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -target arm64-apple-macos15.0 -g -module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib -F /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug -F /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks -c -j15 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/berkcan/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/macosx26.5-25F70-e082c4a02f00227109f4ed75e425c832.sdkstatcache -output-file-map /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests_const_extract_protocols.json -Xcc -iquote -Xcc /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/SnapletTests-generated-files.hmap -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/SnapletTests-own-target-headers.hmap -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/SnapletTests-all-target-headers.hmap -Xcc -iquote -Xcc /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/SnapletTests-project-headers.hmap -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/include -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/DerivedSources-normal/arm64 -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/DerivedSources/arm64 -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests-Swift.h -working-directory /Users/berkcan/Documents/GitHub/mac-screen-recorder -experimental-emit-module-separately -disable-cmo
-
-Copy /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCTest.framework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework (in target 'Snaplet' from project 'Snaplet')
-    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
-    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -resolve-src-symlinks /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks
-
-Copy /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCTAutomationSupport.framework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks/XCTAutomationSupport.framework (in target 'Snaplet' from project 'Snaplet')
-    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
-    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -resolve-src-symlinks /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks/XCTAutomationSupport.framework /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks
-
-CopySwiftLibs /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app (in target 'Snaplet' from project 'Snaplet')
-    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
-    builtin-swiftStdLibTool --copy --verbose --sign - --scan-executable /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/MacOS/Snaplet.debug.dylib --scan-folder /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks --scan-folder /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/PlugIns --scan-folder /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Library/SystemExtensions --scan-folder /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Extensions --platform macosx --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks --strip-bitcode --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os --back-deploy-swift-span
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -resolve-src-symlinks /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/Testing.framework /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks
 
 ProcessInfoPlistFile /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Info.plist /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/empty-Snaplet.plist (in target 'Snaplet' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
@@ -144,14 +143,6 @@ CodeSign /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvq
     /usr/bin/codesign --force --sign - --timestamp\=none --preserve-metadata\=identifier,entitlements,flags --generate-entitlement-der /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCTestSupport.framework
 /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCTestSupport.framework: replacing existing signature
 
-CodeSign /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCUnit.framework (in target 'Snaplet' from project 'Snaplet')
-    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
-    
-    Signing Identity:     "Sign to Run Locally"
-    
-    /usr/bin/codesign --force --sign - --timestamp\=none --preserve-metadata\=identifier,entitlements,flags --generate-entitlement-der /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCUnit.framework
-/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCUnit.framework: replacing existing signature
-
 CodeSign /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCTest.framework (in target 'Snaplet' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
     
@@ -159,6 +150,14 @@ CodeSign /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvq
     
     /usr/bin/codesign --force --sign - --timestamp\=none --preserve-metadata\=identifier,entitlements,flags --generate-entitlement-der /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCTest.framework
 /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCTest.framework: replacing existing signature
+
+CodeSign /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCUnit.framework (in target 'Snaplet' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --timestamp\=none --preserve-metadata\=identifier,entitlements,flags --generate-entitlement-der /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCUnit.framework
+/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCUnit.framework: replacing existing signature
 
 CodeSign /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCTAutomationSupport.framework (in target 'Snaplet' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
@@ -168,14 +167,6 @@ CodeSign /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvq
     /usr/bin/codesign --force --sign - --timestamp\=none --preserve-metadata\=identifier,entitlements,flags --generate-entitlement-der /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCTAutomationSupport.framework
 /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCTAutomationSupport.framework: replacing existing signature
 
-CodeSign /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCTestCore.framework (in target 'Snaplet' from project 'Snaplet')
-    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
-    
-    Signing Identity:     "Sign to Run Locally"
-    
-    /usr/bin/codesign --force --sign - --timestamp\=none --preserve-metadata\=identifier,entitlements,flags --generate-entitlement-der /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCTestCore.framework
-/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCTestCore.framework: replacing existing signature
-
 CodeSign /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCUIAutomation.framework (in target 'Snaplet' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
     
@@ -183,6 +174,14 @@ CodeSign /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvq
     
     /usr/bin/codesign --force --sign - --timestamp\=none --preserve-metadata\=identifier,entitlements,flags --generate-entitlement-der /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCUIAutomation.framework
 /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCUIAutomation.framework: replacing existing signature
+
+CodeSign /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCTestCore.framework (in target 'Snaplet' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --timestamp\=none --preserve-metadata\=identifier,entitlements,flags --generate-entitlement-der /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCTestCore.framework
+/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/XCTestCore.framework: replacing existing signature
 
 CodeSign /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/Testing.framework (in target 'Snaplet' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
@@ -192,13 +191,163 @@ CodeSign /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvq
     /usr/bin/codesign --force --sign - --timestamp\=none --preserve-metadata\=identifier,entitlements,flags --generate-entitlement-der /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/Testing.framework
 /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks/Testing.framework: replacing existing signature
 
-ProcessInfoPlistFile /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/PlugIns/SnapletTests.xctest/Contents/Info.plist /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/empty-SnapletTests.plist (in target 'SnapletTests' from project 'Snaplet')
+SwiftEmitModule normal arm64 Emitting\ module\ for\ Snaplet (in target 'Snaplet' from project 'Snaplet')
+
+EmitSwiftModule normal arm64 (in target 'Snaplet' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
-    builtin-infoPlistUtility /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/empty-SnapletTests.plist -producttype com.apple.product-type.bundle.unit-test -expandbuildsettings -platform macosx -o /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/PlugIns/SnapletTests.xctest/Contents/Info.plist
+    
+
+SwiftCompile normal arm64 Compiling\ EditorView.swift /Users/berkcan/Documents/GitHub/mac-screen-recorder/Snaplet/Editor/EditorView.swift (in target 'Snaplet' from project 'Snaplet')
+
+SwiftCompile normal arm64 /Users/berkcan/Documents/GitHub/mac-screen-recorder/Snaplet/Editor/EditorView.swift (in target 'Snaplet' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling EditorView.swift (in target 'Snaplet' from project 'Snaplet')
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for Snaplet (in target 'Snaplet' from project 'Snaplet')
+
+SwiftDriver\ Compilation\ Requirements Snaplet normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Snaplet' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Snaplet -Onone @/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -target arm64-apple-macos15.0 -g -module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug -F /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug -emit-localized-strings -emit-localized-strings-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64 -c -j15 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/berkcan/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/macosx26.5-25F70-e082c4a02f00227109f4ed75e425c832.sdkstatcache -output-file-map /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet_const_extract_protocols.json -Xcc -iquote -Xcc /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Snaplet-generated-files.hmap -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Snaplet-own-target-headers.hmap -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Snaplet-all-target-headers.hmap -Xcc -iquote -Xcc /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Snaplet-project-headers.hmap -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/include -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/DerivedSources-normal/arm64 -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/DerivedSources/arm64 -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet-Swift.h -working-directory /Users/berkcan/Documents/GitHub/mac-screen-recorder -experimental-emit-module-separately -disable-cmo
+
+SwiftDriver\ Compilation Snaplet normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Snaplet' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    builtin-Swift-Compilation -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Snaplet -Onone @/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -target arm64-apple-macos15.0 -g -module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug -F /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug -emit-localized-strings -emit-localized-strings-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64 -c -j15 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/berkcan/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/macosx26.5-25F70-e082c4a02f00227109f4ed75e425c832.sdkstatcache -output-file-map /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet_const_extract_protocols.json -Xcc -iquote -Xcc /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Snaplet-generated-files.hmap -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Snaplet-own-target-headers.hmap -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Snaplet-all-target-headers.hmap -Xcc -iquote -Xcc /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Snaplet-project-headers.hmap -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/include -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/DerivedSources-normal/arm64 -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/DerivedSources/arm64 -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet-Swift.h -working-directory /Users/berkcan/Documents/GitHub/mac-screen-recorder -experimental-emit-module-separately -disable-cmo
+
+Copy /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.swiftmodule/Project/arm64-apple-macos.swiftsourceinfo /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet.swiftsourceinfo (in target 'Snaplet' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet.swiftsourceinfo /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.swiftmodule/Project/arm64-apple-macos.swiftsourceinfo
+
+Copy /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.swiftmodule/arm64-apple-macos.abi.json /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet.abi.json (in target 'Snaplet' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet.abi.json /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.swiftmodule/arm64-apple-macos.abi.json
+
+SwiftDriver SnapletTests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'SnapletTests' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name SnapletTests -Onone @/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests.SwiftFileList -DDEBUG -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -target arm64-apple-macos15.0 -g -module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib -F /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug -F /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks -c -j15 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/berkcan/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/macosx26.5-25F70-e082c4a02f00227109f4ed75e425c832.sdkstatcache -output-file-map /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests_const_extract_protocols.json -Xcc -iquote -Xcc /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/SnapletTests-generated-files.hmap -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/SnapletTests-own-target-headers.hmap -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/SnapletTests-all-target-headers.hmap -Xcc -iquote -Xcc /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/SnapletTests-project-headers.hmap -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/include -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/DerivedSources-normal/arm64 -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/DerivedSources/arm64 -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests-Swift.h -working-directory /Users/berkcan/Documents/GitHub/mac-screen-recorder -experimental-emit-module-separately -disable-cmo
+
+Ld /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/MacOS/Snaplet.debug.dylib normal (in target 'Snaplet' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-macos15.0 -dynamiclib -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -O0 -L/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/EagerLinkingTBDs/Debug -L/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug -F/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/EagerLinkingTBDs/Debug -F/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug -filelist /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet.LinkFileList -install_name @rpath/Snaplet.debug.dylib -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @executable_path/../Frameworks -Xlinker -dead_strip -Xlinker -object_path_lto -Xlinker /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -dependency_info -Xlinker /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet_dependency_info.dat -fobjc-link-runtime -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet.swiftmodule @/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet-linker-args.resp -Xlinker -alias -Xlinker _main -Xlinker ___debug_main_executable_dylib_entry_point -Xlinker -no_adhoc_codesign -o /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/MacOS/Snaplet.debug.dylib
+
+ConstructStubExecutorLinkFileList /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Snaplet-ExecutorLinkFileList-normal-arm64.txt (in target 'Snaplet' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    construct-stub-executor-link-file-list /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/MacOS/Snaplet.debug.dylib /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/libPreviewsJITStubExecutor_no_swift_entry_point.a /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/libPreviewsJITStubExecutor.a --output /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Snaplet-ExecutorLinkFileList-normal-arm64.txt
+note: Using stub executor library with Swift entry point. (in target 'Snaplet' from project 'Snaplet')
+
+Ld /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/MacOS/Snaplet normal (in target 'Snaplet' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-macos15.0 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -O0 -L/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug -F/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug -Xlinker -rpath -Xlinker @executable_path -Xlinker -rpath -Xlinker @executable_path/../Frameworks -rdynamic -Xlinker -no_deduplicate -e ___debug_blank_executor_main -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_dylib -Xlinker /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Snaplet-DebugDylibPath-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_instlnm -Xlinker /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Snaplet-DebugDylibInstallName-normal-arm64.txt -Xlinker -filelist -Xlinker /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Snaplet-ExecutorLinkFileList-normal-arm64.txt /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/MacOS/Snaplet.debug.dylib -Xlinker -no_adhoc_codesign -o /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/MacOS/Snaplet
+
+CopySwiftLibs /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app (in target 'Snaplet' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    builtin-swiftStdLibTool --copy --verbose --sign - --scan-executable /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/MacOS/Snaplet.debug.dylib --scan-folder /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks --scan-folder /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/PlugIns --scan-folder /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Library/SystemExtensions --scan-folder /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Extensions --platform macosx --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Frameworks --strip-bitcode --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os --back-deploy-swift-span
+
+ExtractAppIntentsMetadata (in target 'Snaplet' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name Snaplet --sdk-root /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk --xcode-version 17F113 --platform-family macOS --deployment-target 15.0 --bundle-identifier app.snaplet.Snaplet --output /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/Resources --target-triple arm64-apple-macos15.0 --binary-file /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/MacOS/Snaplet --dependency-file /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet_dependency_info.dat --stringsdata-file /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet.SwiftFileList --metadata-file-list /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Snaplet.DependencyMetadataFileList --static-metadata-file-list /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Snaplet.DependencyStaticMetadataFileList --swift-const-vals-list /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Objects-normal/arm64/Snaplet.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --validate-assistant-intents --no-app-shortcuts-localization
+2026-09-09 21:37:33.944 appintentsmetadataprocessor[23297:975208] Starting appintentsmetadataprocessor export
+2026-09-09 21:37:33.945 appintentsmetadataprocessor[23297:975208] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
+
+SwiftCompile normal arm64 Compiling\ PinAndColorTests.swift /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/PinAndColorTests.swift (in target 'SnapletTests' from project 'Snaplet')
+
+SwiftCompile normal arm64 /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/PinAndColorTests.swift (in target 'SnapletTests' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    
+
+SwiftCompile normal arm64 Compiling\ PerformanceMeasurementTests.swift /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/PerformanceMeasurementTests.swift (in target 'SnapletTests' from project 'Snaplet')
+SwiftCompile normal arm64 /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/PerformanceMeasurementTests.swift (in target 'SnapletTests' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    
+
+SwiftCompile normal arm64 Compiling\ AnnotationDocumentTests.swift,\ InterfaceSnapshotTests.swift /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/AnnotationDocumentTests.swift /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/InterfaceSnapshotTests.swift (in target 'SnapletTests' from project 'Snaplet')
+SwiftCompile normal arm64 /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/AnnotationDocumentTests.swift (in target 'SnapletTests' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    
+
+SwiftCompile normal arm64 /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/InterfaceSnapshotTests.swift (in target 'SnapletTests' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    
+
+SwiftCompile normal arm64 Compiling\ LiveCaptureIntegrationTests.swift /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/LiveCaptureIntegrationTests.swift (in target 'SnapletTests' from project 'Snaplet')
+SwiftCompile normal arm64 /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/LiveCaptureIntegrationTests.swift (in target 'SnapletTests' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    
+/Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/LiveCaptureIntegrationTests.swift:48:42: warning: conformance of 'NSScreen' to 'Sendable' is unavailable; this is an error in the Swift 6 language mode
+            let screen = await MainActor.run {
+                                         ^
+note: conformance of 'NSScreen' to 'Sendable' has been explicitly marked unavailable here
+@_nonSendable(_assumed)
+^
+/Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/LiveCaptureIntegrationTests.swift:51:47: warning: capture of 'screen' with non-Sendable type 'NSScreen?' in a '@Sendable' closure; this is an error in the Swift 6 language mode
+            let scale = await MainActor.run { screen?.backingScaleFactor ?? 2 }
+                                              ^
+Swift.Optional:1:21: note: generic enum 'Optional' does not conform to the 'Sendable' protocol
+@frozen public enum Optional<Wrapped> : ~Copyable, ~Escapable where Wrapped : ~Copyable, Wrapped : ~Escapable {
+                    ^
+/Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/LiveCaptureIntegrationTests.swift:79:38: warning: conformance of 'NSScreen' to 'Sendable' is unavailable; this is an error in the Swift 6 language mode
+        let screen = await MainActor.run {
+                                     ^
+note: conformance of 'NSScreen' to 'Sendable' has been explicitly marked unavailable here
+@_nonSendable(_assumed)
+^
+/Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/LiveCaptureIntegrationTests.swift:82:43: warning: capture of 'screen' with non-Sendable type 'NSScreen?' in a '@Sendable' closure; this is an error in the Swift 6 language mode
+        let scale = await MainActor.run { screen?.backingScaleFactor ?? 2 }
+                                          ^
+Swift.Optional:1:21: note: generic enum 'Optional' does not conform to the 'Sendable' protocol
+@frozen public enum Optional<Wrapped> : ~Copyable, ~Escapable where Wrapped : ~Copyable, Wrapped : ~Escapable {
+                    ^
+
+SwiftCompile normal arm64 Compiling\ MultiDisplayCompositorTests.swift /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/MultiDisplayCompositorTests.swift (in target 'SnapletTests' from project 'Snaplet')
+
+SwiftCompile normal arm64 /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/MultiDisplayCompositorTests.swift (in target 'SnapletTests' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    
 
 SwiftCompile normal arm64 Compiling\ RecordingTests.swift /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/RecordingTests.swift (in target 'SnapletTests' from project 'Snaplet')
 
 SwiftCompile normal arm64 /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/RecordingTests.swift (in target 'SnapletTests' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    
+
+SwiftCompile normal arm64 Compiling\ PresentationLayoutTests.swift /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/PresentationLayoutTests.swift (in target 'SnapletTests' from project 'Snaplet')
+
+SwiftCompile normal arm64 /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/PresentationLayoutTests.swift (in target 'SnapletTests' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    
+
+SwiftCompile normal arm64 Compiling\ RecordingWriterTests.swift /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/RecordingWriterTests.swift (in target 'SnapletTests' from project 'Snaplet')
+
+SwiftCompile normal arm64 /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/RecordingWriterTests.swift (in target 'SnapletTests' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    
+/Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/RecordingWriterTests.swift:141:39: warning: left side of nil coalescing operator '??' has non-optional type 'Int', so the right side is never used
+            XCTAssertGreaterThan(size ?? 0, 1000, "file is suspiciously small", file: file, line: line)
+                                 ~~~~~^~~~
+                                     
+
+SwiftCompile normal arm64 Compiling\ ScreenGeometryTests.swift /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/ScreenGeometryTests.swift (in target 'SnapletTests' from project 'Snaplet')
+
+SwiftCompile normal arm64 /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/ScreenGeometryTests.swift (in target 'SnapletTests' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    
+
+SwiftCompile normal arm64 Compiling\ RedactionOutputTests.swift /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/RedactionOutputTests.swift (in target 'SnapletTests' from project 'Snaplet')
+
+SwiftCompile normal arm64 /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/RedactionOutputTests.swift (in target 'SnapletTests' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    
+
+SwiftCompile normal arm64 Compiling\ OCRAndReportTests.swift /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/OCRAndReportTests.swift (in target 'SnapletTests' from project 'Snaplet')
+
+SwiftCompile normal arm64 /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/OCRAndReportTests.swift (in target 'SnapletTests' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    
+
+SwiftCompile normal arm64 Compiling\ ShortcutAndNamingTests.swift /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/ShortcutAndNamingTests.swift (in target 'SnapletTests' from project 'Snaplet')
+
+SwiftCompile normal arm64 /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/ShortcutAndNamingTests.swift (in target 'SnapletTests' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
     
 
@@ -208,24 +357,45 @@ EmitSwiftModule normal arm64 (in target 'SnapletTests' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
     
 
-SwiftCompile normal arm64 Compiling\ RecordingWriterTests.swift /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/RecordingWriterTests.swift (in target 'SnapletTests' from project 'Snaplet')
-SwiftCompile normal arm64 /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/RecordingWriterTests.swift (in target 'SnapletTests' from project 'Snaplet')
+SwiftCompile normal arm64 Compiling\ RenderTransformTests.swift /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/RenderTransformTests.swift (in target 'SnapletTests' from project 'Snaplet')
+
+SwiftCompile normal arm64 /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/RenderTransformTests.swift (in target 'SnapletTests' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
     
-/Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/RecordingWriterTests.swift:141:39: warning: left side of nil coalescing operator '??' has non-optional type 'Int', so the right side is never used
-            XCTAssertGreaterThan(size ?? 0, 1000, "file is suspiciously small", file: file, line: line)
-                                 ~~~~~^~~~
-                                     
+
+SwiftCompile normal arm64 Compiling\ TestSupport.swift /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/TestSupport.swift (in target 'SnapletTests' from project 'Snaplet')
+
+SwiftCompile normal arm64 /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/TestSupport.swift (in target 'SnapletTests' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    
+
+SwiftCompile normal arm64 Compiling\ VideoEditTests.swift /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/VideoEditTests.swift (in target 'SnapletTests' from project 'Snaplet')
+
+SwiftCompile normal arm64 /Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/VideoEditTests.swift (in target 'SnapletTests' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling ScreenGeometryTests.swift (in target 'SnapletTests' from project 'Snaplet')
+
+SwiftDriverJobDiscovery normal arm64 Compiling RenderTransformTests.swift (in target 'SnapletTests' from project 'Snaplet')
+
+ProcessInfoPlistFile /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/PlugIns/SnapletTests.xctest/Contents/Info.plist /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/empty-SnapletTests.plist (in target 'SnapletTests' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    builtin-infoPlistUtility /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/empty-SnapletTests.plist -producttype com.apple.product-type.bundle.unit-test -expandbuildsettings -platform macosx -o /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/PlugIns/SnapletTests.xctest/Contents/Info.plist
+
+SwiftDriverJobDiscovery normal arm64 Compiling MultiDisplayCompositorTests.swift (in target 'SnapletTests' from project 'Snaplet')
+
+SwiftDriverJobDiscovery normal arm64 Compiling PresentationLayoutTests.swift (in target 'SnapletTests' from project 'Snaplet')
+
+SwiftDriverJobDiscovery normal arm64 Compiling RedactionOutputTests.swift (in target 'SnapletTests' from project 'Snaplet')
+
+SwiftDriverJobDiscovery normal arm64 Compiling PinAndColorTests.swift (in target 'SnapletTests' from project 'Snaplet')
 
 SwiftDriverJobDiscovery normal arm64 Emitting module for SnapletTests (in target 'SnapletTests' from project 'Snaplet')
 
 SwiftDriver\ Compilation\ Requirements SnapletTests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'SnapletTests' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
     builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name SnapletTests -Onone @/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests.SwiftFileList -DDEBUG -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -target arm64-apple-macos15.0 -g -module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib -F /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug -F /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks -c -j15 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/berkcan/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/macosx26.5-25F70-e082c4a02f00227109f4ed75e425c832.sdkstatcache -output-file-map /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/berkcan/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests_const_extract_protocols.json -Xcc -iquote -Xcc /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/SnapletTests-generated-files.hmap -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/SnapletTests-own-target-headers.hmap -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/SnapletTests-all-target-headers.hmap -Xcc -iquote -Xcc /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/SnapletTests-project-headers.hmap -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/include -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/DerivedSources-normal/arm64 -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/DerivedSources/arm64 -Xcc -I/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests-Swift.h -working-directory /Users/berkcan/Documents/GitHub/mac-screen-recorder -experimental-emit-module-separately -disable-cmo
-
-Copy /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/SnapletTests.swiftmodule/Project/arm64-apple-macos.swiftsourceinfo /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests.swiftsourceinfo (in target 'SnapletTests' from project 'Snaplet')
-    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
-    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests.swiftsourceinfo /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/SnapletTests.swiftmodule/Project/arm64-apple-macos.swiftsourceinfo
 
 Copy /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/SnapletTests.swiftmodule/arm64-apple-macos.swiftdoc /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests.swiftdoc (in target 'SnapletTests' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
@@ -235,13 +405,31 @@ Copy /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncw
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
     builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests.swiftmodule /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/SnapletTests.swiftmodule/arm64-apple-macos.swiftmodule
 
+Copy /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/SnapletTests.swiftmodule/Project/arm64-apple-macos.swiftsourceinfo /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests.swiftsourceinfo (in target 'SnapletTests' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests.swiftsourceinfo /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/SnapletTests.swiftmodule/Project/arm64-apple-macos.swiftsourceinfo
+
 Copy /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/SnapletTests.swiftmodule/arm64-apple-macos.abi.json /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests.abi.json (in target 'SnapletTests' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
     builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests.abi.json /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/SnapletTests.swiftmodule/arm64-apple-macos.abi.json
 
+SwiftDriverJobDiscovery normal arm64 Compiling OCRAndReportTests.swift (in target 'SnapletTests' from project 'Snaplet')
+
 SwiftDriverJobDiscovery normal arm64 Compiling RecordingTests.swift (in target 'SnapletTests' from project 'Snaplet')
 
+SwiftDriverJobDiscovery normal arm64 Compiling ShortcutAndNamingTests.swift (in target 'SnapletTests' from project 'Snaplet')
+
+SwiftDriverJobDiscovery normal arm64 Compiling PerformanceMeasurementTests.swift (in target 'SnapletTests' from project 'Snaplet')
+
+SwiftDriverJobDiscovery normal arm64 Compiling AnnotationDocumentTests.swift, InterfaceSnapshotTests.swift (in target 'SnapletTests' from project 'Snaplet')
+
+SwiftDriverJobDiscovery normal arm64 Compiling TestSupport.swift (in target 'SnapletTests' from project 'Snaplet')
+
 SwiftDriverJobDiscovery normal arm64 Compiling RecordingWriterTests.swift (in target 'SnapletTests' from project 'Snaplet')
+
+SwiftDriverJobDiscovery normal arm64 Compiling VideoEditTests.swift (in target 'SnapletTests' from project 'Snaplet')
+
+SwiftDriverJobDiscovery normal arm64 Compiling LiveCaptureIntegrationTests.swift (in target 'SnapletTests' from project 'Snaplet')
 
 SwiftDriver\ Compilation SnapletTests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'SnapletTests' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
@@ -258,8 +446,8 @@ CopySwiftLibs /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelx
 ExtractAppIntentsMetadata (in target 'SnapletTests' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
     /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name SnapletTests --sdk-root /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk --xcode-version 17F113 --platform-family macOS --deployment-target 15.0 --bundle-identifier app.snaplet.SnapletTests --output /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/PlugIns/SnapletTests.xctest/Contents/Resources --target-triple arm64-apple-macos15.0 --binary-file /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/PlugIns/SnapletTests.xctest/Contents/MacOS/SnapletTests --dependency-file /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests_dependency_info.dat --stringsdata-file /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests.SwiftFileList --metadata-file-list /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/SnapletTests.DependencyMetadataFileList --static-metadata-file-list /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/SnapletTests.DependencyStaticMetadataFileList --swift-const-vals-list /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/SnapletTests.build/Objects-normal/arm64/SnapletTests.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --validate-assistant-intents --no-app-shortcuts-localization
-2026-09-08 10:50:34.338 appintentsmetadataprocessor[72957:1772625] Starting appintentsmetadataprocessor export
-2026-09-08 10:50:34.339 appintentsmetadataprocessor[72957:1772625] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
+2026-09-09 21:37:34.655 appintentsmetadataprocessor[23316:975279] Starting appintentsmetadataprocessor export
+2026-09-09 21:37:34.656 appintentsmetadataprocessor[23316:975279] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
 
 CodeSign /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/PlugIns/SnapletTests.xctest (in target 'SnapletTests' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
@@ -268,13 +456,20 @@ CodeSign /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvq
     
     /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/PlugIns/SnapletTests.xctest
 
+RegisterExecutionPolicyException /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/PlugIns/SnapletTests.xctest (in target 'SnapletTests' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    builtin-RegisterExecutionPolicyException /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/PlugIns/SnapletTests.xctest
+
+Touch /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/PlugIns/SnapletTests.xctest (in target 'SnapletTests' from project 'Snaplet')
+    cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
+    /usr/bin/touch -c /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/PlugIns/SnapletTests.xctest
+
 CodeSign /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/MacOS/Snaplet.debug.dylib (in target 'Snaplet' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
     
     Signing Identity:     "Sign to Run Locally"
     
     /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/MacOS/Snaplet.debug.dylib
-/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/MacOS/Snaplet.debug.dylib: replacing existing signature
 
 CodeSign /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app/Contents/MacOS/__preview.dylib (in target 'Snaplet' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
@@ -290,7 +485,6 @@ CodeSign /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvq
     Signing Identity:     "Sign to Run Locally"
     
     /usr/bin/codesign --force --sign - --entitlements /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Intermediates.noindex/Snaplet.build/Debug/Snaplet.build/Snaplet.app.xcent --timestamp\=none --generate-entitlement-der /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app
-/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app: replacing existing signature
 
 Validate /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app (in target 'Snaplet' from project 'Snaplet')
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
@@ -300,26 +494,25 @@ RegisterWithLaunchServices /Users/berkcan/Library/Developer/Xcode/DerivedData/Sn
     cd /Users/berkcan/Documents/GitHub/mac-screen-recorder
     /System/Library/Frameworks/CoreServices.framework/Versions/Current/Frameworks/LaunchServices.framework/Versions/Current/Support/lsregister -f -R -trusted /Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Build/Products/Debug/Snaplet.app
 
-2026-09-08 10:50:34.832884+0300 Snaplet[72963:1772737] [Connection] Unable to get synchronousRemoteObjectProxy, error: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
-2026-09-08 10:50:34.833117+0300 Snaplet[72963:1772737] [Application] Error registering app with intents framework: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
-2026-09-08 10:50:34.833243+0300 Snaplet[72963:1772731] [Connection] Unable to get synchronousRemoteObjectProxy, error: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
-2026-09-08 10:50:34.833255+0300 Snaplet[72963:1772731] [Connection] Unable to re-register with Process Instance Registry, error: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
-2026-09-08 10:50:34.833595+0300 Snaplet[72963:1772732] [Connection] Unable to get synchronousRemoteObjectProxy, error: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
-2026-09-08 10:50:34.833601+0300 Snaplet[72963:1772732] [Connection] Unable to re-register with Process Instance Registry, error: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
-2026-09-08 10:50:34.833878+0300 Snaplet[72963:1772737] [Connection] Unable to get synchronousRemoteObjectProxy, error: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
-2026-09-08 10:50:34.833985+0300 Snaplet[72963:1772737] [Connection] Unable to re-register with Process Instance Registry, error: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
-2026-09-08 10:50:34.834163+0300 Snaplet[72963:1772732] [Connection] Will NOT re-try to establish the connection
-2026-09-08 10:50:34.834217+0300 Snaplet[72963:1772743] [Connection] Unable to get synchronousRemoteObjectProxy, error: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
-2026-09-08 10:50:34.834440+0300 Snaplet[72963:1772743] [Connection] Unable to re-register with Process Instance Registry, error: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
-Test Suite 'All tests' started at 2026-09-08 10:50:34.936.
-Test Suite 'SnapletTests.xctest' started at 2026-09-08 10:50:34.937.
-Test Suite 'AnnotationDocumentTests' started at 2026-09-08 10:50:34.937.
+note: Disabling hardened runtime with ad-hoc codesigning. (in target 'Snaplet' from project 'Snaplet')
+2026-09-09 21:37:35.193594+0300 Snaplet[23323:975372] [Connection] Unable to get synchronousRemoteObjectProxy, error: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
+2026-09-09 21:37:35.193738+0300 Snaplet[23323:975372] [Application] Error registering app with intents framework: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
+2026-09-09 21:37:35.193929+0300 Snaplet[23323:975380] [Connection] Unable to get synchronousRemoteObjectProxy, error: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
+2026-09-09 21:37:35.193941+0300 Snaplet[23323:975380] [Connection] Unable to re-register with Process Instance Registry, error: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
+2026-09-09 21:37:35.194271+0300 Snaplet[23323:975371] [Connection] Unable to get synchronousRemoteObjectProxy, error: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
+2026-09-09 21:37:35.194278+0300 Snaplet[23323:975371] [Connection] Unable to re-register with Process Instance Registry, error: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
+2026-09-09 21:37:35.194544+0300 Snaplet[23323:975372] [Connection] Will NOT re-try to establish the connection
+2026-09-09 21:37:35.194564+0300 Snaplet[23323:975380] [Connection] Unable to get synchronousRemoteObjectProxy, error: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
+2026-09-09 21:37:35.194573+0300 Snaplet[23323:975380] [Connection] Unable to re-register with Process Instance Registry, error: Error Domain=NSCocoaErrorDomain Code=4097 "connection to service named com.apple.linkd.autoShortcut" UserInfo={NSDebugDescription=connection to service named com.apple.linkd.autoShortcut}
+Test Suite 'All tests' started at 2026-09-09 21:37:35.285.
+Test Suite 'SnapletTests.xctest' started at 2026-09-09 21:37:35.285.
+Test Suite 'AnnotationDocumentTests' started at 2026-09-09 21:37:35.285.
 Test Case '-[SnapletTests.AnnotationDocumentTests testApplyingAStyleKeepsAnExistingCaption]' started.
 Test Case '-[SnapletTests.AnnotationDocumentTests testApplyingAStyleKeepsAnExistingCaption]' passed (0.002 seconds).
 Test Case '-[SnapletTests.AnnotationDocumentTests testCropIsClampedToTheImageAndRejectsTinyRects]' started.
-Test Case '-[SnapletTests.AnnotationDocumentTests testCropIsClampedToTheImageAndRejectsTinyRects]' passed (0.001 seconds).
+Test Case '-[SnapletTests.AnnotationDocumentTests testCropIsClampedToTheImageAndRejectsTinyRects]' passed (0.000 seconds).
 Test Case '-[SnapletTests.AnnotationDocumentTests testDeletingClearsTheSelection]' started.
-Test Case '-[SnapletTests.AnnotationDocumentTests testDeletingClearsTheSelection]' passed (0.001 seconds).
+Test Case '-[SnapletTests.AnnotationDocumentTests testDeletingClearsTheSelection]' passed (0.000 seconds).
 Test Case '-[SnapletTests.AnnotationDocumentTests testLineRecoversDirectionFromFlippedFlags]' started.
 Test Case '-[SnapletTests.AnnotationDocumentTests testLineRecoversDirectionFromFlippedFlags]' passed (0.000 seconds).
 Test Case '-[SnapletTests.AnnotationDocumentTests testRedoReappliesAnUndoneChange]' started.
@@ -327,25 +520,25 @@ Test Case '-[SnapletTests.AnnotationDocumentTests testRedoReappliesAnUndoneChang
 Test Case '-[SnapletTests.AnnotationDocumentTests testRotationWrapsAroundFourQuarterTurns]' started.
 Test Case '-[SnapletTests.AnnotationDocumentTests testRotationWrapsAroundFourQuarterTurns]' passed (0.000 seconds).
 Test Case '-[SnapletTests.AnnotationDocumentTests testStepNumbersAreRenumberedAfterADelete]' started.
-Test Case '-[SnapletTests.AnnotationDocumentTests testStepNumbersAreRenumberedAfterADelete]' passed (0.001 seconds).
+Test Case '-[SnapletTests.AnnotationDocumentTests testStepNumbersAreRenumberedAfterADelete]' passed (0.000 seconds).
 Test Case '-[SnapletTests.AnnotationDocumentTests testUndoRestoresAnnotationsCropAndRotation]' started.
 Test Case '-[SnapletTests.AnnotationDocumentTests testUndoRestoresAnnotationsCropAndRotation]' passed (0.000 seconds).
-Test Suite 'AnnotationDocumentTests' passed at 2026-09-08 10:50:34.943.
-	 Executed 8 tests, with 0 failures (0 unexpected) in 0.005 (0.007) seconds
-Test Suite 'AudioMixerTests' started at 2026-09-08 10:50:34.943.
+Test Suite 'AnnotationDocumentTests' passed at 2026-09-09 21:37:35.294.
+	 Executed 8 tests, with 0 failures (0 unexpected) in 0.005 (0.009) seconds
+Test Suite 'AudioMixerTests' started at 2026-09-09 21:37:35.294.
 Test Case '-[SnapletTests.AudioMixerTests testMixedAudioIsClampedToTheValidRange]' started.
 Test Case '-[SnapletTests.AudioMixerTests testMixedAudioIsClampedToTheValidRange]' passed (0.005 seconds).
 Test Case '-[SnapletTests.AudioMixerTests testOverlappingSecondaryAudioIsSummedIn]' started.
 Test Case '-[SnapletTests.AudioMixerTests testOverlappingSecondaryAudioIsSummedIn]' passed (0.001 seconds).
 Test Case '-[SnapletTests.AudioMixerTests testPrimaryPassesThroughWhenNothingIsQueued]' started.
-Test Case '-[SnapletTests.AudioMixerTests testPrimaryPassesThroughWhenNothingIsQueued]' passed (0.001 seconds).
+Test Case '-[SnapletTests.AudioMixerTests testPrimaryPassesThroughWhenNothingIsQueued]' passed (0.000 seconds).
 Test Case '-[SnapletTests.AudioMixerTests testSecondaryAudioFromADifferentTimeIsNotMixedIn]' started.
 Test Case '-[SnapletTests.AudioMixerTests testSecondaryAudioFromADifferentTimeIsNotMixedIn]' passed (0.001 seconds).
 Test Case '-[SnapletTests.AudioMixerTests testStaleSecondaryAudioIsDiscardedRatherThanAccumulating]' started.
 Test Case '-[SnapletTests.AudioMixerTests testStaleSecondaryAudioIsDiscardedRatherThanAccumulating]' passed (0.001 seconds).
-Test Suite 'AudioMixerTests' passed at 2026-09-08 10:50:34.952.
-	 Executed 5 tests, with 0 failures (0 unexpected) in 0.008 (0.009) seconds
-Test Suite 'BugReportTests' started at 2026-09-08 10:50:34.952.
+Test Suite 'AudioMixerTests' passed at 2026-09-09 21:37:35.302.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.007 (0.008) seconds
+Test Suite 'BugReportTests' started at 2026-09-09 21:37:35.302.
 Test Case '-[SnapletTests.BugReportTests testAttachmentsAreListedByNameWithAnExplicitUploadNote]' started.
 Test Case '-[SnapletTests.BugReportTests testAttachmentsAreListedByNameWithAnExplicitUploadNote]' passed (0.000 seconds).
 Test Case '-[SnapletTests.BugReportTests testEnvironmentNeverLeaksHostOrAccountNames]' started.
@@ -358,9 +551,22 @@ Test Case '-[SnapletTests.BugReportTests testPlaceholdersAppearWhenFieldsAreBlan
 Test Case '-[SnapletTests.BugReportTests testPlaceholdersAppearWhenFieldsAreBlank]' passed (0.000 seconds).
 Test Case '-[SnapletTests.BugReportTests testStepDraftMatchesTheNumberOfMarkers]' started.
 Test Case '-[SnapletTests.BugReportTests testStepDraftMatchesTheNumberOfMarkers]' passed (0.000 seconds).
-Test Suite 'BugReportTests' passed at 2026-09-08 10:50:34.959.
-	 Executed 6 tests, with 0 failures (0 unexpected) in 0.003 (0.006) seconds
-Test Suite 'CaptureRecordTests' started at 2026-09-08 10:50:34.960.
+Test Suite 'BugReportTests' passed at 2026-09-09 21:37:35.305.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.003 (0.003) seconds
+Test Suite 'CaptureDelayPreferenceTests' started at 2026-09-09 21:37:35.305.
+Test Case '-[SnapletTests.CaptureDelayPreferenceTests testAFullRoundTripPreservesEveryField]' started.
+Test Case '-[SnapletTests.CaptureDelayPreferenceTests testAFullRoundTripPreservesEveryField]' passed (0.000 seconds).
+Test Case '-[SnapletTests.CaptureDelayPreferenceTests testAnEmptyBlobDecodesToTheDefaults]' started.
+Test Case '-[SnapletTests.CaptureDelayPreferenceTests testAnEmptyBlobDecodesToTheDefaults]' passed (0.000 seconds).
+Test Case '-[SnapletTests.CaptureDelayPreferenceTests testDelayDefaultsToImmediate]' started.
+Test Case '-[SnapletTests.CaptureDelayPreferenceTests testDelayDefaultsToImmediate]' passed (0.000 seconds).
+Test Case '-[SnapletTests.CaptureDelayPreferenceTests testDelaySurvivesAJSONRoundTrip]' started.
+Test Case '-[SnapletTests.CaptureDelayPreferenceTests testDelaySurvivesAJSONRoundTrip]' passed (0.000 seconds).
+Test Case '-[SnapletTests.CaptureDelayPreferenceTests testPreferencesWrittenByAnOlderBuildStillDecode]' started.
+Test Case '-[SnapletTests.CaptureDelayPreferenceTests testPreferencesWrittenByAnOlderBuildStillDecode]' passed (0.000 seconds).
+Test Suite 'CaptureDelayPreferenceTests' passed at 2026-09-09 21:37:35.308.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.002 (0.003) seconds
+Test Suite 'CaptureRecordTests' started at 2026-09-09 21:37:35.309.
 Test Case '-[SnapletTests.CaptureRecordTests testEmptyQueryMatchesEverything]' started.
 Test Case '-[SnapletTests.CaptureRecordTests testEmptyQueryMatchesEverything]' passed (0.000 seconds).
 Test Case '-[SnapletTests.CaptureRecordTests testPixelDescriptionFallsBackWhenUnknown]' started.
@@ -369,51 +575,210 @@ Test Case '-[SnapletTests.CaptureRecordTests testSearchMatchesFileNamesCaseInsen
 Test Case '-[SnapletTests.CaptureRecordTests testSearchMatchesFileNamesCaseInsensitively]' passed (0.000 seconds).
 Test Case '-[SnapletTests.CaptureRecordTests testSearchMatchesRecognisedText]' started.
 Test Case '-[SnapletTests.CaptureRecordTests testSearchMatchesRecognisedText]' passed (0.000 seconds).
-Test Suite 'CaptureRecordTests' passed at 2026-09-08 10:50:34.962.
+Test Suite 'CaptureRecordTests' passed at 2026-09-09 21:37:35.311.
 	 Executed 4 tests, with 0 failures (0 unexpected) in 0.002 (0.002) seconds
-Test Suite 'PerformanceMeasurementTests' started at 2026-09-08 10:50:34.962.
+Test Suite 'ColorFormattingTests' started at 2026-09-09 21:37:35.311.
+Test Case '-[SnapletTests.ColorFormattingTests testHexConvertsFromOtherColourSpaces]' started.
+Test Case '-[SnapletTests.ColorFormattingTests testHexConvertsFromOtherColourSpaces]' passed (0.000 seconds).
+Test Case '-[SnapletTests.ColorFormattingTests testHexRoundsRatherThanTruncates]' started.
+Test Case '-[SnapletTests.ColorFormattingTests testHexRoundsRatherThanTruncates]' passed (0.000 seconds).
+Test Case '-[SnapletTests.ColorFormattingTests testHexUsesUppercaseSixDigitForm]' started.
+Test Case '-[SnapletTests.ColorFormattingTests testHexUsesUppercaseSixDigitForm]' passed (0.000 seconds).
+Test Suite 'ColorFormattingTests' passed at 2026-09-09 21:37:35.314.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.001 (0.003) seconds
+Test Suite 'EditorZoomTests' started at 2026-09-09 21:37:35.314.
+Test Case '-[SnapletTests.EditorZoomTests testFitAndActualSizeAreDistinctStates]' started.
+/Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/AnnotationDocumentTests.swift:151: error: -[SnapletTests.EditorZoomTests testFitAndActualSizeAreDistinctStates] : XCTAssertEqual failed: ("Sığdır") is not equal to ("Fit")
+Test Case '-[SnapletTests.EditorZoomTests testFitAndActualSizeAreDistinctStates]' failed (0.038 seconds).
+Test Case '-[SnapletTests.EditorZoomTests testTheEditorOpensFittedToTheWindow]' started.
+/Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/AnnotationDocumentTests.swift:111: error: -[SnapletTests.EditorZoomTests testTheEditorOpensFittedToTheWindow] : XCTAssertEqual failed: ("Sığdır") is not equal to ("Fit")
+Test Case '-[SnapletTests.EditorZoomTests testTheEditorOpensFittedToTheWindow]' failed (0.001 seconds).
+Test Case '-[SnapletTests.EditorZoomTests testZoomDescriptionRoundsToWholePercent]' started.
+Test Case '-[SnapletTests.EditorZoomTests testZoomDescriptionRoundsToWholePercent]' passed (0.000 seconds).
+Test Case '-[SnapletTests.EditorZoomTests testZoomingInStepsUpFromWhatIsOnScreen]' started.
+Test Case '-[SnapletTests.EditorZoomTests testZoomingInStepsUpFromWhatIsOnScreen]' passed (0.000 seconds).
+Test Case '-[SnapletTests.EditorZoomTests testZoomingOutStepsDown]' started.
+Test Case '-[SnapletTests.EditorZoomTests testZoomingOutStepsDown]' passed (0.000 seconds).
+Test Case '-[SnapletTests.EditorZoomTests testZoomStopsAtTheEndsInsteadOfRunningAway]' started.
+Test Case '-[SnapletTests.EditorZoomTests testZoomStopsAtTheEndsInsteadOfRunningAway]' passed (0.000 seconds).
+Test Suite 'EditorZoomTests' failed at 2026-09-09 21:37:35.355.
+	 Executed 6 tests, with 2 failures (0 unexpected) in 0.040 (0.041) seconds
+Test Suite 'InterfaceSnapshotTests' started at 2026-09-09 21:37:35.355.
+Test Case '-[SnapletTests.InterfaceSnapshotTests testRendersEveryFloatingSurface]' started.
+2026-09-09 21:37:35.407362+0300 Snaplet[23323:975347] [Invalid Configuration] Unable to render flattened version of PlatformViewRepresentableAdaptor<PlatformView>.
+2026-09-09 21:37:35.417604+0300 Snaplet[23323:975347] [Invalid Configuration] Unable to render flattened version of PlatformViewRepresentableAdaptor<PlatformView>.
+2026-09-09 21:37:35.425904+0300 Snaplet[23323:975347] [Invalid Configuration] Unable to render flattened version of PlatformViewRepresentableAdaptor<PlatformView>.
+2026-09-09 21:37:35.433316+0300 Snaplet[23323:975347] [Invalid Configuration] Unable to render flattened version of PlatformViewRepresentableAdaptor<PlatformView>.
+2026-09-09 21:37:35.441302+0300 Snaplet[23323:975347] [Invalid Configuration] Unable to render flattened version of NSButton.
+2026-09-09 21:37:35.441335+0300 Snaplet[23323:975347] [Invalid Configuration] Unable to render flattened version of NSButton.
+2026-09-09 21:37:35.446302+0300 Snaplet[23323:975347] [Invalid Configuration] Unable to render flattened version of NSButton.
+2026-09-09 21:37:35.446341+0300 Snaplet[23323:975347] [Invalid Configuration] Unable to render flattened version of NSButton.
+UI SNAPSHOTS: /var/folders/rs/862v0z0525z3hzp11q_c2w2c0000gn/T/snaplet-ui
+Test Case '-[SnapletTests.InterfaceSnapshotTests testRendersEveryFloatingSurface]' passed (0.096 seconds).
+Test Case '-[SnapletTests.InterfaceSnapshotTests testRendersEverySettingsPane]' started.
+2026-09-09 21:37:35.455586+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.455913+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.456090+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.468868+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.469096+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.469268+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.480994+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.481237+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.481426+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.492775+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.493004+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.493124+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.505109+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.505326+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.505491+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.515862+0300 Snaplet[23323:975347] [plugin] AddInstanceForFactory: No factory registered for id <CFUUID 0x9f9a7ed20> F8BB1C28-BAE8-11D6-9C31-00039315CD46
+2026-09-09 21:37:35.559273+0300 Snaplet[23323:975417] [] CMIOExtensionProviderHostContext.m:75:-[CMIOExtensionProviderHostContext initWithConnection:delegate:]_block_invoke [0] received Connection invalid
+2026-09-09 21:37:35.559295+0300 Snaplet[23323:975417] [] CMIOExtensionProviderHostContext.m:1282:-[CMIOExtensionProviderHostContext sendEmptyClientInfo]_block_invoke received Connection invalid
+2026-09-09 21:37:35.559308+0300 Snaplet[23323:975347] [] CMIOExtensionProviderHostContext.m:434:-[CMIOExtensionProviderHostContext pluginStates:] received Connection invalid
+2026-09-09 21:37:35.559345+0300 Snaplet[23323:975347] [] CMIOExtensionSession.m:1309:-[CMIOExtensionSessionProvider initWithEndpoint:delegate:]_block_invoke failed getting the states of the plugin error Error Domain=NSOSStatusErrorDomain Code=-7 "kCSIdentityInvalidPosixNameErr"
+2026-09-09 21:37:35.559355+0300 Snaplet[23323:975347] [] CMIO_DAL_CMIOExtension_PlugIn.mm:316:-[CMIODALExtensionPlugIn initWithPlugIn:endpoint:] plugin 37 / <CMIOExtensionSessionProvider> provider bundleID com.apple.appleh13camerad endpoint 0x9f9aab5c0 could not call devices/properties initializer
+2026-09-09 21:37:35.559367+0300 Snaplet[23323:975347] [] CMIO_DAL_CMIOExtension_PlugIn.mm:754:Initialize invalid provider state
+2026-09-09 21:37:35.559383+0300 Snaplet[23323:975347] [] CMIO_DAL_CMIOExtension_PlugIn.mm:163:-[CMIODALExtensionSession updateStateWithExtensionsArrived:extensionsRemoved:] an error occurred
+2026-09-09 21:37:35.579849+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.580128+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.580308+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.591091+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.591272+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.591499+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.603153+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.603331+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.603561+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.764554+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.764770+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.776096+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+2026-09-09 21:37:35.776273+0300 Snaplet[23323:975347] [SwiftUI] Accessing FocusState's value outside of the body of a View. This will result in a constant Binding of the initial value and will not update.
+Test Case '-[SnapletTests.InterfaceSnapshotTests testRendersEverySettingsPane]' passed (0.339 seconds).
+Test Case '-[SnapletTests.InterfaceSnapshotTests testWhetherMenusRenderOffscreenAtAll]' started.
+2026-09-09 21:37:35.794510+0300 Snaplet[23323:975347] [Invalid Configuration] Unable to render flattened version of PlatformViewRepresentableAdaptor<PlatformView>.
+2026-09-09 21:37:35.798438+0300 Snaplet[23323:975347] [Invalid Configuration] Unable to render flattened version of PlatformViewRepresentableAdaptor<PlatformView>.
+Test Case '-[SnapletTests.InterfaceSnapshotTests testWhetherMenusRenderOffscreenAtAll]' passed (0.010 seconds).
+Test Suite 'InterfaceSnapshotTests' passed at 2026-09-09 21:37:35.801.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.445 (0.446) seconds
+Test Suite 'LiveCaptureIntegrationTests' started at 2026-09-09 21:37:35.801.
+Test Case '-[SnapletTests.LiveCaptureIntegrationTests testASelectionSpanningTwoDisplaysComposesIntoOneImage]' started.
+/Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/LiveCaptureIntegrationTests.swift:27: -[SnapletTests.LiveCaptureIntegrationTests testASelectionSpanningTwoDisplaysComposesIntoOneImage] : Test skipped - needs Screen & System Audio Recording for the test host
+Test Case '-[SnapletTests.LiveCaptureIntegrationTests testASelectionSpanningTwoDisplaysComposesIntoOneImage]' skipped (0.001 seconds).
+Test Case '-[SnapletTests.LiveCaptureIntegrationTests testCapturesEveryDisplayIntoAPlayableFile]' started.
+/Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/LiveCaptureIntegrationTests.swift:27: -[SnapletTests.LiveCaptureIntegrationTests testCapturesEveryDisplayIntoAPlayableFile] : Test skipped - needs Screen & System Audio Recording for the test host
+Test Case '-[SnapletTests.LiveCaptureIntegrationTests testCapturesEveryDisplayIntoAPlayableFile]' skipped (0.000 seconds).
+Test Case '-[SnapletTests.LiveCaptureIntegrationTests testMeasuresCaptureLatency]' started.
+/Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/LiveCaptureIntegrationTests.swift:27: -[SnapletTests.LiveCaptureIntegrationTests testMeasuresCaptureLatency] : Test skipped - needs Screen & System Audio Recording for the test host
+Test Case '-[SnapletTests.LiveCaptureIntegrationTests testMeasuresCaptureLatency]' skipped (0.000 seconds).
+Test Case '-[SnapletTests.LiveCaptureIntegrationTests testRecordingSessionCapturesEveryTargetKind]' started.
+/Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/LiveCaptureIntegrationTests.swift:27: -[SnapletTests.LiveCaptureIntegrationTests testRecordingSessionCapturesEveryTargetKind] : Test skipped - needs Screen & System Audio Recording for the test host
+Test Case '-[SnapletTests.LiveCaptureIntegrationTests testRecordingSessionCapturesEveryTargetKind]' skipped (0.001 seconds).
+Test Case '-[SnapletTests.LiveCaptureIntegrationTests testRecordsPastTheFirstFragmentBoundary]' started.
+/Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/LiveCaptureIntegrationTests.swift:27: -[SnapletTests.LiveCaptureIntegrationTests testRecordsPastTheFirstFragmentBoundary] : Test skipped - needs Screen & System Audio Recording for the test host
+Test Case '-[SnapletTests.LiveCaptureIntegrationTests testRecordsPastTheFirstFragmentBoundary]' skipped (0.001 seconds).
+Test Case '-[SnapletTests.LiveCaptureIntegrationTests testRepeatedRecordingsAllSucceed]' started.
+/Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/LiveCaptureIntegrationTests.swift:27: -[SnapletTests.LiveCaptureIntegrationTests testRepeatedRecordingsAllSucceed] : Test skipped - needs Screen & System Audio Recording for the test host
+Test Case '-[SnapletTests.LiveCaptureIntegrationTests testRepeatedRecordingsAllSucceed]' skipped (0.001 seconds).
+Test Suite 'LiveCaptureIntegrationTests' passed at 2026-09-09 21:37:35.805.
+	 Executed 6 tests, with 6 tests skipped and 0 failures (0 unexpected) in 0.004 (0.004) seconds
+Test Suite 'LocalizationFitTests' started at 2026-09-09 21:37:35.805.
+Test Case '-[SnapletTests.LocalizationFitTests testEveryStringHasATurkishTranslation]' started.
+Test Case '-[SnapletTests.LocalizationFitTests testEveryStringHasATurkishTranslation]' passed (0.002 seconds).
+Test Case '-[SnapletTests.LocalizationFitTests testSettingsControlLabelsLeaveRoomForTheirControls]' started.
+Test Case '-[SnapletTests.LocalizationFitTests testSettingsControlLabelsLeaveRoomForTheirControls]' passed (0.003 seconds).
+Test Case '-[SnapletTests.LocalizationFitTests testSettingsTabsFitTheWindow]' started.
+Test Case '-[SnapletTests.LocalizationFitTests testSettingsTabsFitTheWindow]' passed (0.001 seconds).
+Test Case '-[SnapletTests.LocalizationFitTests testTheEditorInspectorTabsFitTheInspector]' started.
+Test Case '-[SnapletTests.LocalizationFitTests testTheEditorInspectorTabsFitTheInspector]' passed (0.000 seconds).
+Test Case '-[SnapletTests.LocalizationFitTests testTheHistoryFilterFitsItsWidth]' started.
+Test Case '-[SnapletTests.LocalizationFitTests testTheHistoryFilterFitsItsWidth]' passed (0.000 seconds).
+Test Case '-[SnapletTests.LocalizationFitTests testTheRecordingCountdownFitsTheControl]' started.
+Test Case '-[SnapletTests.LocalizationFitTests testTheRecordingCountdownFitsTheControl]' passed (0.001 seconds).
+Test Case '-[SnapletTests.LocalizationFitTests testTheSelectionHintFitsATypicalDisplay]' started.
+Test Case '-[SnapletTests.LocalizationFitTests testTheSelectionHintFitsATypicalDisplay]' passed (0.001 seconds).
+Test Suite 'LocalizationFitTests' passed at 2026-09-09 21:37:35.814.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.008 (0.009) seconds
+Test Suite 'MultiDisplayCompositorTests' started at 2026-09-09 21:37:35.814.
+Test Case '-[SnapletTests.MultiDisplayCompositorTests testAreaNoDisplayCoversStaysTransparent]' started.
+Test Case '-[SnapletTests.MultiDisplayCompositorTests testAreaNoDisplayCoversStaysTransparent]' passed (0.001 seconds).
+Test Case '-[SnapletTests.MultiDisplayCompositorTests testASelectionInsideOneDisplayIsJustACrop]' started.
+Test Case '-[SnapletTests.MultiDisplayCompositorTests testASelectionInsideOneDisplayIsJustACrop]' passed (0.001 seconds).
+Test Case '-[SnapletTests.MultiDisplayCompositorTests testASpanningSelectionIsRenderedAtTheHighestScaleInvolved]' started.
+Test Case '-[SnapletTests.MultiDisplayCompositorTests testASpanningSelectionIsRenderedAtTheHighestScaleInvolved]' passed (0.002 seconds).
+Test Case '-[SnapletTests.MultiDisplayCompositorTests testDetectsWhetherASelectionSpansDisplays]' started.
+Test Case '-[SnapletTests.MultiDisplayCompositorTests testDetectsWhetherASelectionSpansDisplays]' passed (0.001 seconds).
+Test Case '-[SnapletTests.MultiDisplayCompositorTests testEachDisplayContributesItsOwnHalf]' started.
+Test Case '-[SnapletTests.MultiDisplayCompositorTests testEachDisplayContributesItsOwnHalf]' passed (0.003 seconds).
+Test Case '-[SnapletTests.MultiDisplayCompositorTests testNegativeOriginDisplaysComposeCorrectly]' started.
+Test Case '-[SnapletTests.MultiDisplayCompositorTests testNegativeOriginDisplaysComposeCorrectly]' passed (0.003 seconds).
+Test Case '-[SnapletTests.MultiDisplayCompositorTests testSelectionsOutsideEveryDisplayProduceNothing]' started.
+Test Case '-[SnapletTests.MultiDisplayCompositorTests testSelectionsOutsideEveryDisplayProduceNothing]' passed (0.001 seconds).
+Test Case '-[SnapletTests.MultiDisplayCompositorTests testTheSeamLandsWhereTheDisplaysMeet]' started.
+Test Case '-[SnapletTests.MultiDisplayCompositorTests testTheSeamLandsWhereTheDisplaysMeet]' passed (0.003 seconds).
+Test Suite 'MultiDisplayCompositorTests' passed at 2026-09-09 21:37:35.831.
+	 Executed 8 tests, with 0 failures (0 unexpected) in 0.016 (0.017) seconds
+Test Suite 'PerformanceMeasurementTests' started at 2026-09-09 21:37:35.831.
 Test Case '-[SnapletTests.PerformanceMeasurementTests testAnnotatedExportOfA4KScreenshot]' started.
-2026-09-08 10:50:34.976570+0300 Snaplet[72963:1772770] fopen failed for data file: errno = 2 (No such file or directory)
-2026-09-08 10:50:35.009001+0300 Snaplet[72963:1772743] fopen failed for data file: errno = 2 (No such file or directory)
-PERF 4K annotated render + PNG encode: n=5 median 43.7 ms  min 42.6 ms  max 155.4 ms
+PERF 4K annotated render + PNG encode: n=5 median 39.4 ms  min 38.7 ms  max 50.0 ms
 
-Test Case '-[SnapletTests.PerformanceMeasurementTests testAnnotatedExportOfA4KScreenshot]' passed (0.345 seconds).
+Test Case '-[SnapletTests.PerformanceMeasurementTests testAnnotatedExportOfA4KScreenshot]' passed (0.212 seconds).
 Test Case '-[SnapletTests.PerformanceMeasurementTests testStyledPresentationRenderOfA4KScreenshot]' started.
-PERF 4K styled presentation render: n=5 median 107.3 ms  min 105.9 ms  max 111.3 ms
+PERF 4K styled presentation render: n=5 median 102.4 ms  min 101.1 ms  max 103.2 ms
 
-Test Case '-[SnapletTests.PerformanceMeasurementTests testStyledPresentationRenderOfA4KScreenshot]' passed (0.560 seconds).
+Test Case '-[SnapletTests.PerformanceMeasurementTests testStyledPresentationRenderOfA4KScreenshot]' passed (0.518 seconds).
 Test Case '-[SnapletTests.PerformanceMeasurementTests testTextRecognitionOnAFullHDScreenshot]' started.
-2026-09-08 10:50:35.871732+0300 Snaplet[72963:1772770] [client] numANECores: Unknown aneSubType
-PERF 1080p text recognition (20 lines): n=3 median 266.1 ms  min 255.2 ms  max 491.0 ms
+2026-09-09 21:37:36.564443+0300 Snaplet[23323:975418] [client] numANECores: Unknown aneSubType
+PERF 1080p text recognition (20 lines): n=3 median 249.7 ms  min 247.3 ms  max 493.9 ms
 
-Test Case '-[SnapletTests.PerformanceMeasurementTests testTextRecognitionOnAFullHDScreenshot]' passed (1.016 seconds).
+Test Case '-[SnapletTests.PerformanceMeasurementTests testTextRecognitionOnAFullHDScreenshot]' passed (0.993 seconds).
 Test Case '-[SnapletTests.PerformanceMeasurementTests testVideoExportOfAShortClip]' started.
-2026-09-08 10:50:36.890840+0300 Snaplet[72963:1772805] [] (Fig) signalled err=0 at <>:85
-2026-09-08 10:50:45.969128+0300 Snaplet[72963:1773341] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
+2026-09-09 21:37:37.561358+0300 Snaplet[23323:975500] [] (Fig) signalled err=0 at <>:85
+2026-09-09 21:37:46.217363+0300 Snaplet[23323:975679] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
 Thread Performance Checker: Thread running at User-initiated quality-of-service class waiting on a lower QoS thread running at Utility quality-of-service class. Investigate ways to avoid priority inversions
-PID: 72963, TID: 1772805
+PID: 23323, TID: 975500
 Backtrace
 =================================================================
-0   Snaplet.debug.dylib                 0x00000001059305a0 $s7Snaplet19MovieWriterPipelineO3run5asset11composition10renderSize9frameRate9timeRange9outputURL10cancelFlag10onProgress10Foundation0O0VSo7AVAssetC_So18AVVideoCompositionCSo6CGSizeVSiSo06CMTimeM0aAoA012CancellationQ0CySdctKFZ + 6892
-1   Snaplet.debug.dylib                 0x000000010592e674 $s7Snaplet13VideoExporterC11exportMovie5asset4edit10sourceSize9frameRate2to10Foundation3URLVSo7AVAssetC_AA0B4EditVSo6CGSizeVSiALtYaKFALyYaKcfU_TY0_ + 208
-2   libswift_Concurrency.dylib          0x000000028c6b1e18 _ZN5swift34runJobInEstablishedExecutorContextEPNS_3JobE + 472
-3   libswift_Concurrency.dylib          0x000000028c6b36ec _ZL17swift_job_runImplPN5swift3JobENS_17SerialExecutorRefE + 156
-4   libdispatch.dylib                   0x0000000186df5980 _dispatch_root_queue_drain + 360
-5   libdispatch.dylib                   0x0000000186df6120 _dispatch_worker_thread2 + 184
-6   libsystem_pthread.dylib             0x0000000186f9be84 _pthread_wqthread + 232
-7   libsystem_pthread.dylib             0x0000000186f9ac10 start_wqthread + 8
-PERF 5 s 720p export with redaction + zoom: n=1 median 371.2 ms  min 371.2 ms  max 371.2 ms
+0   Snaplet.debug.dylib                 0x0000000101470bf4 $s7Snaplet19MovieWriterPipelineO3run5asset11composition10renderSize9frameRate9timeRange9outputURL10cancelFlag10onProgress10Foundation0O0VSo7AVAssetC_So18AVVideoCompositionCSo6CGSizeVSiSo06CMTimeM0aAoA012CancellationQ0CySdctKFZ + 6892
+1   Snaplet.debug.dylib                 0x000000010146ecc8 $s7Snaplet13VideoExporterC11exportMovie5asset4edit10sourceSize9frameRate2to10Foundation3URLVSo7AVAssetC_AA0B4EditVSo6CGSizeVSiALtYaKFALyYaKcfU_TY0_ + 208
+2   libswift_Concurrency.dylib          0x0000000293fb5e18 _ZN5swift34runJobInEstablishedExecutorContextEPNS_3JobE + 472
+3   libswift_Concurrency.dylib          0x0000000293fb76ec _ZL17swift_job_runImplPN5swift3JobENS_17SerialExecutorRefE + 156
+4   libdispatch.dylib                   0x000000018e6f9980 _dispatch_root_queue_drain + 360
+5   libdispatch.dylib                   0x000000018e6fa120 _dispatch_worker_thread2 + 184
+6   libsystem_pthread.dylib             0x000000018e89fe84 _pthread_wqthread + 232
+7   libsystem_pthread.dylib             0x000000018e89ec10 start_wqthread + 8
+PERF 5 s 720p export with redaction + zoom: n=1 median 354.6 ms  min 354.6 ms  max 354.6 ms
 
-Test Case '-[SnapletTests.PerformanceMeasurementTests testVideoExportOfAShortClip]' passed (9.398 seconds).
-Test Suite 'PerformanceMeasurementTests' passed at 2026-09-08 10:50:46.282.
-	 Executed 4 tests, with 0 failures (0 unexpected) in 11.319 (11.319) seconds
-Test Suite 'PresentationLayoutTests' started at 2026-09-08 10:50:46.282.
+Test Case '-[SnapletTests.PerformanceMeasurementTests testVideoExportOfAShortClip]' passed (8.955 seconds).
+Test Suite 'PerformanceMeasurementTests' passed at 2026-09-09 21:37:46.511.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 10.679 (10.680) seconds
+Test Suite 'PinnedShotTests' started at 2026-09-09 21:37:46.511.
+Test Case '-[SnapletTests.PinnedShotTests testALargeCaptureIsScaledDownAndKeepsItsAspectRatio]' started.
+Test Case '-[SnapletTests.PinnedShotTests testALargeCaptureIsScaledDownAndKeepsItsAspectRatio]' passed (0.019 seconds).
+Test Case '-[SnapletTests.PinnedShotTests testAnInvalidScaleFallsBackRatherThanDividingByZero]' started.
+Test Case '-[SnapletTests.PinnedShotTests testAnInvalidScaleFallsBackRatherThanDividingByZero]' passed (0.000 seconds).
+Test Case '-[SnapletTests.PinnedShotTests testASmallCaptureIsPinnedAtItsOwnSize]' started.
+Test Case '-[SnapletTests.PinnedShotTests testASmallCaptureIsPinnedAtItsOwnSize]' passed (0.001 seconds).
+Test Case '-[SnapletTests.PinnedShotTests testNaturalSizeIsInPointsNotPixels]' started.
+Test Case '-[SnapletTests.PinnedShotTests testNaturalSizeIsInPointsNotPixels]' passed (0.001 seconds).
+Test Case '-[SnapletTests.PinnedShotTests testPixelDescriptionReportsPixelsNotPoints]' started.
+Test Case '-[SnapletTests.PinnedShotTests testPixelDescriptionReportsPixelsNotPoints]' passed (0.000 seconds).
+Test Suite 'PinnedShotTests' passed at 2026-09-09 21:37:46.534.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.022 (0.023) seconds
+Test Suite 'PixelSamplingTests' started at 2026-09-09 21:37:46.534.
+Test Case '-[SnapletTests.PixelSamplingTests testOutOfBoundsSamplesReturnNothing]' started.
+Test Case '-[SnapletTests.PixelSamplingTests testOutOfBoundsSamplesReturnNothing]' passed (0.000 seconds).
+Test Case '-[SnapletTests.PixelSamplingTests testSamplesTheColourAtAPixel]' started.
+Test Case '-[SnapletTests.PixelSamplingTests testSamplesTheColourAtAPixel]' passed (0.002 seconds).
+Test Case '-[SnapletTests.PixelSamplingTests testSamplingUsesATopLeftOrigin]' started.
+Test Case '-[SnapletTests.PixelSamplingTests testSamplingUsesATopLeftOrigin]' passed (0.000 seconds).
+Test Suite 'PixelSamplingTests' passed at 2026-09-09 21:37:46.536.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.002 (0.003) seconds
+Test Suite 'PresentationLayoutTests' started at 2026-09-09 21:37:46.537.
 Test Case '-[SnapletTests.PresentationLayoutTests testCaptionReservesSpaceAboveTheFrame]' started.
 Test Case '-[SnapletTests.PresentationLayoutTests testCaptionReservesSpaceAboveTheFrame]' passed (0.000 seconds).
 Test Case '-[SnapletTests.PresentationLayoutTests testContentIsCentredHorizontally]' started.
 Test Case '-[SnapletTests.PresentationLayoutTests testContentIsCentredHorizontally]' passed (0.000 seconds).
 Test Case '-[SnapletTests.PresentationLayoutTests testLongestEdgeCapDownscalesWithoutUpscaling]' started.
-Test Case '-[SnapletTests.PresentationLayoutTests testLongestEdgeCapDownscalesWithoutUpscaling]' passed (0.015 seconds).
+Test Case '-[SnapletTests.PresentationLayoutTests testLongestEdgeCapDownscalesWithoutUpscaling]' passed (0.017 seconds).
 Test Case '-[SnapletTests.PresentationLayoutTests testPaddingScalesWithTheLongestEdge]' started.
 Test Case '-[SnapletTests.PresentationLayoutTests testPaddingScalesWithTheLongestEdge]' passed (0.000 seconds).
 Test Case '-[SnapletTests.PresentationLayoutTests testRenderProducesTheLaidOutCanvasSize]' started.
@@ -424,9 +789,9 @@ Test Case '-[SnapletTests.PresentationLayoutTests testVerticalAspectNeverCropsTh
 Test Case '-[SnapletTests.PresentationLayoutTests testVerticalAspectNeverCropsTheContent]' passed (0.000 seconds).
 Test Case '-[SnapletTests.PresentationLayoutTests testWindowFrameAddsATitleBarAboveTheContent]' started.
 Test Case '-[SnapletTests.PresentationLayoutTests testWindowFrameAddsATitleBarAboveTheContent]' passed (0.000 seconds).
-Test Suite 'PresentationLayoutTests' passed at 2026-09-08 10:50:46.302.
-	 Executed 8 tests, with 0 failures (0 unexpected) in 0.019 (0.020) seconds
-Test Suite 'RecordingConfigurationTests' started at 2026-09-08 10:50:46.302.
+Test Suite 'PresentationLayoutTests' passed at 2026-09-09 21:37:46.559.
+	 Executed 8 tests, with 0 failures (0 unexpected) in 0.021 (0.022) seconds
+Test Suite 'RecordingConfigurationTests' started at 2026-09-09 21:37:46.559.
 Test Case '-[SnapletTests.RecordingConfigurationTests testCapAppliesToTallSourcesToo]' started.
 Test Case '-[SnapletTests.RecordingConfigurationTests testCapAppliesToTallSourcesToo]' passed (0.000 seconds).
 Test Case '-[SnapletTests.RecordingConfigurationTests testCapAppliesToTheLongestEdgeAndKeepsTheAspectRatio]' started.
@@ -441,97 +806,111 @@ Test Case '-[SnapletTests.RecordingConfigurationTests testSmallSourcesAreNeverUp
 Test Case '-[SnapletTests.RecordingConfigurationTests testSmallSourcesAreNeverUpscaled]' passed (0.000 seconds).
 Test Case '-[SnapletTests.RecordingConfigurationTests testWebcamOverlayStaysInsideTheFrameInEveryCorner]' started.
 Test Case '-[SnapletTests.RecordingConfigurationTests testWebcamOverlayStaysInsideTheFrameInEveryCorner]' passed (0.000 seconds).
-Test Suite 'RecordingConfigurationTests' passed at 2026-09-08 10:50:46.306.
-	 Executed 7 tests, with 0 failures (0 unexpected) in 0.003 (0.004) seconds
-Test Suite 'RecordingStateTests' started at 2026-09-08 10:50:46.306.
+Test Suite 'RecordingConfigurationTests' passed at 2026-09-09 21:37:46.563.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.002 (0.004) seconds
+Test Suite 'RecordingStateTests' started at 2026-09-09 21:37:46.563.
 Test Case '-[SnapletTests.RecordingStateTests testAbandoningBeforeCaptureReturnsToIdle]' started.
-Test Case '-[SnapletTests.RecordingStateTests testAbandoningBeforeCaptureReturnsToIdle]' passed (0.001 seconds).
+Test Case '-[SnapletTests.RecordingStateTests testAbandoningBeforeCaptureReturnsToIdle]' passed (0.000 seconds).
+Test Case '-[SnapletTests.RecordingStateTests testALiveRecordingCannotJumpStraightToIdle]' started.
+Test Case '-[SnapletTests.RecordingStateTests testALiveRecordingCannotJumpStraightToIdle]' passed (0.000 seconds).
+Test Case '-[SnapletTests.RecordingStateTests testAPausedRecordingCanResumeOrStopButNotRestart]' started.
+Test Case '-[SnapletTests.RecordingStateTests testAPausedRecordingCanResumeOrStopButNotRestart]' passed (0.000 seconds).
 Test Case '-[SnapletTests.RecordingStateTests testASecondStartWhileRecordingIsRejected]' started.
 Test Case '-[SnapletTests.RecordingStateTests testASecondStartWhileRecordingIsRejected]' passed (0.000 seconds).
 Test Case '-[SnapletTests.RecordingStateTests testEveryStateCanReachIdleWithoutGettingStuck]' started.
 Test Case '-[SnapletTests.RecordingStateTests testEveryStateCanReachIdleWithoutGettingStuck]' passed (0.000 seconds).
 Test Case '-[SnapletTests.RecordingStateTests testFailureIsReachableFromEveryStateAndRecoverable]' started.
 Test Case '-[SnapletTests.RecordingStateTests testFailureIsReachableFromEveryStateAndRecoverable]' passed (0.000 seconds).
-Test Case '-[SnapletTests.RecordingStateTests testFinalisationRunsBeforeReturningToIdle]' started.
-/Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/RecordingTests.swift:22: error: -[SnapletTests.RecordingStateTests testFinalisationRunsBeforeReturningToIdle] : XCTAssertFalse failed
-Test Case '-[SnapletTests.RecordingStateTests testFinalisationRunsBeforeReturningToIdle]' failed (0.045 seconds).
+Test Case '-[SnapletTests.RecordingStateTests testFinalisationIsTheNormalRouteBackToIdle]' started.
+Test Case '-[SnapletTests.RecordingStateTests testFinalisationIsTheNormalRouteBackToIdle]' passed (0.000 seconds).
 Test Case '-[SnapletTests.RecordingStateTests testIdleOnlyStartsThroughPreparing]' started.
 Test Case '-[SnapletTests.RecordingStateTests testIdleOnlyStartsThroughPreparing]' passed (0.000 seconds).
+Test Case '-[SnapletTests.RecordingStateTests testPausingIsOnlyPossibleWhileRecording]' started.
+Test Case '-[SnapletTests.RecordingStateTests testPausingIsOnlyPossibleWhileRecording]' passed (0.000 seconds).
 Test Case '-[SnapletTests.RecordingStateTests testStopRespondsOnlyWhileSomethingIsRunning]' started.
 Test Case '-[SnapletTests.RecordingStateTests testStopRespondsOnlyWhileSomethingIsRunning]' passed (0.000 seconds).
-Test Suite 'RecordingStateTests' failed at 2026-09-08 10:50:46.355.
-	 Executed 7 tests, with 1 failure (0 unexpected) in 0.048 (0.049) seconds
-Test Suite 'RecordingWriterTests' started at 2026-09-08 10:50:46.355.
+Test Suite 'RecordingStateTests' passed at 2026-09-09 21:37:46.568.
+	 Executed 10 tests, with 0 failures (0 unexpected) in 0.003 (0.006) seconds
+Test Suite 'RecordingWriterTests' started at 2026-09-09 21:37:46.570.
+Test Case '-[SnapletTests.RecordingWriterTests testAppendsAfterFinishingStartsAreRefused]' started.
+2026-09-09 21:37:46.574863+0300 Snaplet[23323:975693] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
+2026-09-09 21:37:46.575169+0300 Snaplet[23323:975693] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
+2026-09-09 21:37:46.575920+0300 Snaplet[23323:975693] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
+2026-09-09 21:37:46.576336+0300 Snaplet[23323:975693] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
+2026-09-09 21:37:46.576757+0300 Snaplet[23323:975693] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
+2026-09-09 21:37:46.577117+0300 Snaplet[23323:975693] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
+2026-09-09 21:37:46.577544+0300 Snaplet[23323:975693] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
+2026-09-09 21:37:46.577826+0300 Snaplet[23323:975693] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
+2026-09-09 21:37:46.578314+0300 Snaplet[23323:975693] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
+2026-09-09 21:37:46.578627+0300 Snaplet[23323:975693] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
+2026-09-09 21:37:46.579407+0300 Snaplet[23323:975693] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
+2026-09-09 21:37:46.579672+0300 Snaplet[23323:975693] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
+2026-09-09 21:37:46.580156+0300 Snaplet[23323:975693] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
+2026-09-09 21:37:46.580502+0300 Snaplet[23323:975693] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
+Test Case '-[SnapletTests.RecordingWriterTests testAppendsAfterFinishingStartsAreRefused]' passed (0.038 seconds).
 Test Case '-[SnapletTests.RecordingWriterTests testAudioFromBeforeTheFirstVideoFrameIsDroppedNotFatal]' started.
-2026-09-08 10:50:46.366373+0300 Snaplet[72963:1773371] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
-2026-09-08 10:50:46.366901+0300 Snaplet[72963:1773371] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
-2026-09-08 10:50:46.367892+0300 Snaplet[72963:1772858] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
-2026-09-08 10:50:46.368357+0300 Snaplet[72963:1772858] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
-2026-09-08 10:50:46.369040+0300 Snaplet[72963:1772858] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
-2026-09-08 10:50:46.369449+0300 Snaplet[72963:1772858] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
-2026-09-08 10:50:46.370292+0300 Snaplet[72963:1772858] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
-2026-09-08 10:50:46.370676+0300 Snaplet[72963:1772858] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
-2026-09-08 10:50:46.371517+0300 Snaplet[72963:1772858] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
-2026-09-08 10:50:46.371844+0300 Snaplet[72963:1772858] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
-2026-09-08 10:50:46.372668+0300 Snaplet[72963:1772858] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
-2026-09-08 10:50:46.373032+0300 Snaplet[72963:1772858] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
-2026-09-08 10:50:46.374178+0300 Snaplet[72963:1772858] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
-2026-09-08 10:50:46.374582+0300 Snaplet[72963:1772858] [Security] __delegate_identifier__:Performance Diagnostics__:::____message__:This method should not be called on the main thread as it may lead to UI unresponsiveness.
-/Users/berkcan/Documents/GitHub/mac-screen-recorder/SnapletTests/RecordingWriterTests.swift:193: error: -[SnapletTests.RecordingWriterTests testAudioFromBeforeTheFirstVideoFrameIsDroppedNotFatal] : XCTAssertGreaterThan failed: ("0") is not greater than ("0") - early audio should have been dropped
-Test Case '-[SnapletTests.RecordingWriterTests testAudioFromBeforeTheFirstVideoFrameIsDroppedNotFatal]' failed (0.064 seconds).
+Test Case '-[SnapletTests.RecordingWriterTests testAudioFromBeforeTheFirstVideoFrameIsDroppedNotFatal]' passed (0.044 seconds).
+Test Case '-[SnapletTests.RecordingWriterTests testDiagnosticSummaryNamesWhatTheWriterAccepted]' started.
+Test Case '-[SnapletTests.RecordingWriterTests testDiagnosticSummaryNamesWhatTheWriterAccepted]' passed (0.029 seconds).
+Test Case '-[SnapletTests.RecordingWriterTests testDiagnosticSummarySaysWhenAudioIsOff]' started.
+Test Case '-[SnapletTests.RecordingWriterTests testDiagnosticSummarySaysWhenAudioIsOff]' passed (0.004 seconds).
+Test Case '-[SnapletTests.RecordingWriterTests testPausingShortensTheTimelineInsteadOfLeavingDeadAir]' started.
+Test Case '-[SnapletTests.RecordingWriterTests testPausingShortensTheTimelineInsteadOfLeavingDeadAir]' passed (0.036 seconds).
+Test Case '-[SnapletTests.RecordingWriterTests testPausingTwiceInARowIsIgnored]' started.
+Test Case '-[SnapletTests.RecordingWriterTests testPausingTwiceInARowIsIgnored]' passed (0.022 seconds).
 Test Case '-[SnapletTests.RecordingWriterTests testRecordsABuiltInRetinaDisplayAtFullResolution]' started.
-Test Case '-[SnapletTests.RecordingWriterTests testRecordsABuiltInRetinaDisplayAtFullResolution]' passed (0.364 seconds).
+Test Case '-[SnapletTests.RecordingWriterTests testRecordsABuiltInRetinaDisplayAtFullResolution]' passed (0.327 seconds).
 Test Case '-[SnapletTests.RecordingWriterTests testRecordsAnExternal1080pDisplay]' started.
-Test Case '-[SnapletTests.RecordingWriterTests testRecordsAnExternal1080pDisplay]' passed (0.177 seconds).
+Test Case '-[SnapletTests.RecordingWriterTests testRecordsAnExternal1080pDisplay]' passed (0.167 seconds).
 Test Case '-[SnapletTests.RecordingWriterTests testRecordsATallOddSize]' started.
-Test Case '-[SnapletTests.RecordingWriterTests testRecordsATallOddSize]' passed (0.200 seconds).
+Test Case '-[SnapletTests.RecordingWriterTests testRecordsATallOddSize]' passed (0.193 seconds).
 Test Case '-[SnapletTests.RecordingWriterTests testRecordsWithoutAudio]' started.
-Test Case '-[SnapletTests.RecordingWriterTests testRecordsWithoutAudio]' passed (0.307 seconds).
+Test Case '-[SnapletTests.RecordingWriterTests testRecordsWithoutAudio]' passed (0.314 seconds).
 Test Case '-[SnapletTests.RecordingWriterTests testRepeatedOrRewoundTimestampsAreDroppedNotFatal]' started.
-Test Case '-[SnapletTests.RecordingWriterTests testRepeatedOrRewoundTimestampsAreDroppedNotFatal]' passed (0.063 seconds).
+Test Case '-[SnapletTests.RecordingWriterTests testRepeatedOrRewoundTimestampsAreDroppedNotFatal]' passed (0.056 seconds).
 Test Case '-[SnapletTests.RecordingWriterTests testWriteFailuresCarryTheDomainAndCode]' started.
 Test Case '-[SnapletTests.RecordingWriterTests testWriteFailuresCarryTheDomainAndCode]' passed (0.001 seconds).
-Test Suite 'RecordingWriterTests' failed at 2026-09-08 10:50:47.535.
-	 Executed 7 tests, with 1 failure (0 unexpected) in 1.176 (1.180) seconds
-Test Suite 'RedactionOutputTests' started at 2026-09-08 10:50:47.535.
+Test Suite 'RecordingWriterTests' passed at 2026-09-09 21:37:47.806.
+	 Executed 12 tests, with 0 failures (0 unexpected) in 1.232 (1.236) seconds
+Test Suite 'RedactionOutputTests' started at 2026-09-09 21:37:47.806.
 Test Case '-[SnapletTests.RedactionOutputTests testBlurSoftensFineDetailInsideItsRegion]' started.
-Test Case '-[SnapletTests.RedactionOutputTests testBlurSoftensFineDetailInsideItsRegion]' passed (0.053 seconds).
+Test Case '-[SnapletTests.RedactionOutputTests testBlurSoftensFineDetailInsideItsRegion]' passed (0.006 seconds).
 Test Case '-[SnapletTests.RedactionOutputTests testExportedDataDecodesToTheRenderedPixels]' started.
-Test Case '-[SnapletTests.RedactionOutputTests testExportedDataDecodesToTheRenderedPixels]' passed (0.003 seconds).
+Test Case '-[SnapletTests.RedactionOutputTests testExportedDataDecodesToTheRenderedPixels]' passed (0.002 seconds).
 Test Case '-[SnapletTests.RedactionOutputTests testPixelateReplacesFineDetailInsideItsRegion]' started.
-Test Case '-[SnapletTests.RedactionOutputTests testPixelateReplacesFineDetailInsideItsRegion]' passed (0.011 seconds).
+Test Case '-[SnapletTests.RedactionOutputTests testPixelateReplacesFineDetailInsideItsRegion]' passed (0.003 seconds).
 Test Case '-[SnapletTests.RedactionOutputTests testRedactionCoversItsRegionWithOpaquePixels]' started.
 Test Case '-[SnapletTests.RedactionOutputTests testRedactionCoversItsRegionWithOpaquePixels]' passed (0.001 seconds).
 Test Case '-[SnapletTests.RedactionOutputTests testRedactionSurvivesCropAndRotation]' started.
 Test Case '-[SnapletTests.RedactionOutputTests testRedactionSurvivesCropAndRotation]' passed (0.001 seconds).
-Test Suite 'RedactionOutputTests' passed at 2026-09-08 10:50:47.604.
-	 Executed 5 tests, with 0 failures (0 unexpected) in 0.068 (0.069) seconds
-Test Suite 'RenderTransformTests' started at 2026-09-08 10:50:47.604.
+Test Suite 'RedactionOutputTests' passed at 2026-09-09 21:37:47.821.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.013 (0.015) seconds
+Test Suite 'RenderTransformTests' started at 2026-09-09 21:37:47.821.
 Test Case '-[SnapletTests.RenderTransformTests testClockwiseRotationMovesTopLeftToTopRight]' started.
-Test Case '-[SnapletTests.RenderTransformTests testClockwiseRotationMovesTopLeftToTopRight]' passed (0.000 seconds).
+Test Case '-[SnapletTests.RenderTransformTests testClockwiseRotationMovesTopLeftToTopRight]' passed (0.001 seconds).
 Test Case '-[SnapletTests.RenderTransformTests testCropOnlyTranslatesCoordinates]' started.
-Test Case '-[SnapletTests.RenderTransformTests testCropOnlyTranslatesCoordinates]' passed (0.000 seconds).
+Test Case '-[SnapletTests.RenderTransformTests testCropOnlyTranslatesCoordinates]' passed (0.001 seconds).
 Test Case '-[SnapletTests.RenderTransformTests testFlatRenderMatchesCroppedSize]' started.
-Test Case '-[SnapletTests.RenderTransformTests testFlatRenderMatchesCroppedSize]' passed (0.000 seconds).
+Test Case '-[SnapletTests.RenderTransformTests testFlatRenderMatchesCroppedSize]' passed (0.001 seconds).
 Test Case '-[SnapletTests.RenderTransformTests testNegativeTurnsNormalise]' started.
-Test Case '-[SnapletTests.RenderTransformTests testNegativeTurnsNormalise]' passed (0.000 seconds).
+Test Case '-[SnapletTests.RenderTransformTests testNegativeTurnsNormalise]' passed (0.001 seconds).
 Test Case '-[SnapletTests.RenderTransformTests testQuarterTurnSwapsOutputDimensions]' started.
-Test Case '-[SnapletTests.RenderTransformTests testQuarterTurnSwapsOutputDimensions]' passed (0.000 seconds).
+Test Case '-[SnapletTests.RenderTransformTests testQuarterTurnSwapsOutputDimensions]' passed (0.001 seconds).
 Test Case '-[SnapletTests.RenderTransformTests testRotatedImageKeepsContentOnTheExpectedSide]' started.
-Test Case '-[SnapletTests.RenderTransformTests testRotatedImageKeepsContentOnTheExpectedSide]' passed (0.000 seconds).
+Test Case '-[SnapletTests.RenderTransformTests testRotatedImageKeepsContentOnTheExpectedSide]' passed (0.001 seconds).
 Test Case '-[SnapletTests.RenderTransformTests testThreeQuarterTurnsAreTheInverseOfOne]' started.
-Test Case '-[SnapletTests.RenderTransformTests testThreeQuarterTurnsAreTheInverseOfOne]' passed (0.000 seconds).
+Test Case '-[SnapletTests.RenderTransformTests testThreeQuarterTurnsAreTheInverseOfOne]' passed (0.001 seconds).
 Test Case '-[SnapletTests.RenderTransformTests testTwoQuarterTurnsMapCornersToOppositeCorners]' started.
-Test Case '-[SnapletTests.RenderTransformTests testTwoQuarterTurnsMapCornersToOppositeCorners]' passed (0.000 seconds).
-Test Suite 'RenderTransformTests' passed at 2026-09-08 10:50:47.609.
-	 Executed 8 tests, with 0 failures (0 unexpected) in 0.003 (0.004) seconds
-Test Suite 'ScreenGeometryTests' started at 2026-09-08 10:50:47.609.
+Test Case '-[SnapletTests.RenderTransformTests testTwoQuarterTurnsMapCornersToOppositeCorners]' passed (0.001 seconds).
+Test Suite 'RenderTransformTests' passed at 2026-09-09 21:37:47.828.
+	 Executed 8 tests, with 0 failures (0 unexpected) in 0.005 (0.007) seconds
+Test Suite 'ScreenGeometryTests' started at 2026-09-09 21:37:47.828.
 Test Case '-[SnapletTests.ScreenGeometryTests testAppKitToCoreGraphicsIsAnInvolution]' started.
-Test Case '-[SnapletTests.ScreenGeometryTests testAppKitToCoreGraphicsIsAnInvolution]' passed (0.000 seconds).
+Test Case '-[SnapletTests.ScreenGeometryTests testAppKitToCoreGraphicsIsAnInvolution]' passed (0.001 seconds).
 Test Case '-[SnapletTests.ScreenGeometryTests testPixelCropClampsToImageBounds]' started.
 Test Case '-[SnapletTests.ScreenGeometryTests testPixelCropClampsToImageBounds]' passed (0.000 seconds).
 Test Case '-[SnapletTests.ScreenGeometryTests testPixelCropOnDisplayWithNegativeOrigin]' started.
-Test Case '-[SnapletTests.ScreenGeometryTests testPixelCropOnDisplayWithNegativeOrigin]' passed (0.000 seconds).
+Test Case '-[SnapletTests.ScreenGeometryTests testPixelCropOnDisplayWithNegativeOrigin]' passed (0.001 seconds).
 Test Case '-[SnapletTests.ScreenGeometryTests testPixelCropOnRetinaPrimaryDisplay]' started.
 Test Case '-[SnapletTests.ScreenGeometryTests testPixelCropOnRetinaPrimaryDisplay]' passed (0.000 seconds).
 Test Case '-[SnapletTests.ScreenGeometryTests testPixelCropOnSecondaryDisplayUsesDisplayLocalCoordinates]' started.
@@ -539,43 +918,43 @@ Test Case '-[SnapletTests.ScreenGeometryTests testPixelCropOnSecondaryDisplayUse
 Test Case '-[SnapletTests.ScreenGeometryTests testPixelCropRejectsEmptySelection]' started.
 Test Case '-[SnapletTests.ScreenGeometryTests testPixelCropRejectsEmptySelection]' passed (0.000 seconds).
 Test Case '-[SnapletTests.ScreenGeometryTests testPixelCropRejectsSelectionCompletelyOutsideDisplay]' started.
-Test Case '-[SnapletTests.ScreenGeometryTests testPixelCropRejectsSelectionCompletelyOutsideDisplay]' passed (0.000 seconds).
+Test Case '-[SnapletTests.ScreenGeometryTests testPixelCropRejectsSelectionCompletelyOutsideDisplay]' passed (0.001 seconds).
 Test Case '-[SnapletTests.ScreenGeometryTests testRectFromTwoPointsIsAlwaysPositive]' started.
 Test Case '-[SnapletTests.ScreenGeometryTests testRectFromTwoPointsIsAlwaysPositive]' passed (0.000 seconds).
 Test Case '-[SnapletTests.ScreenGeometryTests testTopLeftOfPrimaryDisplayMapsToOrigin]' started.
 Test Case '-[SnapletTests.ScreenGeometryTests testTopLeftOfPrimaryDisplayMapsToOrigin]' passed (0.000 seconds).
-Test Suite 'ScreenGeometryTests' passed at 2026-09-08 10:50:47.614.
-	 Executed 9 tests, with 0 failures (0 unexpected) in 0.003 (0.005) seconds
-Test Suite 'SensitiveDataDetectorTests' started at 2026-09-08 10:50:47.616.
+Test Suite 'ScreenGeometryTests' passed at 2026-09-09 21:37:47.836.
+	 Executed 9 tests, with 0 failures (0 unexpected) in 0.005 (0.008) seconds
+Test Suite 'SensitiveDataDetectorTests' started at 2026-09-09 21:37:47.836.
 Test Case '-[SnapletTests.SensitiveDataDetectorTests testEmptyInputIsHandled]' started.
-Test Case '-[SnapletTests.SensitiveDataDetectorTests testEmptyInputIsHandled]' passed (0.000 seconds).
+Test Case '-[SnapletTests.SensitiveDataDetectorTests testEmptyInputIsHandled]' passed (0.001 seconds).
 Test Case '-[SnapletTests.SensitiveDataDetectorTests testFindsAddressesAndLongNumbers]' started.
 Test Case '-[SnapletTests.SensitiveDataDetectorTests testFindsAddressesAndLongNumbers]' passed (0.001 seconds).
 Test Case '-[SnapletTests.SensitiveDataDetectorTests testFindsEmailAddresses]' started.
-Test Case '-[SnapletTests.SensitiveDataDetectorTests testFindsEmailAddresses]' passed (0.000 seconds).
+Test Case '-[SnapletTests.SensitiveDataDetectorTests testFindsEmailAddresses]' passed (0.002 seconds).
 Test Case '-[SnapletTests.SensitiveDataDetectorTests testFindsTokenShapedStrings]' started.
-Test Case '-[SnapletTests.SensitiveDataDetectorTests testFindsTokenShapedStrings]' passed (0.000 seconds).
+Test Case '-[SnapletTests.SensitiveDataDetectorTests testFindsTokenShapedStrings]' passed (0.001 seconds).
 Test Case '-[SnapletTests.SensitiveDataDetectorTests testMatchesAreReturnedInReadingOrder]' started.
 Test Case '-[SnapletTests.SensitiveDataDetectorTests testMatchesAreReturnedInReadingOrder]' passed (0.000 seconds).
 Test Case '-[SnapletTests.SensitiveDataDetectorTests testOrdinaryTextIsNotFlagged]' started.
-Test Case '-[SnapletTests.SensitiveDataDetectorTests testOrdinaryTextIsNotFlagged]' passed (0.001 seconds).
+Test Case '-[SnapletTests.SensitiveDataDetectorTests testOrdinaryTextIsNotFlagged]' passed (0.000 seconds).
 Test Case '-[SnapletTests.SensitiveDataDetectorTests testOverlappingMatchesAreReportedOnce]' started.
-Test Case '-[SnapletTests.SensitiveDataDetectorTests testOverlappingMatchesAreReportedOnce]' passed (0.000 seconds).
-Test Suite 'SensitiveDataDetectorTests' passed at 2026-09-08 10:50:47.620.
-	 Executed 7 tests, with 0 failures (0 unexpected) in 0.004 (0.005) seconds
-Test Suite 'ShortcutAndNamingTests' started at 2026-09-08 10:50:47.620.
+Test Case '-[SnapletTests.SensitiveDataDetectorTests testOverlappingMatchesAreReportedOnce]' passed (0.001 seconds).
+Test Suite 'SensitiveDataDetectorTests' passed at 2026-09-09 21:37:47.843.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.005 (0.007) seconds
+Test Suite 'ShortcutAndNamingTests' started at 2026-09-09 21:37:47.844.
 Test Case '-[SnapletTests.ShortcutAndNamingTests testAnExplicitlyUnboundShortcutSurvivesAJSONRoundTrip]' started.
 Test Case '-[SnapletTests.ShortcutAndNamingTests testAnExplicitlyUnboundShortcutSurvivesAJSONRoundTrip]' passed (0.001 seconds).
 Test Case '-[SnapletTests.ShortcutAndNamingTests testCarbonModifiersMapFromAppKitFlags]' started.
-Test Case '-[SnapletTests.ShortcutAndNamingTests testCarbonModifiersMapFromAppKitFlags]' passed (0.000 seconds).
+Test Case '-[SnapletTests.ShortcutAndNamingTests testCarbonModifiersMapFromAppKitFlags]' passed (0.001 seconds).
 Test Case '-[SnapletTests.ShortcutAndNamingTests testDefaultShortcutsAreUniqueAndAvoidTheSystemScreenshotKeys]' started.
-Test Case '-[SnapletTests.ShortcutAndNamingTests testDefaultShortcutsAreUniqueAndAvoidTheSystemScreenshotKeys]' passed (0.002 seconds).
+Test Case '-[SnapletTests.ShortcutAndNamingTests testDefaultShortcutsAreUniqueAndAvoidTheSystemScreenshotKeys]' passed (0.000 seconds).
 Test Case '-[SnapletTests.ShortcutAndNamingTests testFileNameIsStableAndSortable]' started.
 Test Case '-[SnapletTests.ShortcutAndNamingTests testFileNameIsStableAndSortable]' passed (0.001 seconds).
 Test Case '-[SnapletTests.ShortcutAndNamingTests testPreferencesFallBackToDefaultShortcutsAndHonourExplicitUnbinding]' started.
-Test Case '-[SnapletTests.ShortcutAndNamingTests testPreferencesFallBackToDefaultShortcutsAndHonourExplicitUnbinding]' passed (0.000 seconds).
+Test Case '-[SnapletTests.ShortcutAndNamingTests testPreferencesFallBackToDefaultShortcutsAndHonourExplicitUnbinding]' passed (0.002 seconds).
 Test Case '-[SnapletTests.ShortcutAndNamingTests testPreferencesSurviveAJSONRoundTrip]' started.
-Test Case '-[SnapletTests.ShortcutAndNamingTests testPreferencesSurviveAJSONRoundTrip]' passed (0.000 seconds).
+Test Case '-[SnapletTests.ShortcutAndNamingTests testPreferencesSurviveAJSONRoundTrip]' passed (0.001 seconds).
 Test Case '-[SnapletTests.ShortcutAndNamingTests testShortcutRoundTripsThroughJSON]' started.
 Test Case '-[SnapletTests.ShortcutAndNamingTests testShortcutRoundTripsThroughJSON]' passed (0.000 seconds).
 Test Case '-[SnapletTests.ShortcutAndNamingTests testShortcutsWithoutACommandModifierAreRejected]' started.
@@ -584,55 +963,64 @@ Test Case '-[SnapletTests.ShortcutAndNamingTests testUniqueURLAvoidsOverwritingA
 Test Case '-[SnapletTests.ShortcutAndNamingTests testUniqueURLAvoidsOverwritingAnExistingFile]' passed (0.001 seconds).
 Test Case '-[SnapletTests.ShortcutAndNamingTests testUnsupportedModifiersAreDropped]' started.
 Test Case '-[SnapletTests.ShortcutAndNamingTests testUnsupportedModifiersAreDropped]' passed (0.000 seconds).
-Test Suite 'ShortcutAndNamingTests' passed at 2026-09-08 10:50:47.629.
-	 Executed 10 tests, with 0 failures (0 unexpected) in 0.006 (0.008) seconds
-Test Suite 'TextRecognitionGeometryTests' started at 2026-09-08 10:50:47.629.
+Test Suite 'ShortcutAndNamingTests' passed at 2026-09-09 21:37:47.853.
+	 Executed 10 tests, with 0 failures (0 unexpected) in 0.007 (0.009) seconds
+Test Suite 'TextRecognitionGeometryTests' started at 2026-09-09 21:37:47.853.
 Test Case '-[SnapletTests.TextRecognitionGeometryTests testNormalisedBoxBecomesPixelsWithATopLeftOrigin]' started.
 Test Case '-[SnapletTests.TextRecognitionGeometryTests testNormalisedBoxBecomesPixelsWithATopLeftOrigin]' passed (0.000 seconds).
 Test Case '-[SnapletTests.TextRecognitionGeometryTests testPaddingNeverPushesTheRectOffTheImage]' started.
 Test Case '-[SnapletTests.TextRecognitionGeometryTests testPaddingNeverPushesTheRectOffTheImage]' passed (0.000 seconds).
-Test Suite 'TextRecognitionGeometryTests' passed at 2026-09-08 10:50:47.631.
-	 Executed 2 tests, with 0 failures (0 unexpected) in 0.001 (0.002) seconds
-Test Suite 'TimeFormattingTests' started at 2026-09-08 10:50:47.631.
+Test Suite 'TextRecognitionGeometryTests' passed at 2026-09-09 21:37:47.855.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'TimeFormattingTests' started at 2026-09-09 21:37:47.855.
 Test Case '-[SnapletTests.TimeFormattingTests testClockSwitchesToHoursOnlyWhenNeeded]' started.
 Test Case '-[SnapletTests.TimeFormattingTests testClockSwitchesToHoursOnlyWhenNeeded]' passed (0.000 seconds).
 Test Case '-[SnapletTests.TimeFormattingTests testTimecodeIncludesTenths]' started.
 Test Case '-[SnapletTests.TimeFormattingTests testTimecodeIncludesTenths]' passed (0.000 seconds).
-Test Suite 'TimeFormattingTests' passed at 2026-09-08 10:50:47.632.
-	 Executed 2 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
-Test Suite 'VideoCompositionIntegrationTests' started at 2026-09-08 10:50:47.632.
+Test Suite 'TimeFormattingTests' passed at 2026-09-09 21:37:47.858.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.001 (0.003) seconds
+Test Suite 'VideoCompositionIntegrationTests' started at 2026-09-09 21:37:47.858.
 Test Case '-[SnapletTests.VideoCompositionIntegrationTests testCompositionAppliesRedactionToRenderedFrames]' started.
-2026-09-08 10:50:47.747915+0300 Snaplet[72963:1773368] [] <<<< SampleBuffer >>>> signalled err=-12733 at <>:4338
-2026-09-08 10:50:47.751813+0300 Snaplet[72963:1773437] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
-2026-09-08 10:50:47.768122+0300 Snaplet[72963:1773371] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
-2026-09-08 10:50:47.768174+0300 Snaplet[72963:1773371] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
-2026-09-08 10:50:47.768196+0300 Snaplet[72963:1773371] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
-2026-09-08 10:50:47.768230+0300 Snaplet[72963:1773371] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
-2026-09-08 10:50:47.770740+0300 Snaplet[72963:1772858] [] <<<< SampleBuffer >>>> signalled err=-12733 at <>:4338
-2026-09-08 10:50:47.770806+0300 Snaplet[72963:1772858] [] <<<< SampleBuffer >>>> signalled err=-12733 at <>:4338
-2026-09-08 10:50:47.778856+0300 Snaplet[72963:1773368] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
-2026-09-08 10:50:47.778903+0300 Snaplet[72963:1773368] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
-2026-09-08 10:50:47.778918+0300 Snaplet[72963:1773368] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
-2026-09-08 10:50:47.778963+0300 Snaplet[72963:1773358] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
-2026-09-08 10:50:47.781449+0300 Snaplet[72963:1773358] [] <<<< SampleBuffer >>>> signalled err=-12733 at <>:4338
-2026-09-08 10:50:47.788195+0300 Snaplet[72963:1773358] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
-2026-09-08 10:50:47.788237+0300 Snaplet[72963:1773358] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
-2026-09-08 10:50:47.788257+0300 Snaplet[72963:1773358] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
-2026-09-08 10:50:47.788291+0300 Snaplet[72963:1773358] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
-2026-09-08 10:50:47.790627+0300 Snaplet[72963:1772770] [] <<<< SampleBuffer >>>> signalled err=-12733 at <>:4338
-2026-09-08 10:50:47.790679+0300 Snaplet[72963:1772770] [] <<<< SampleBuffer >>>> signalled err=-12733 at <>:4338
-2026-09-08 10:50:47.798117+0300 Snaplet[72963:1773358] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
-2026-09-08 10:50:47.798160+0300 Snaplet[72963:1773358] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
-2026-09-08 10:50:47.798189+0300 Snaplet[72963:1773358] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
-2026-09-08 10:50:47.798222+0300 Snaplet[72963:1773358] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
-2026-09-08 10:50:47.800428+0300 Snaplet[72963:1773368] [] <<<< SampleBuffer >>>> signalled err=-12733 at <>:4338
-Test Case '-[SnapletTests.VideoCompositionIntegrationTests testCompositionAppliesRedactionToRenderedFrames]' passed (0.177 seconds).
+2026-09-09 21:37:47.991732+0300 Snaplet[23323:975782] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
+2026-09-09 21:37:47.995917+0300 Snaplet[23323:975716] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
+2026-09-09 21:37:47.995966+0300 Snaplet[23323:975716] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
+2026-09-09 21:37:47.995987+0300 Snaplet[23323:975716] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
+2026-09-09 21:37:47.996024+0300 Snaplet[23323:975716] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
+2026-09-09 21:37:48.002197+0300 Snaplet[23323:975500] [] <<<< SampleBuffer >>>> signalled err=-12733 at <>:4338
+2026-09-09 21:37:48.002214+0300 Snaplet[23323:975500] [] <<<< SampleBuffer >>>> signalled err=-12733 at <>:4338
+2026-09-09 21:37:48.002373+0300 Snaplet[23323:975500] [] <<<< SampleBuffer >>>> signalled err=-12733 at <>:4338
+2026-09-09 21:37:48.002390+0300 Snaplet[23323:975500] [] <<<< SampleBuffer >>>> signalled err=-12733 at <>:4338
+2026-09-09 21:37:48.013726+0300 Snaplet[23323:975717] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
+2026-09-09 21:37:48.013760+0300 Snaplet[23323:975717] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
+2026-09-09 21:37:48.013774+0300 Snaplet[23323:975717] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
+2026-09-09 21:37:48.013809+0300 Snaplet[23323:975498] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
+2026-09-09 21:37:48.017248+0300 Snaplet[23323:975498] [] <<<< SampleBuffer >>>> signalled err=-12733 at <>:4338
+2026-09-09 21:37:48.017273+0300 Snaplet[23323:975498] [] <<<< SampleBuffer >>>> signalled err=-12733 at <>:4338
+2026-09-09 21:37:48.026408+0300 Snaplet[23323:975693] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
+2026-09-09 21:37:48.026442+0300 Snaplet[23323:975693] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
+2026-09-09 21:37:48.026459+0300 Snaplet[23323:975693] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
+2026-09-09 21:37:48.026496+0300 Snaplet[23323:975372] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
+2026-09-09 21:37:48.029362+0300 Snaplet[23323:975693] [] <<<< SampleBuffer >>>> signalled err=-12733 at <>:4338
+2026-09-09 21:37:48.037718+0300 Snaplet[23323:975717] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
+2026-09-09 21:37:48.037751+0300 Snaplet[23323:975717] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
+2026-09-09 21:37:48.037766+0300 Snaplet[23323:975717] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
+2026-09-09 21:37:48.037802+0300 Snaplet[23323:975498] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
+Test Case '-[SnapletTests.VideoCompositionIntegrationTests testCompositionAppliesRedactionToRenderedFrames]' passed (0.196 seconds).
+Test Case '-[SnapletTests.VideoCompositionIntegrationTests testOpeningAVideoProducesAnEditableDocument]' started.
+2026-09-09 21:37:48.168180+0300 Snaplet[23323:975705] [] <<<< SampleBuffer >>>> signalled err=-12733 at <>:4338
+2026-09-09 21:37:48.168216+0300 Snaplet[23323:975705] [] <<<< SampleBuffer >>>> signalled err=-12733 at <>:4338
+2026-09-09 21:37:48.175310+0300 Snaplet[23323:975830] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
+2026-09-09 21:37:48.178431+0300 Snaplet[23323:975500] [player] <<<< FigAirPlay_Route >>>> signalled err=-12860 at <>:605
+Test Case '-[SnapletTests.VideoCompositionIntegrationTests testOpeningAVideoProducesAnEditableDocument]' passed (0.124 seconds).
+Test Case '-[SnapletTests.VideoCompositionIntegrationTests testOpeningSomethingThatIsNotAVideoReportsAnError]' started.
+2026-09-09 21:37:48.285845+0300 Snaplet[23323:975672] [] <<< FFR_Common >>> signalled err=-12848 at <>:4065
+Test Case '-[SnapletTests.VideoCompositionIntegrationTests testOpeningSomethingThatIsNotAVideoReportsAnError]' passed (0.108 seconds).
 Test Case '-[SnapletTests.VideoCompositionIntegrationTests testTrimmedExportProducesAShorterPlayableFile]' started.
-2026-09-08 10:50:47.931387+0300 Snaplet[72963:1773484] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
-Test Case '-[SnapletTests.VideoCompositionIntegrationTests testTrimmedExportProducesAShorterPlayableFile]' passed (0.152 seconds).
-Test Suite 'VideoCompositionIntegrationTests' passed at 2026-09-08 10:50:47.961.
-	 Executed 2 tests, with 0 failures (0 unexpected) in 0.329 (0.329) seconds
-Test Suite 'VideoEditModelTests' started at 2026-09-08 10:50:47.961.
+2026-09-09 21:37:48.411319+0300 Snaplet[23323:975859] [] <<<< CustomVideoCompositor >>>> signalled err=-12784 at <>:625
+Test Case '-[SnapletTests.VideoCompositionIntegrationTests testTrimmedExportProducesAShorterPlayableFile]' passed (0.158 seconds).
+Test Suite 'VideoCompositionIntegrationTests' passed at 2026-09-09 21:37:48.445.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.586 (0.587) seconds
+Test Suite 'VideoEditModelTests' started at 2026-09-09 21:37:48.445.
 Test Case '-[SnapletTests.VideoEditModelTests testCanvasSizeGrowsWhenStylingIsApplied]' started.
 Test Case '-[SnapletTests.VideoEditModelTests testCanvasSizeGrowsWhenStylingIsApplied]' passed (0.000 seconds).
 Test Case '-[SnapletTests.VideoEditModelTests testContentRectIsInsetAndCentredWithStyling]' started.
@@ -644,28 +1032,28 @@ Test Case '-[SnapletTests.VideoEditModelTests testGIFRangeIsCappedAtTheDocumente
 Test Case '-[SnapletTests.VideoEditModelTests testOutputSizeNeverUpscalesAndStaysEven]' started.
 Test Case '-[SnapletTests.VideoEditModelTests testOutputSizeNeverUpscalesAndStaysEven]' passed (0.000 seconds).
 Test Case '-[SnapletTests.VideoEditModelTests testOverlayVisibilityIsInclusiveOfItsBounds]' started.
-Test Case '-[SnapletTests.VideoEditModelTests testOverlayVisibilityIsInclusiveOfItsBounds]' passed (0.001 seconds).
-Test Suite 'VideoEditModelTests' passed at 2026-09-08 10:50:47.965.
-	 Executed 6 tests, with 0 failures (0 unexpected) in 0.003 (0.003) seconds
-Test Suite 'VideoRedactionCoverageTests' started at 2026-09-08 10:50:47.965.
+Test Case '-[SnapletTests.VideoEditModelTests testOverlayVisibilityIsInclusiveOfItsBounds]' passed (0.000 seconds).
+Test Suite 'VideoEditModelTests' passed at 2026-09-09 21:37:48.448.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.002 (0.003) seconds
+Test Suite 'VideoRedactionCoverageTests' started at 2026-09-09 21:37:48.448.
 Test Case '-[SnapletTests.VideoRedactionCoverageTests testRedactionCoversEveryFrameInItsRange]' started.
-Test Case '-[SnapletTests.VideoRedactionCoverageTests testRedactionCoversEveryFrameInItsRange]' passed (0.035 seconds).
+Test Case '-[SnapletTests.VideoRedactionCoverageTests testRedactionCoversEveryFrameInItsRange]' passed (0.016 seconds).
 Test Case '-[SnapletTests.VideoRedactionCoverageTests testRedactionStaysOverTheContentWhileZoomed]' started.
-Test Case '-[SnapletTests.VideoRedactionCoverageTests testRedactionStaysOverTheContentWhileZoomed]' passed (0.012 seconds).
+Test Case '-[SnapletTests.VideoRedactionCoverageTests testRedactionStaysOverTheContentWhileZoomed]' passed (0.013 seconds).
 Test Case '-[SnapletTests.VideoRedactionCoverageTests testRedactionSurvivesPresentationStyling]' started.
-Test Case '-[SnapletTests.VideoRedactionCoverageTests testRedactionSurvivesPresentationStyling]' passed (0.032 seconds).
-Test Suite 'VideoRedactionCoverageTests' passed at 2026-09-08 10:50:48.044.
-	 Executed 3 tests, with 0 failures (0 unexpected) in 0.079 (0.080) seconds
-Test Suite 'VisionRecognitionTests' started at 2026-09-08 10:50:48.045.
+Test Case '-[SnapletTests.VideoRedactionCoverageTests testRedactionSurvivesPresentationStyling]' passed (0.019 seconds).
+Test Suite 'VideoRedactionCoverageTests' passed at 2026-09-09 21:37:48.497.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.048 (0.049) seconds
+Test Suite 'VisionRecognitionTests' started at 2026-09-09 21:37:48.497.
 Test Case '-[SnapletTests.VisionRecognitionTests testBoundingBoxesUseATopLeftOriginInsideTheImage]' started.
-Test Case '-[SnapletTests.VisionRecognitionTests testBoundingBoxesUseATopLeftOriginInsideTheImage]' passed (0.217 seconds).
+Test Case '-[SnapletTests.VisionRecognitionTests testBoundingBoxesUseATopLeftOriginInsideTheImage]' passed (0.202 seconds).
 Test Case '-[SnapletTests.VisionRecognitionTests testRecognisesTextDrawnIntoAnImage]' started.
-Test Case '-[SnapletTests.VisionRecognitionTests testRecognisesTextDrawnIntoAnImage]' passed (0.048 seconds).
+Test Case '-[SnapletTests.VisionRecognitionTests testRecognisesTextDrawnIntoAnImage]' passed (0.057 seconds).
 Test Case '-[SnapletTests.VisionRecognitionTests testSuggestsARegionForAnEmailAddress]' started.
-Test Case '-[SnapletTests.VisionRecognitionTests testSuggestsARegionForAnEmailAddress]' passed (0.077 seconds).
-Test Suite 'VisionRecognitionTests' passed at 2026-09-08 10:50:48.388.
-	 Executed 3 tests, with 0 failures (0 unexpected) in 0.342 (0.343) seconds
-Test Suite 'ZoomEmphasisTests' started at 2026-09-08 10:50:48.388.
+Test Case '-[SnapletTests.VisionRecognitionTests testSuggestsARegionForAnEmailAddress]' passed (0.085 seconds).
+Test Suite 'VisionRecognitionTests' passed at 2026-09-09 21:37:48.841.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.343 (0.344) seconds
+Test Suite 'ZoomEmphasisTests' started at 2026-09-09 21:37:48.841.
 Test Case '-[SnapletTests.ZoomEmphasisTests testFlippedTransformMirrorsTheVerticalAxis]' started.
 Test Case '-[SnapletTests.ZoomEmphasisTests testFlippedTransformMirrorsTheVerticalAxis]' passed (0.000 seconds).
 Test Case '-[SnapletTests.ZoomEmphasisTests testFullyZoomedTransformPutsTheFocusCentreAtTheFrameCentre]' started.
@@ -680,22 +1068,22 @@ Test Case '-[SnapletTests.ZoomEmphasisTests testRampIsClampedForVeryShortRanges]
 Test Case '-[SnapletTests.ZoomEmphasisTests testRampIsClampedForVeryShortRanges]' passed (0.000 seconds).
 Test Case '-[SnapletTests.ZoomEmphasisTests testTransformIsIdentityOutsideTheRange]' started.
 Test Case '-[SnapletTests.ZoomEmphasisTests testTransformIsIdentityOutsideTheRange]' passed (0.000 seconds).
-Test Suite 'ZoomEmphasisTests' passed at 2026-09-08 10:50:48.393.
-	 Executed 7 tests, with 0 failures (0 unexpected) in 0.003 (0.005) seconds
-Test Suite 'SnapletTests.xctest' failed at 2026-09-08 10:50:48.393.
-	 Executed 120 tests, with 2 failures (0 unexpected) in 13.423 (13.456) seconds
-Test Suite 'All tests' failed at 2026-09-08 10:50:48.393.
-	 Executed 120 tests, with 2 failures (0 unexpected) in 13.423 (13.457) seconds
-2026-09-08 10:50:53.582 xcodebuild[72909:1772349] [MT] IDETestOperationsObserverDebug: 19.169 elapsed -- Testing started completed.
-2026-09-08 10:50:53.582 xcodebuild[72909:1772349] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
-2026-09-08 10:50:53.582 xcodebuild[72909:1772349] [MT] IDETestOperationsObserverDebug: 19.169 sec, +19.169 sec -- end
+Test Suite 'ZoomEmphasisTests' passed at 2026-09-09 21:37:48.845.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.003 (0.004) seconds
+Test Suite 'SnapletTests.xctest' failed at 2026-09-09 21:37:48.845.
+	 Executed 176 tests, with 6 tests skipped and 2 failures (0 unexpected) in 13.512 (13.560) seconds
+Test Suite 'All tests' failed at 2026-09-09 21:37:48.845.
+	 Executed 176 tests, with 6 tests skipped and 2 failures (0 unexpected) in 13.512 (13.561) seconds
+2026-09-09 21:37:53.103 xcodebuild[23257:974923] [MT] IDETestOperationsObserverDebug: 18.337 elapsed -- Testing started completed.
+2026-09-09 21:37:53.103 xcodebuild[23257:974923] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-09-09 21:37:53.103 xcodebuild[23257:974923] [MT] IDETestOperationsObserverDebug: 18.337 sec, +18.337 sec -- end
 
 Test session results, code coverage, and logs:
-	/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Logs/Test/Test-Snaplet-2026.09.08_10-50-32-+0300.xcresult
+	/Users/berkcan/Library/Developer/Xcode/DerivedData/Snaplet-boakelxvwxvqmncwrmtaqvqfmohf/Logs/Test/Test-Snaplet-2026.09.09_21-37-32-+0300.xcresult
 
 Failing tests:
-	RecordingStateTests.testFinalisationRunsBeforeReturningToIdle()
-	RecordingWriterTests.testAudioFromBeforeTheFirstVideoFrameIsDroppedNotFatal()
+	EditorZoomTests.testFitAndActualSizeAreDistinctStates()
+	EditorZoomTests.testTheEditorOpensFittedToTheWindow()
 
 ** TEST FAILED **
 

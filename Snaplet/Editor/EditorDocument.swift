@@ -29,6 +29,29 @@ final class EditorDocument: ObservableObject {
     @Published var fontSize: Double = 36
     @Published var effectStrength: Double = 20
 
+    /// Points shown per source point. 0 means "fit the window", which is the
+    /// state the editor opens in and returns to with ⌘0.
+    @Published var zoom: Double = 0
+
+    /// Steps the keyboard and the zoom menu move between.
+    static let zoomSteps: [Double] = [0.25, 0.33, 0.5, 0.67, 1, 1.5, 2, 3, 4]
+
+    var zoomDescription: String {
+        zoom <= 0 ? String(localized: "Fit") : "\(Int((zoom * 100).rounded()))%"
+    }
+
+    func zoomIn() { zoom = Self.zoomSteps.first { $0 > effectiveZoom } ?? Self.zoomSteps.last! }
+
+    func zoomOut() { zoom = Self.zoomSteps.last { $0 < effectiveZoom } ?? Self.zoomSteps.first! }
+
+    func zoomToFit() { zoom = 0 }
+
+    func zoomToActualSize() { zoom = 1 }
+
+    /// The factor currently on screen. Reported by the canvas so stepping from
+    /// "fit" continues from what the user can actually see.
+    @Published var effectiveZoom: Double = 1
+
     private struct Snapshot: Equatable {
         var annotations: [Annotation]
         var cropRect: CGRect

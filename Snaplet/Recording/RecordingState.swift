@@ -7,6 +7,7 @@ enum RecordingState: Equatable {
     case preparing
     case countingDown(remaining: Int)
     case recording(startedAt: Date)
+    case paused(since: Date)
     case stopping
     case finalizing
     case failed(SnapletError)
@@ -23,10 +24,18 @@ enum RecordingState: Equatable {
         return false
     }
 
+    var isPaused: Bool {
+        if case .paused = self { return true }
+        return false
+    }
+
+    /// Pausing only makes sense once frames are actually being written.
+    var canPause: Bool { isRecording }
+
     /// Whether the user pressing the toggle should stop rather than start.
     var respondsToStop: Bool {
         switch self {
-        case .countingDown, .recording: return true
+        case .countingDown, .recording, .paused: return true
         default: return false
         }
     }
@@ -40,6 +49,9 @@ enum RecordingState: Equatable {
              (.countingDown, .recording),
              (.countingDown, .stopping),
              (.recording, .stopping),
+             (.recording, .paused),
+             (.paused, .recording),
+             (.paused, .stopping),
              (.stopping, .finalizing),
              (.finalizing, .idle),
              (.idle, .idle),

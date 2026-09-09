@@ -63,6 +63,23 @@ final class RecordingStateTests: XCTestCase {
         }
     }
 
+    func testPausingIsOnlyPossibleWhileRecording() {
+        XCTAssertTrue(RecordingState.recording(startedAt: Date()).canPause)
+        XCTAssertFalse(RecordingState.countingDown(remaining: 2).canPause)
+        XCTAssertFalse(RecordingState.idle.canPause)
+        XCTAssertFalse(RecordingState.finalizing.canPause)
+    }
+
+    func testAPausedRecordingCanResumeOrStopButNotRestart() {
+        let paused = RecordingState.paused(since: Date())
+        XCTAssertTrue(paused.canTransition(to: .recording(startedAt: Date())))
+        XCTAssertTrue(paused.canTransition(to: .stopping))
+        XCTAssertFalse(paused.canTransition(to: .preparing))
+        XCTAssertFalse(paused.canTransition(to: .idle),
+                       "a paused recording still owns an open file")
+        XCTAssertTrue(paused.respondsToStop)
+    }
+
     func testStopRespondsOnlyWhileSomethingIsRunning() {
         XCTAssertTrue(RecordingState.recording(startedAt: Date()).respondsToStop)
         XCTAssertTrue(RecordingState.countingDown(remaining: 2).respondsToStop)

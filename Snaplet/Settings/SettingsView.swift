@@ -45,7 +45,7 @@ struct SettingsView: View {
                     .tag(tab)
             }
         }
-        .frame(width: 560, height: 520)
+        .frame(minWidth: 620, minHeight: 540)
     }
 
     @ViewBuilder
@@ -78,6 +78,16 @@ struct GeneralSettingsView: View {
                        isOn: $settings.preferences.showPreviewPanel)
                 Toggle(String(localized: "Play a sound when a capture succeeds"),
                        isOn: $settings.preferences.playCaptureSound)
+                Picker(String(localized: "Delay before capturing"),
+                       selection: $settings.preferences.captureDelaySeconds) {
+                    Text(String(localized: "None")).tag(0)
+                    Text("3s").tag(3)
+                    Text("5s").tag(5)
+                    Text("10s").tag(10)
+                }
+                Text(String(localized: "A delay runs after you choose what to capture, so you can open a menu or hover something first."))
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
 
             Section(String(localized: "Output folder")) {
@@ -264,29 +274,55 @@ struct AboutSettingsView: View {
         return "\(short) (\(build))"
     }
 
+    /// The real app icon rather than a stand-in symbol, so this pane looks like
+    /// the app people just launched.
+    private var appIcon: NSImage {
+        NSApp.applicationIconImage ?? NSImage(systemSymbolName: "camera.viewfinder",
+                                              accessibilityDescription: nil) ?? NSImage()
+    }
+
     var body: some View {
-        VStack(spacing: 12) {
-            Image(systemName: "camera.viewfinder")
-                .font(.system(size: 48))
-                .foregroundStyle(.tint)
-            Text("Snaplet").font(.title.weight(.semibold))
+        VStack(spacing: 0) {
+            Spacer(minLength: 24)
+
+            Image(nsImage: appIcon)
+                .resizable()
+                .frame(width: 96, height: 96)
+                .accessibilityHidden(true)
+
+            Text("Snaplet")
+                .font(.system(size: 28, weight: .semibold))
+                .padding(.top, 10)
+
             Text(String(localized: "Capture instantly. Explain clearly. Share beautifully."))
+                .font(.callout)
                 .foregroundStyle(.secondary)
+                .padding(.top, 2)
+
             Text(String(localized: "Version \(version)"))
                 .font(.caption)
-                .foregroundStyle(.secondary)
-            Divider().padding(.horizontal, 60)
+                .foregroundStyle(.tertiary)
+                .padding(.top, 8)
+                .textSelection(.enabled)
+
+            Divider()
+                .padding(.horizontal, 80)
+                .padding(.vertical, 20)
+
             Text(String(localized: "Captures, edits, OCR and exports all happen on this Mac. Snaplet has no account, no telemetry and makes no network requests."))
                 .font(.callout)
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.secondary)
-                .padding(.horizontal, 30)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.horizontal, 44)
+
+            Spacer(minLength: 24)
+
             Text(String(localized: "MIT licensed."))
                 .font(.caption)
-                .foregroundStyle(.secondary)
-            Spacer()
+                .foregroundStyle(.tertiary)
+                .padding(.bottom, 20)
         }
-        .padding(.top, 32)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }

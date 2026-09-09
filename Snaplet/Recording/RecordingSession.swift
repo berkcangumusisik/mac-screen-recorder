@@ -45,6 +45,12 @@ final class RecordingSession {
 
     private(set) var outputSize: CGSize = .zero
 
+    /// Drops samples while paused and shortens the timeline by the pause length,
+    /// so the file has no dead air.
+    func setPaused(_ paused: Bool) {
+        writer?.setPaused(paused)
+    }
+
     /// The display this session is bound to, used to notice an unplugged monitor.
     var configurationDisplayID: CGDirectDisplayID? { configuration.target.displayID }
 

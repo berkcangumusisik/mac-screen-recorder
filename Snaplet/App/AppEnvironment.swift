@@ -1,5 +1,6 @@
 import AppKit
 import SwiftUI
+import UniformTypeIdentifiers
 
 /// Composition root. Every long-lived service is created here exactly once and
 /// handed to the pieces that need it.
@@ -20,6 +21,7 @@ final class AppEnvironment: ObservableObject, CaptureCoordinatorDelegate {
     lazy var textRecognitionPresenter = TextRecognitionPresenter()
     lazy var bugReportPresenter = BugReportPresenter(environment: self)
     lazy var libraryWindow = LibraryWindowController(environment: self)
+    let pinnedShots = PinnedShotController()
     private var settingsWindow: SettingsWindowController?
     private var helpWindow: HelpWindowController?
 
@@ -38,6 +40,7 @@ final class AppEnvironment: ObservableObject, CaptureCoordinatorDelegate {
         previewController.onEdit = { [weak self] capture in self?.openEditor(for: capture) }
         previewController.onSave = { [weak self] capture in self?.saveOnDemand(capture) }
         previewController.onCreateBugReport = { [weak self] capture in self?.openBugReport(for: capture) }
+        previewController.onPin = { [weak self] capture in self?.pin(capture) }
 
         HotkeyManager.shared.setHandler { [weak self] action in
             self?.perform(action)
@@ -47,6 +50,7 @@ final class AppEnvironment: ObservableObject, CaptureCoordinatorDelegate {
 
     func stop() {
         recordingPresenter.finalizeForTermination()
+        pinnedShots.closeAll()
         HotkeyManager.shared.unregisterAll()
         previewController.dismiss()
         TemporaryFiles.sweep()
@@ -195,6 +199,21 @@ final class AppEnvironment: ObservableObject, CaptureCoordinatorDelegate {
         bugReportPresenter.present(image: capture.result.image, mediaURL: capture.savedURL)
     }
 
+    /// Keeps a capture floating above everything else.
+    func pin(_ capture: PendingCapture) {
+        pinnedShots.pin(image: capture.result.image,
+                        scale: capture.result.scale,
+                        capturedAt: capture.result.capturedAt)
+    }
+
+    func pin(image: CGImage, scale: CGFloat) {
+        pinnedShots.pin(image: image, scale: scale)
+    }
+
+    var pinnedShotCount: Int { pinnedShots.count }
+
+    func closeAllPins() { pinnedShots.closeAll() }
+
     func openBugReport(forRenderedImage image: CGImage?, stepCount: Int = 0) {
         bugReportPresenter.present(image: image, mediaURL: nil, stepCount: stepCount)
     }
@@ -216,6 +235,49 @@ final class AppEnvironment: ObservableObject, CaptureCoordinatorDelegate {
 
     func clearLibrary() {
         library.clearAll()
+    }
+
+    /// Opens an image or a video from disk in the editor that suits it.
+    ///
+    /// Without this the video editor was only reachable from the preview panel,
+    /// which dismisses itself, or from the history — so an existing recording
+    /// could not be edited at all.
+    func openFilePicker() {
+        let panel = NSOpenPanel()
+        panel.allowedContentTypes = [.image, .movie]
+        panel.allowsMultipleSelection = true
+        panel.canChooseDirectories = false
+        panel.prompt = String(localized: "Open")
+        panel.message = String(localized: "Choose an image or a video to edit.")
+        NSApp.activate(ignoringOtherApps: true)
+        guard panel.runModal() == .OK else { return }
+        open(urls: panel.urls)
+    }
+
+    func open(urls: [URL]) {
+        for url in urls { open(url: url) }
+    }
+
+    func open(url: URL) {
+        guard FileManager.default.fileExists(atPath: url.path) else {
+            ErrorPresenter.present(.fileWriteFailed(String(localized: "that file is no longer on disk")))
+            return
+        }
+        let type = UTType(filenameExtension: url.pathExtension)
+        if type?.conforms(to: .movie) == true || type?.conforms(to: .audiovisualContent) == true {
+            videoEditorPresenter.present(url: url)
+            return
+        }
+        guard let source = CGImageSourceCreateWithURL(url as CFURL, nil),
+              let image = CGImageSourceCreateImageAtIndex(source, 0, nil) else {
+            ErrorPresenter.present(.unsupportedImageData)
+            return
+        }
+        let scale = NSScreen.main?.backingScaleFactor ?? 2
+        editorPresenter.present(CaptureResult(image: image,
+                                              scale: scale,
+                                              source: .importedFile(url)),
+                                savedURL: url)
     }
 
     /// Reopens a stored capture in the right editor.

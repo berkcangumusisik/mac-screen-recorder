@@ -252,6 +252,53 @@ final class VideoCompositionIntegrationTests: XCTestCase {
         XCTAssertGreaterThan(pixel.r, 150, "frames outside the range should be untouched")
     }
 
+    /// The whole video editing path, from opening a file to having something
+    /// editable: this is what "open a recording and edit it" actually runs.
+    @MainActor
+    func testOpeningAVideoProducesAnEditableDocument() async throws {
+        let document = VideoDocument(url: url)
+        await document.load()
+
+        XCTAssertNil(document.loadError)
+        XCTAssertTrue(document.isLoaded)
+        XCTAssertEqual(document.duration, 2.0, accuracy: 0.2)
+        XCTAssertEqual(document.sourceSize, CGSize(width: 320, height: 240))
+        XCTAssertGreaterThan(document.frameRate, 1)
+
+        // Trim defaults to the whole clip.
+        XCTAssertEqual(document.edit.trimStart, 0)
+        XCTAssertEqual(document.edit.trimEnd, document.duration, accuracy: 0.01)
+
+        // The editing tools operate on it.
+        document.addOverlay(kind: .redaction, frame: CGRect(x: 0.2, y: 0.2, width: 0.3, height: 0.3))
+        document.addZoom(focus: CGRect(x: 0.1, y: 0.1, width: 0.4, height: 0.4))
+        XCTAssertEqual(document.edit.overlays.count, 1)
+        XCTAssertEqual(document.edit.zooms.count, 1)
+
+        document.selectedOverlayID = document.edit.overlays.first?.id
+        document.deleteSelection()
+        XCTAssertTrue(document.edit.overlays.isEmpty)
+
+        // And a frame can be pulled out as a still.
+        let frame = await document.extractFrame(at: 1.0)
+        XCTAssertNotNil(frame, "frame extraction is how 'save this moment' works")
+        XCTAssertEqual(frame?.width, 320)
+    }
+
+    @MainActor
+    func testOpeningSomethingThatIsNotAVideoReportsAnError() async throws {
+        let text = FileManager.default.temporaryDirectory
+            .appendingPathComponent("snaplet-not-a-video-\(UUID().uuidString).mp4")
+        try Data("this is not a movie".utf8).write(to: text)
+        defer { try? FileManager.default.removeItem(at: text) }
+
+        let document = VideoDocument(url: text)
+        await document.load()
+
+        XCTAssertFalse(document.isLoaded)
+        XCTAssertNotNil(document.loadError, "a broken file must surface an error, not hang")
+    }
+
     func testTrimmedExportProducesAShorterPlayableFile() async throws {
         let asset = AVURLAsset(url: url)
         let size = try await VideoCompositionBuilder.displaySize(of: asset)

@@ -59,8 +59,11 @@ openssl req -x509 -newkey rsa:2048 -nodes \
   -keyout "$WORK/key.pem" -out "$WORK/cert.pem" \
   -days "$DAYS" -config "$WORK/openssl.cnf" >/dev/null 2>&1
 
+# macOS refuses a PKCS#12 bundle with an empty passphrase, so give it a
+# throwaway one. It lives only in this script's temporary directory.
+P12_PASS=$(openssl rand -hex 16)
 openssl pkcs12 -export -inkey "$WORK/key.pem" -in "$WORK/cert.pem" \
-  -out "$WORK/identity.p12" -passout pass: -name "$NAME" >/dev/null 2>&1
+  -out "$WORK/identity.p12" -passout "pass:$P12_PASS" -name "$NAME" >/dev/null 2>&1
 
 KEYCHAIN="$HOME/Library/Keychains/login.keychain-db"
 [ -f "$KEYCHAIN" ] || KEYCHAIN="$HOME/Library/Keychains/login.keychain"
@@ -68,12 +71,16 @@ KEYCHAIN="$HOME/Library/Keychains/login.keychain-db"
 echo "Importing into your login keychain (macOS will ask for your password)…"
 # -T lets codesign use the key without prompting on every build.
 security import "$WORK/identity.p12" \
-  -k "$KEYCHAIN" -P "" -f pkcs12 \
+  -k "$KEYCHAIN" -P "$P12_PASS" -f pkcs12 \
   -T /usr/bin/codesign -T /usr/bin/security >/dev/null
 
 echo "Marking the certificate as trusted for code signing…"
-# User trust domain only — this does not touch the system trust store.
-security add-trusted-cert -r trustRoot -p codeSign -k "$KEYCHAIN" "$WORK/cert.pem"
+# User trust domain only — this does not touch the system trust store. Signing
+# works without it; trust is what makes the identity show up under
+# "find-identity -v", which is how everyone checks.
+TRUSTED=yes
+security add-trusted-cert -r trustRoot -p codeSign -k "$KEYCHAIN" "$WORK/cert.pem" \
+  || TRUSTED=no
 
 # Lets codesign use the key without a prompt on every build. This asks for your
 # login keychain password; skipping it only means macOS will ask for permission
@@ -87,17 +94,25 @@ echo
 if security find-identity -v -p codesigning | grep -qF "$NAME"; then
   echo "Done. \"$NAME\" is ready:"
   security find-identity -v -p codesigning | grep -F "$NAME" | sed 's/^/  /'
-  echo
-  echo "Build with it:"
-  echo "  SIGN_IDENTITY=\"$NAME\" ./scripts/build-release.sh"
-  echo
-  echo "Then grant Screen & System Audio Recording once. It will survive rebuilds."
-  echo
-  echo "If a stale entry gets in the way first:"
-  echo "  tccutil reset ScreenCapture app.snaplet.Snaplet"
+elif security find-identity -p codesigning | grep -qF "$NAME"; then
+  echo "\"$NAME\" is in your keychain and codesign can use it, but macOS does"
+  echo "not list it as trusted, so \"find-identity -v\" will not show it."
+  echo "Builds will still work. To clear the warning, open Keychain Access, find"
+  echo "\"$NAME\", and set Code Signing trust to \"Always Trust\"."
+  [ "$TRUSTED" = "no" ] && echo "(The trust step was declined or failed.)"
 else
-  echo "The certificate was created but is not showing as a valid code-signing" >&2
-  echo "identity. Open Keychain Access, find \"$NAME\", and set its trust for" >&2
-  echo "Code Signing to \"Always Trust\"." >&2
+  echo "The certificate was imported but no matching identity was found." >&2
+  echo "The private key probably did not import. Try again, or create the" >&2
+  echo "certificate by hand: Keychain Access > Certificate Assistant >" >&2
+  echo "Create a Certificate, Self Signed Root, Code Signing." >&2
   exit 1
 fi
+
+echo
+echo "Build with it:"
+echo "  SIGN_IDENTITY=\"$NAME\" ./scripts/build-release.sh"
+echo
+echo "Then grant Screen & System Audio Recording once. It will survive rebuilds."
+echo
+echo "If a stale entry gets in the way first:"
+echo "  tccutil reset ScreenCapture app.snaplet.Snaplet"

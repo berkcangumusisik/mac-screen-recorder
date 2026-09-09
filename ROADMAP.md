@@ -18,17 +18,6 @@ Roughly in order of how much they would improve daily use.
 - **Screenshots and a demo recording for the README.** The scenarios are already
   written down in [docs/demo-scenarios.md](docs/demo-scenarios.md); they need a
   machine with screen-recording permission.
-- **Measure capture latency on real hardware.** `shortcut→overlay` and
-  `selection→clipboard` are instrumented in the app but not yet published,
-  because they have not been measured on a range of displays. See
-  [docs/performance.md](docs/performance.md).
-- **Selection across multiple displays.** Today a selection stays within the
-  display where the drag started.
-- **Pause and resume while recording.**
-- **Inline text editing on the editor canvas.** Text and callout content is
-  currently edited in the inspector.
-- **Zoom and pan in the screenshot editor** beyond the current fit / 50% / 100%
-  / 200% steps.
 - **Adopt the Swift 6 language mode.** The code already uses structured
   concurrency and actor isolation, but the targets build in Swift 5 mode with
   minimal concurrency checking.
@@ -38,8 +27,9 @@ Roughly in order of how much they would improve daily use.
 
 ## Considered, not committed
 
-- Automatic object tracking and automatic cinematic zoom. Both are easy to do
-  badly; zoom emphases are placed by hand for now.
+- Automatic object tracking, cursor smoothing and cinematic zoom that follows
+  clicks. All three are easy to do badly; zoom emphases are placed by hand for
+  now.
 - Scrolling capture.
 - A shareable link or any hosted component. This would mean a server, and
   Snaplet's promise is that nothing leaves the Mac.

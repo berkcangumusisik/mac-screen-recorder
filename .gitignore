@@ -26,3 +26,6 @@ Packages/
 # Editors
 .idea/
 *.swp
+
+# Test failure log written by scripts/run-tests.sh
+snaplet-test.log

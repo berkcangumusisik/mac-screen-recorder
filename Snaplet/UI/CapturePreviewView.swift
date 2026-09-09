@@ -9,6 +9,7 @@ struct CapturePreviewView: View {
     let onEdit: () -> Void
     let onSave: () -> Void
     let onBugReport: () -> Void
+    let onPin: () -> Void
     let onClose: () -> Void
     let onHoverChange: (Bool) -> Void
 
@@ -56,9 +57,16 @@ struct CapturePreviewView: View {
             .resizable()
             .interpolation(.high)
             .aspectRatio(contentMode: .fit)
-            .frame(maxWidth: .infinity, maxHeight: 96)
-            .background(Color.black.opacity(0.06))
-            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+            .frame(maxWidth: .infinity, maxHeight: 108)
+            .padding(4)
+            .background(
+                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    .fill(Color.primary.opacity(0.05))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    .strokeBorder(Color.primary.opacity(0.08))
+            )
             .onDrag {
                 let format = settings.preferences.imageFormat
                 guard let url = capture.fileURLForDragging(format: format,
@@ -68,21 +76,27 @@ struct CapturePreviewView: View {
                 }
                 return provider
             }
+            .help(String(localized: "Drag to copy the file into another app"))
             .accessibilityLabel(Text("Captured image, \(pixelDescription). Drag to copy the file.",
                                      comment: "Preview thumbnail accessibility label"))
     }
 
+    /// One control group: the next step people actually take is Edit, so it
+    /// carries the emphasis and the rest sit at equal weight beside it.
     private var actions: some View {
         HStack(spacing: 6) {
             Button(action: onEdit) {
                 Label("Edit", systemImage: "pencil.tip.crop.circle")
             }
+            .buttonStyle(.borderedProminent)
             .keyboardShortcut("e", modifiers: [])
+            .help(String(localized: "Open in the editor"))
 
             if capture.savedURL == nil {
                 Button(action: onSave) {
                     Label("Save", systemImage: "square.and.arrow.down")
                 }
+                .help(String(localized: "Save to the output folder"))
             } else {
                 Button {
                     if let url = capture.savedURL {
@@ -91,16 +105,28 @@ struct CapturePreviewView: View {
                 } label: {
                     Label("Show in Finder", systemImage: "folder")
                 }
+                .help(String(localized: "Show in Finder"))
             }
+
+            if capture.kind == .image {
+                Button(action: onPin) {
+                    Label("Pin to screen", systemImage: "pin")
+                }
+                .help(String(localized: "Keep this on top of every window"))
+            }
+
+            Spacer(minLength: 0)
 
             Menu {
                 Button("Copy Again") { Clipboard.copy(image: capture.result.image) }
                 Button("Create Bug Report…", action: onBugReport)
             } label: {
-                Image(systemName: "ellipsis.circle")
+                Image(systemName: "ellipsis")
             }
-            .menuStyle(.borderlessButton)
-            .frame(width: 28)
+            .menuStyle(.button)
+            .menuIndicator(.hidden)
+            .fixedSize()
+            .help(String(localized: "More actions"))
             .accessibilityLabel(Text("More actions", comment: "Preview overflow menu"))
         }
         .labelStyle(.iconOnly)

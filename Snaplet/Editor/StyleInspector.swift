@@ -87,13 +87,13 @@ struct StyleInspector: View {
     private func backgroundSection(_ style: StylePreset) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(String(localized: "Background")).font(.headline)
-            Picker("", selection: backgroundKindBinding) {
+            // A menu rather than a segmented control: four labels do not fit the
+            // inspector's width in any language, and segments truncate silently.
+            Picker(String(localized: "Type"), selection: backgroundKindBinding) {
                 ForEach(BackgroundKind.allCases) { kind in
                     Text(kind.title).tag(kind)
                 }
             }
-            .pickerStyle(.segmented)
-            .labelsHidden()
 
             switch style.background {
             case .solid(let color):

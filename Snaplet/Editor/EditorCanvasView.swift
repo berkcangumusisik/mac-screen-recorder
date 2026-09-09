@@ -7,7 +7,7 @@ import SwiftUI
 /// The view's bounds are always exactly the displayed image, so mapping between
 /// view points and source pixels is a single uniform scale composed with the
 /// document's crop/rotation transform.
-final class EditorCanvasView: NSView {
+final class EditorCanvasView: NSView, NSTextViewDelegate {
 
     enum Handle: CaseIterable {
         case topLeft, top, topRight, right, bottomRight, bottom, bottomLeft, left
@@ -54,15 +54,45 @@ final class EditorCanvasView: NSView {
     private var pointsAtDragStart: [CGPoint] = []
     private var isDraggingCrop = false
 
+    /// Text being edited directly on the canvas, rather than in the inspector.
+    private var editingAnnotationID: UUID?
+    private lazy var textEditor: NSTextView = {
+        let view = NSTextView(frame: .zero)
+        view.delegate = self
+        view.isRichText = false
+        view.drawsBackground = true
+        view.backgroundColor = NSColor.textBackgroundColor.withAlphaComponent(0.92)
+        view.textContainerInset = NSSize(width: 2, height: 2)
+        view.isAutomaticQuoteSubstitutionEnabled = false
+        view.isAutomaticDashSubstitutionEnabled = false
+        view.isHidden = true
+        view.wantsLayer = true
+        view.layer?.cornerRadius = 4
+        view.layer?.borderWidth = 1.5
+        view.layer?.borderColor = NSColor.controlAccentColor.cgColor
+        return view
+    }()
+
     init(document: EditorDocument) {
         self.document = document
         super.init(frame: .zero)
         wantsLayer = true
         cancellable = document.objectWillChange.sink { [weak self] _ in
-            DispatchQueue.main.async { self?.syncCropDraft(); self?.needsDisplay = true }
+            DispatchQueue.main.async {
+                guard let self else { return }
+                self.syncCropDraft()
+                if let id = self.editingAnnotationID,
+                   let annotation = self.document.annotations.first(where: { $0.id == id }) {
+                    self.positionTextEditor(for: annotation)
+                } else if self.editingAnnotationID != nil {
+                    self.endEditingText()
+                }
+                self.needsDisplay = true
+            }
         }
         setAccessibilityRole(.image)
         setAccessibilityLabel(String(localized: "Editing canvas"))
+        addSubview(textEditor)
     }
 
     @available(*, unavailable)
@@ -128,7 +158,14 @@ final class EditorCanvasView: NSView {
         }
 
         context.concatenate(request.sourceToOutput)
-        AnnotationRenderer.drawAnnotations(request.annotations, source: request.source)
+        // While a caption is being typed the live text view stands in for it, so
+        // the rendered copy underneath is left blank.
+        var annotations = request.annotations
+        if let editingAnnotationID,
+           let index = annotations.firstIndex(where: { $0.id == editingAnnotationID }) {
+            annotations[index].text = ""
+        }
+        AnnotationRenderer.drawAnnotations(annotations, source: request.source)
         context.restoreGState()
 
         drawCropOverlay()
@@ -193,9 +230,10 @@ final class EditorCanvasView: NSView {
 
         if event.clickCount == 2, let hit = annotation(at: point), hit.kind == .text || hit.kind == .callout {
             document.selectedID = hit.id
-            NotificationCenter.default.post(name: .snapletEditTextRequested, object: hit.id)
+            beginEditingText(hit)
             return
         }
+        if editingAnnotationID != nil { endEditingText() }
 
         if let kind = document.tool.annotationKind {
             beginNewAnnotation(kind: kind, at: point)
@@ -386,13 +424,103 @@ final class EditorCanvasView: NSView {
         }
     }
 
+    // MARK: - Editing text on the canvas
+
+    /// Places a live text view over the annotation so the caption is typed where
+    /// it will appear, instead of in a field on the far side of the window.
+    func beginEditingText(_ annotation: Annotation) {
+        guard annotation.kind == .text || annotation.kind == .callout else { return }
+        editingAnnotationID = annotation.id
+        positionTextEditor(for: annotation)
+        textEditor.string = annotation.text
+        textEditor.isHidden = false
+        window?.makeFirstResponder(textEditor)
+        textEditor.selectAll(nil)
+        needsDisplay = true
+    }
+
+    func endEditingText() {
+        guard editingAnnotationID != nil else { return }
+        commitEditedText()
+        editingAnnotationID = nil
+        textEditor.isHidden = true
+        window?.makeFirstResponder(self)
+        needsDisplay = true
+    }
+
+    private func commitEditedText() {
+        guard let id = editingAnnotationID,
+              var annotation = document.annotations.first(where: { $0.id == id }) else { return }
+        guard annotation.text != textEditor.string else { return }
+        annotation.text = textEditor.string
+        document.replace(annotation)
+    }
+
+    private func positionTextEditor(for annotation: Annotation) {
+        var rect = viewRect(fromSource: annotation.frame)
+        if annotation.kind == .callout {
+            rect = rect.insetBy(dx: 8, dy: 6)
+        }
+        rect.size.width = max(rect.width, 60)
+        rect.size.height = max(rect.height, 22)
+        textEditor.frame = rect
+        textEditor.font = .systemFont(ofSize: max(9, annotation.fontSize * displayScale),
+                                      weight: .semibold)
+        textEditor.textColor = annotation.kind == .callout ? .black : annotation.strokeColor.nsColor
+    }
+
+    func textDidChange(_ notification: Notification) {
+        commitEditedText()
+        if let id = editingAnnotationID,
+           let annotation = document.annotations.first(where: { $0.id == id }) {
+            positionTextEditor(for: annotation)
+        }
+    }
+
+    func textDidEndEditing(_ notification: Notification) {
+        endEditingText()
+    }
+
+    // MARK: - Zooming
+
+    /// ⌥ or ⌘ with the wheel zooms; a plain wheel keeps scrolling the canvas,
+    /// which is what panning a large screenshot needs.
+    override func scrollWheel(with event: NSEvent) {
+        guard event.modifierFlags.contains(.option) || event.modifierFlags.contains(.command) else {
+            super.scrollWheel(with: event)
+            return
+        }
+        let delta = event.hasPreciseScrollingDeltas ? event.scrollingDeltaY / 120 : event.scrollingDeltaY / 8
+        guard abs(delta) > 0.0001 else { return }
+        let current = document.effectiveZoom
+        document.zoom = min(6, max(0.1, current * (1 + delta * 0.6)))
+    }
+
+    /// Pinch to zoom on a trackpad.
+    override func magnify(with event: NSEvent) {
+        let current = document.effectiveZoom
+        document.zoom = min(6, max(0.1, current * (1 + event.magnification)))
+    }
+
     // MARK: - Keyboard
 
     override func keyDown(with event: NSEvent) {
         switch event.keyCode {
         case 51, 117: // Delete / Forward delete
             document.deleteSelected()
+        case 36, 76 where editingAnnotationID == nil:
+            // Return opens the selected caption for editing.
+            if let selected = document.selectedAnnotation,
+               selected.kind == .text || selected.kind == .callout {
+                beginEditingText(selected)
+                return
+            }
+            fallthrough
         case 53: // Escape
+            if editingAnnotationID != nil {
+                endEditingText()
+                return
+            }
             if document.tool == .crop {
                 cropDraft = document.cropRect
                 needsDisplay = true
@@ -489,6 +617,11 @@ struct EditorCanvas: NSViewRepresentable {
             factor = min(1, max(0.05, fit.isFinite ? fit : 1))
         } else {
             factor = CGFloat(zoom)
+        }
+        // Report what is actually on screen so stepping out of "fit" continues
+        // from the size the user is looking at.
+        if abs(document.effectiveZoom - Double(factor)) > 0.001 {
+            DispatchQueue.main.async { document.effectiveZoom = Double(factor) }
         }
         let size = CGSize(width: (natural.width * factor).rounded(),
                           height: (natural.height * factor).rounded())

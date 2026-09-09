@@ -18,6 +18,50 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 - A log line recording whether the system actually placed the status item. It is
   the app's only permanent surface, and macOS hides items when the menu bar runs
   out of room, so a missing one was otherwise silent.
+- **Pin to screen.** Captures can float above every window, from the preview
+  panel or the editor, with copy and drag-out, and a menu-bar item to close them
+  all. Pinned shots are excluded from later captures like the rest of Snaplet's
+  windows.
+- **Colour picker.** Pressing C while selecting copies the hex value under the
+  pointer; the loupe shows it live. Reads a single pixel out of the display
+  snapshot rather than holding an uncompressed copy of a 5K display.
+- **Pause and resume while recording**, from the floating control or the menu
+  bar. Samples are dropped while paused and everything after is shifted back by
+  the pause length, so the file has no dead air and no frozen frame. One frame
+  of spacing is kept at the resume point so the first frame back is not dropped
+  by the monotonic-timeline guard.
+- Localisation fit tests measure translated labels against the widths they are
+  drawn into, in every shipped language, so a translation that no longer fits
+  fails the build instead of silently truncating.
+- Development-only interface snapshots: `InterfaceSnapshotTests` renders the
+  floating surfaces to PNGs in light and dark so layout can be reviewed without
+  launching the app. A control case records that `ImageRenderer` cannot draw a
+  `Menu` offscreen, so the placeholder it leaves is not mistaken for a bug.
+- **Captions are edited on the canvas.** Double-clicking a text or callout
+  annotation, or pressing Return with one selected, opens a live text view over
+  it, so the caption is typed where it will actually appear. The inspector field
+  still works.
+- **Zoom and pan in the screenshot editor.** ⌘+ / ⌘− step through zoom levels,
+  ⌘0 fits and ⌘1 shows actual size; the trackpad pinch and ⌥ with the scroll
+  wheel zoom continuously, while a plain scroll pans. Stepping out of "fit"
+  continues from the size on screen rather than jumping.
+- **Capture latency is now measured** on real hardware and published in
+  `docs/performance.md`: 56 ms median from the hot key to the selection overlay
+  with two displays, and 11 ms from releasing a 600×400 pt selection to the
+  image being on the clipboard, both in a Release build.
+- **Selections can cross displays.** The drag is tracked in global coordinates
+  rather than inside the display it started on, and the result is stitched from
+  every display it touches, rendered at the sharpest scale involved so a Retina
+  half is not downscaled to match a 1× monitor. Regions no display covers stay
+  transparent instead of being filled in. Recording areas still stay on one
+  display, because a capture stream is bound to one.
+- **Open an image or a video to edit**, from the menu bar, the application menu
+  (⌘O) or by dropping a file on the Dock icon. The video editor previously had
+  no entry point except the preview panel, which dismisses itself, and the
+  history — so an existing recording could not be opened for editing at all.
+- **Self-timer.** An optional 3, 5 or 10 second delay that runs after you choose
+  what to capture, so menus and hover states can be opened first. Area captures
+  re-read the display after the wait rather than cropping the older snapshot.
 
 ### Fixed
 
@@ -34,15 +78,52 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
   carry the domain, the code and any underlying error.
 - Capture callbacks could still be in flight when finishing began, where
   appending to `AVAssetWriter` is undefined.
+- Adding any new preference reset every existing setting. The synthesised
+  decoder throws `keyNotFound` for keys a stored blob does not contain, so a
+  blob written by an older build failed to decode and fell back to defaults
+  wholesale. Decoding is now written by hand, field by field.
 - `build-release.sh` left a second `Snaplet.app` in `build/`, which Launch
   Services would happily open and the next build would delete out from under the
   running app.
 
+- Recording failed roughly two times in five, a few seconds in, with
+  `AVFoundationErrorDomain -11800` / `NSOSStatusErrorDomain -16341`, losing the
+  whole capture. The cause was writing fragmented `.mp4` output: the failure
+  always landed shortly after the first movie fragment was flushed. Fragments
+  are gone and the same conditions now pass every time.
+
 ### Changed
 
+- The recording control was redesigned around the new pause button: a pulsing
+  status dot that turns amber while paused, a monospaced timer, and separate
+  pause and stop buttons with their own VoiceOver labels.
+- Layouts are sized from measured text rather than fixed widths or a
+  character-count guess, because Turkish labels run longer than their English
+  originals and were being clipped. The recording control, the capture preview
+  panel and the selection overlay's labels now take their size from the text
+  they actually draw.
+- The style inspector's background type is a menu instead of a segmented
+  control: four labels did not fit the inspector in any language, and segments
+  truncate without complaining.
+- The settings window is wider by default, leaving the tab bar room in longer
+  languages.
+- The About pane shows the real app icon instead of a stand-in symbol, and its
+  content is centred rather than crowded against the top.
+- The settings window is resizable, so larger accessibility text sizes are not
+  clipped.
+- The capture preview panel now leads with Edit as the emphasised action, groups
+  Save, Show in Finder and Pin beside it at equal weight, and frames the
+  thumbnail so a wide capture no longer floats in empty grey.
 - Permission guidance now covers the case where Snaplet is already listed and
   switched on, which is what an ad hoc rebuild produces.
-- 122 tests, up from 111.
+- Recordings no longer use movie fragments, so an outright crash mid-recording
+  now loses the file. Quitting Snaplet normally still finalises and keeps it.
+- Write failures name the track, the frame count and the sample format, so a
+  report says what the writer was actually handed.
+- New live capture integration tests drive a real `SCStream` through the real
+  writer for every capture target. They need Screen & System Audio Recording for
+  the test host and skip themselves without it, so CI is unaffected.
+- 176 tests, up from 111.
 
 ## [0.1.0] — 2026-09-07
 
@@ -85,8 +166,7 @@ source.
 
 **Recording**
 - Full-screen, window and area recording through ScreenCaptureKit, written to
-  MP4 (H.264) as it is captured, with two-second movie fragments so an
-  interrupted session still leaves a playable file.
+  MP4 (H.264) as it is captured.
 - Independent system-audio and microphone capture, mixed into one track on a
   shared clock when both are on.
 - Pointer visibility, click highlighting, 30/60 FPS, resolution limits that

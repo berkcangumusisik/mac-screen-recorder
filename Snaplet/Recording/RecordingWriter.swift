@@ -19,14 +19,73 @@ final class RecordingWriter {
     private var isFinishing = false
     private var sessionStartTime: CMTime = .invalid
     private var lastVideoTime: CMTime = .invalid
+
+    // Pausing keeps the file continuous: samples are dropped while paused, and
+    // everything after resuming is shifted back by however long the pause
+    // lasted, so the recording has no dead air and no frozen frame.
+    private var isPaused = false
+    private var pausedOffset: CMTime = .zero
+    private var pauseStartedAt: CMTime = .invalid
+    private var awaitingFirstFrameAfterResume = false
+    private var lastSourceTime: CMTime = .invalid
     private(set) var droppedOutOfOrderSamples = 0
     private(set) var failure: SnapletError?
     private(set) var appendedVideoFrames = 0
+    private(set) var appendedAudioBuffers = 0
+    private var lastVideoFormat: String?
+    private var lastAudioFormat: String?
+    /// Every distinct video format seen. A capture stream is supposed to deliver
+    /// one; more than one means the encoder was handed something it was not
+    /// configured for.
+    private var videoFormats: [String] = []
 
     var pixelBufferPool: CVPixelBufferPool? { pixelBufferAdaptor?.pixelBufferPool }
 
     /// Whether the encoder can accept another video frame right now.
     var isReadyForVideo: Bool { videoInput.isReadyForMoreMediaData }
+
+    var isCurrentlyPaused: Bool {
+        lock.lock(); defer { lock.unlock() }
+        return isPaused
+    }
+
+    /// Total time spent paused, which is the amount the timeline was shortened by.
+    var pausedDuration: CMTime {
+        lock.lock(); defer { lock.unlock() }
+        return pausedOffset
+    }
+
+    func setPaused(_ paused: Bool) {
+        lock.lock()
+        defer { lock.unlock() }
+        guard paused != isPaused else { return }
+        isPaused = paused
+        if paused {
+            pauseStartedAt = lastSourceTime
+        } else {
+            // The offset cannot be computed until a frame actually arrives; the
+            // gap is measured against the first one after resuming.
+            awaitingFirstFrameAfterResume = pauseStartedAt.isValid
+        }
+    }
+
+    /// Shifts a sample back by the accumulated pause time, so the written
+    /// timeline is continuous.
+    private func timeShifted(_ sampleBuffer: CMSampleBuffer, to time: CMTime) -> CMSampleBuffer? {
+        guard time.isValid else { return nil }
+        var timing = CMSampleTimingInfo(duration: sampleBuffer.duration,
+                                        presentationTimeStamp: time,
+                                        decodeTimeStamp: .invalid)
+        var shifted: CMSampleBuffer?
+        guard CMSampleBufferCreateCopyWithNewTiming(allocator: kCFAllocatorDefault,
+                                                    sampleBuffer: sampleBuffer,
+                                                    sampleTimingEntryCount: 1,
+                                                    sampleTimingArray: &timing,
+                                                    sampleBufferOut: &shifted) == noErr else {
+            return nil
+        }
+        return shifted
+    }
 
     init(outputURL: URL,
          videoSize: CGSize,
@@ -42,7 +101,17 @@ final class RecordingWriter {
         }
         // Flush a fragment every two seconds: if the app is killed mid-recording
         // everything up to the last fragment is still readable.
-        writer.movieFragmentInterval = CMTime(value: 2, timescale: 1)
+        // Deliberately no `movieFragmentInterval`.
+        //
+        // Fragmented output looked like a cheap way to survive a crash, but on
+        // .mp4 it corrupts the recording: roughly two in five captures failed
+        // shortly after the first fragment was flushed, with
+        // AVFoundationErrorDomain -11800 / NSOSStatusErrorDomain -16341, and the
+        // whole recording was lost. Disabling it made 5 of 5 succeed under the
+        // same conditions. `LiveCaptureIntegrationTests` reproduces both sides.
+        //
+        // Snaplet still finalises an in-progress recording when the app is asked
+        // to quit; what is gone is resilience against an outright crash.
 
         let width = Int(videoSize.width)
         let height = Int(videoSize.height)
@@ -103,8 +172,33 @@ final class RecordingWriter {
 
     func appendVideo(_ sampleBuffer: CMSampleBuffer) {
         guard checkWriterHealth() else { return }
-        let time = sampleBuffer.presentationTimeStamp
-        guard time.isValid else { return }
+        let sourceTime = sampleBuffer.presentationTimeStamp
+        guard sourceTime.isValid else { return }
+
+        lock.lock()
+        lastSourceTime = sourceTime
+        if isPaused {
+            lock.unlock()
+            return
+        }
+        if awaitingFirstFrameAfterResume, pauseStartedAt.isValid {
+            // Leave one frame of spacing, otherwise the first frame after the
+            // pause lands exactly on the last one written before it and the
+            // monotonic guard drops it.
+            let step = sampleBuffer.duration.isNumeric && sampleBuffer.duration > .zero
+                ? sampleBuffer.duration
+                : CMTime(value: 1, timescale: 600)
+            let gap = (sourceTime - pauseStartedAt) - step
+            if gap > .zero { pausedOffset = pausedOffset + gap }
+            awaitingFirstFrameAfterResume = false
+            pauseStartedAt = .invalid
+        }
+        let offset = pausedOffset
+        lock.unlock()
+
+        let time = sourceTime - offset
+        guard let sampleBuffer = offset == .zero ? sampleBuffer
+                : timeShifted(sampleBuffer, to: time) else { return }
         // AVAssetWriter tolerates a repeated or rewound timestamp, but the
         // resulting file confuses players and breaks the trimming maths in the
         // video editor, which assumes a monotonic timeline.
@@ -114,15 +208,36 @@ final class RecordingWriter {
         }
         startSessionIfNeeded(at: time)
         guard videoInput.isReadyForMoreMediaData else { return }
+        let format = Self.describeFormat(sampleBuffer)
+        if lastVideoFormat == nil { lastVideoFormat = format }
+        if !videoFormats.contains(format) { videoFormats.append(format) }
         if videoInput.append(sampleBuffer) {
             lastVideoTime = time
             appendedVideoFrames += 1
         }
     }
 
-    func appendVideo(pixelBuffer: CVPixelBuffer, at time: CMTime) {
+    func appendVideo(pixelBuffer: CVPixelBuffer, at sourceTime: CMTime) {
         guard checkWriterHealth(), let pixelBufferAdaptor else { return }
-        guard time.isValid else { return }
+        guard sourceTime.isValid else { return }
+
+        lock.lock()
+        lastSourceTime = sourceTime
+        if isPaused {
+            lock.unlock()
+            return
+        }
+        if awaitingFirstFrameAfterResume, pauseStartedAt.isValid {
+            // Same one-frame spacing as the sample-buffer path above.
+            let gap = (sourceTime - pauseStartedAt) - CMTime(value: 1, timescale: 600)
+            if gap > .zero { pausedOffset = pausedOffset + gap }
+            awaitingFirstFrameAfterResume = false
+            pauseStartedAt = .invalid
+        }
+        let offset = pausedOffset
+        lock.unlock()
+
+        let time = sourceTime - offset
         guard !lastVideoTime.isValid || time > lastVideoTime else {
             droppedOutOfOrderSamples += 1
             return
@@ -141,13 +256,25 @@ final class RecordingWriter {
         // would trim a sample stamped before the session, but dropping it here
         // keeps the two tracks starting at the same instant.
         guard didStartSession, sessionStartTime.isValid else { return }
-        let time = sampleBuffer.presentationTimeStamp
+
+        lock.lock()
+        let paused = isPaused
+        let offset = pausedOffset
+        lock.unlock()
+        guard !paused else { return }
+
+        let time = sampleBuffer.presentationTimeStamp - offset
         guard time.isValid, time >= sessionStartTime else {
             droppedOutOfOrderSamples += 1
             return
         }
+        guard let sampleBuffer = offset == .zero ? sampleBuffer
+                : timeShifted(sampleBuffer, to: time) else { return }
         guard audioInput.isReadyForMoreMediaData else { return }
-        audioInput.append(sampleBuffer)
+        if lastAudioFormat == nil { lastAudioFormat = Self.describeFormat(sampleBuffer) }
+        if audioInput.append(sampleBuffer) {
+            appendedAudioBuffers += 1
+        }
     }
 
     private func startSessionIfNeeded(at time: CMTime) {
@@ -170,8 +297,15 @@ final class RecordingWriter {
 
         guard failure == nil else { return false }
         guard writer.status != .failed else {
-            failure = Self.mapped(writer.error)
-            Log.recording.error("Writer failed: \(self.writer.error?.localizedDescription ?? "unknown", privacy: .public)")
+            // Which track was actually carrying data, and in what format, is the
+            // difference between a diagnosable report and "it broke".
+            let mapped = Self.mapped(writer.error)
+            if case .recordingWriteFailed(let detail) = mapped {
+                failure = .recordingWriteFailed("\(detail) · \(diagnosticSummary)")
+            } else {
+                failure = mapped
+            }
+            Log.recording.error("Writer failed: \(self.diagnosticSummary, privacy: .public)")
             return false
         }
         return writer.status == .writing
@@ -215,7 +349,13 @@ final class RecordingWriter {
             if self.writer.status == .completed {
                 completion(.success(url))
             } else {
-                completion(.failure(Self.mapped(self.writer.error)))
+                let mapped = Self.mapped(self.writer.error)
+                if case .recordingWriteFailed(let detail) = mapped {
+                    completion(.failure(SnapletError.recordingWriteFailed(
+                        "\(detail) · \(self.diagnosticSummary)")))
+                } else {
+                    completion(.failure(mapped))
+                }
             }
         }
     }
@@ -226,6 +366,47 @@ final class RecordingWriter {
         lock.unlock()
         if writer.status == .writing { writer.cancelWriting() }
         try? FileManager.default.removeItem(at: outputURL)
+    }
+
+    /// What the writer had actually accepted when it failed.
+    var diagnosticSummary: String {
+        var parts = ["video \(appendedVideoFrames)×\(lastVideoFormat ?? "no frames")"]
+        if videoFormats.count > 1 {
+            parts.append("FORMAT CHANGED: \(videoFormats.joined(separator: " -> "))")
+        }
+        if audioInput != nil {
+            parts.append("audio \(appendedAudioBuffers)×\(lastAudioFormat ?? "no buffers")")
+        } else {
+            parts.append("audio off")
+        }
+        if droppedOutOfOrderSamples > 0 {
+            parts.append("dropped \(droppedOutOfOrderSamples)")
+        }
+        return parts.joined(separator: " · ")
+    }
+
+    /// Compact, non-identifying description of a sample buffer's format.
+    static func describeFormat(_ sampleBuffer: CMSampleBuffer) -> String {
+        guard let description = sampleBuffer.formatDescription else { return "unknown" }
+        switch description.mediaType {
+        case .video:
+            let dimensions = CMVideoFormatDescriptionGetDimensions(description)
+            let subType = description.mediaSubType.rawValue
+            return "\(dimensions.width)x\(dimensions.height)/\(fourCharCode(subType))"
+        case .audio:
+            guard let asbd = description.audioStreamBasicDescription else { return "audio?" }
+            return "\(Int(asbd.mSampleRate))Hz/\(asbd.mChannelsPerFrame)ch/"
+                + "\(asbd.mBitsPerChannel)bit/flags\(asbd.mFormatFlags)"
+        default:
+            return "other"
+        }
+    }
+
+    private static func fourCharCode(_ value: FourCharCode) -> String {
+        let bytes = [UInt8((value >> 24) & 0xFF), UInt8((value >> 16) & 0xFF),
+                     UInt8((value >> 8) & 0xFF), UInt8(value & 0xFF)]
+        let text = String(bytes: bytes, encoding: .ascii) ?? "?"
+        return text.trimmingCharacters(in: .whitespaces)
     }
 
     /// AVFoundation often reports only "the operation could not be completed",

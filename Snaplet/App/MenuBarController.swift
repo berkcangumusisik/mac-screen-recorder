@@ -54,6 +54,14 @@ final class MenuBarController: NSObject, NSMenuDelegate {
         menu.addItem(.separator())
 
         addAction(.toggleRecording, to: menu, title: environment.recordingMenuTitle)
+        if environment.recordingPresenter.canPause {
+            let pause = NSMenuItem(title: environment.recordingPresenter.pauseMenuTitle,
+                                   action: #selector(togglePause),
+                                   keyEquivalent: "")
+            pause.target = self
+            pause.indentationLevel = 1
+            menu.addItem(pause)
+        }
         if !environment.isRecording {
             for kind in [RecordingPresenter.TargetKind.screen, .area, .window] {
                 let item = NSMenuItem(title: Self.title(for: kind),
@@ -71,6 +79,16 @@ final class MenuBarController: NSObject, NSMenuDelegate {
         addAction(.editClipboardImage, to: menu)
         menu.addItem(.separator())
 
+        if environment.pinnedShotCount > 0 {
+            menu.addItem(item(title: String(localized: "Close All Pinned Shots"),
+                              action: #selector(closePins),
+                              keyEquivalent: ""))
+            menu.addItem(.separator())
+        }
+
+        menu.addItem(item(title: String(localized: "Open Image or Video…"),
+                          action: #selector(openFile),
+                          keyEquivalent: "o"))
         menu.addItem(item(title: String(localized: "History…"),
                           action: #selector(openHistory),
                           keyEquivalent: ""))
@@ -137,6 +155,12 @@ final class MenuBarController: NSObject, NSMenuDelegate {
               let kind = RecordingPresenter.TargetKind(rawValue: raw) else { return }
         environment?.startRecording(kind)
     }
+
+    @objc private func openFile() { environment?.openFilePicker() }
+
+    @objc private func togglePause() { environment?.recordingPresenter.togglePause() }
+
+    @objc private func closePins() { environment?.closeAllPins() }
 
     @objc private func openSettings() { environment?.showSettings() }
     @objc private func openHistory() { environment?.showHistory() }

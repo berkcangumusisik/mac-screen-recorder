@@ -172,12 +172,13 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "video yüksekliğinin %%%lld kadarı"
+            "value": "video yüksekliğinin %%%lld'si"
           }
         }
       }
     },
     "100%": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -189,6 +190,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "100%"
+          }
+        }
+      }
+    },
+    "10s": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "10s"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "10sn"
           }
         }
       }
@@ -226,6 +243,7 @@
       }
     },
     "200%": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -290,6 +308,7 @@
       }
     },
     "50%": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -385,6 +404,22 @@
         }
       }
     },
+    "A delay runs after you choose what to capture, so you can open a menu or hover something first.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A delay runs after you choose what to capture, so you can open a menu or hover something first."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gecikme, neyi yakalayacağınızı seçtikten sonra başlar; böylece önce bir menü açabilir veya imleci bir şeyin üzerine getirebilirsiniz."
+          }
+        }
+      }
+    },
     "A recording is already in progress.": {
       "localizations": {
         "en": {
@@ -449,6 +484,22 @@
         }
       }
     },
+    "Actual size": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actual size"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gerçek boyut"
+          }
+        }
+      }
+    },
     "Add redaction": {
       "localizations": {
         "en": {
@@ -460,7 +511,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sansür ekle"
+            "value": "Karartma ekle"
           }
         }
       }
@@ -620,7 +671,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Düzenleyicideki Stil sekmesini açtığınızda uygulanır. Sade bir çekime hiçbir şey eklenmez."
+            "value": "Düzenleyicide Stil sekmesini açtığınızda uygulanır. Düz bir çekime hiçbir şey eklenmez."
           }
         }
       }
@@ -989,7 +1040,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kaydettiğiniz çekimler burada görünür; dosya adına ve Snaplet'in tanıdığı metne göre aranabilir."
+            "value": "Kaydettiğiniz çekimler burada listelenir; dosya adına ve içlerinde tanınan metne göre arayabilirsiniz."
           }
         }
       }
@@ -1006,6 +1057,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Çekim, düzenleme, metin tanıma ve dışa aktarma bu Mac üzerinde yapılır. Snaplet'te hesap ve telemetri yoktur; hiçbir ağ isteği göndermez."
+          }
+        }
+      }
+    },
+    "Choose an image or a video to edit.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose an image or a video to edit."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Düzenlemek için bir görüntü veya video seçin."
           }
         }
       }
@@ -1165,7 +1232,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tıklama vurgusu sistemin yakalama katmanı tarafından çizilir. Snaplet klavye girdisi okumaz."
+            "value": "Tıklama vurgusunu sistemin yakalama katmanı çizer. Snaplet klavye girdisi okumaz."
           }
         }
       }
@@ -1182,6 +1249,38 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kapat"
+          }
+        }
+      }
+    },
+    "Close All Pinned Shots": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Close All Pinned Shots"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tüm Sabitlenmiş Görüntüleri Kapat"
+          }
+        }
+      }
+    },
+    "Close pin": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Close pin"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sabitlemeyi kapat"
           }
         }
       }
@@ -1571,6 +1670,22 @@
         }
       }
     },
+    "Delay before capturing": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delay before capturing"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çekim gecikmesi"
+          }
+        }
+      }
+    },
     "Delete": {
       "localizations": {
         "en": {
@@ -1630,7 +1745,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dokümantasyon"
+            "value": "Belge"
           }
         }
       }
@@ -1662,7 +1777,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Görüntü üzerinde sürükleyin, sonra uygulamak için Return'e basın."
+            "value": "Görüntü üzerinde sürükleyin, uygulamak için Return tuşuna basın."
           }
         }
       }
@@ -1683,7 +1798,40 @@
         }
       }
     },
+    "Drag to copy the file into another app": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Drag to copy the file into another app"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dosyayı başka bir uygulamaya kopyalamak için sürükleyin"
+          }
+        }
+      }
+    },
+    "Drag to select · Space to move · ⇧ square · ⌥ from center · C copies the colour · Esc to cancel": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Drag to select · Space to move · ⇧ square · ⌥ from center · C copies the colour · Esc to cancel"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sürükleyerek seçin · Taşımak için Boşluk · ⇧ kare · ⌥ merkezden · C rengi kopyalar · İptal için Esc"
+          }
+        }
+      }
+    },
     "Drag to select · Space to move · ⇧ square · ⌥ from center · Esc to cancel": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1791,7 +1939,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Düzenleme tuvali"
+            "value": "Düzenleme alanı"
           }
         }
       }
@@ -1999,7 +2147,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Klasör olarak dışa aktar…"
+            "value": "Klasöre aktar…"
           }
         }
       }
@@ -2031,7 +2179,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dışa aktarma bu dosyaları Markdown'ın yanına kopyalar; issue'ya kendiniz sürükleyebilirsiniz."
+            "value": "Dışa aktarınca bu dosyalar Markdown'ın yanına kopyalanır; issue'ya kendiniz eklersiniz."
           }
         }
       }
@@ -2112,6 +2260,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yalnızca favoriler"
+          }
+        }
+      }
+    },
+    "File": {
+      "comment": "Main menu title",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "File"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dosya"
           }
         }
       }
@@ -2463,7 +2628,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Geçmiş; dosya yollarını, boyutları ve tanınan metni bu Mac'te saklar. Medyanın kendisi çıktı klasörünüzde kalır — Snaplet onu bir veritabanına kopyalamaz."
+            "value": "Geçmiş, dosya yollarını, boyutları ve tanınan metni bu Mac'te saklar. Medyanın kendisi çıktı klasörünüzde kalır — Snaplet onu veritabanına kopyalamaz."
           }
         }
       }
@@ -2495,7 +2660,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Boşluğu basılı tutun"
+            "value": "Boşluk çubuğunu basılı tutun"
           }
         }
       }
@@ -2591,7 +2756,23 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Çekimlerin yerel geçmişini tut"
+            "value": "Çekim geçmişini bu Mac'te tut"
+          }
+        }
+      }
+    },
+    "Keep this on top of every window": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep this on top of every window"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tüm pencerelerin üstünde tut"
           }
         }
       }
@@ -2607,7 +2788,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Anahtar benzeri dizi"
+            "value": "Anahtar benzeri metin"
           }
         }
       }
@@ -2655,7 +2836,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dil değişikliği Snaplet'in bir sonraki açılışında etkili olur."
+            "value": "Dil değişikliği, Snaplet'i bir sonraki açışınızda etkili olur."
           }
         }
       }
@@ -2751,7 +2932,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Uzun numara"
+            "value": "Uzun sayı dizisi"
           }
         }
       }
@@ -2944,7 +3125,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dosyayı Çöp Kutusu'na taşı…"
+            "value": "Dosyayı Çöpe At…"
           }
         }
       }
@@ -2976,7 +3157,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bu dosya Çöp Kutusu'na taşınsın mı?"
+            "value": "Bu dosya Çöp Sepeti'ne taşınsın mı?"
           }
         }
       }
@@ -2992,7 +3173,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Çöp Kutusu'na taşı"
+            "value": "Çöpe At"
           }
         }
       }
@@ -3008,7 +3189,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Benim stilim"
+            "value": "Kendi stilim"
           }
         }
       }
@@ -3088,7 +3269,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Yakalanacak ekran veya pencere yok."
+            "value": "Yakalanabilecek ekran veya pencere yok."
           }
         }
       }
@@ -3333,6 +3514,22 @@
         }
       }
     },
+    "Open": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aç"
+          }
+        }
+      }
+    },
     "Open History…": {
       "localizations": {
         "en": {
@@ -3345,6 +3542,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Geçmişi Aç…"
+          }
+        }
+      }
+    },
+    "Open Image or Video…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Image or Video…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Görüntü veya Video Aç…"
           }
         }
       }
@@ -3414,6 +3627,7 @@
       }
     },
     "Open System Settings › Privacy & Security › Screen & System Audio Recording and enable Snaplet.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3425,6 +3639,38 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sistem Ayarları › Gizlilik ve Güvenlik › Ekran ve Sistem Sesi Kaydı bölümünü açıp Snaplet'i etkinleştirin."
+          }
+        }
+      }
+    },
+    "Open System Settings › Privacy & Security › Screen & System Audio Recording and enable Snaplet. If Snaplet is already listed and switched on, turn it off and on again, then quit and reopen Snaplet — macOS ties this permission to the exact build, so it is dropped whenever Snaplet is rebuilt.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open System Settings › Privacy & Security › Screen & System Audio Recording and enable Snaplet. If Snaplet is already listed and switched on, turn it off and on again, then quit and reopen Snaplet — macOS ties this permission to the exact build, so it is dropped whenever Snaplet is rebuilt."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sistem Ayarları › Gizlilik ve Güvenlik › Ekran ve Sistem Sesi Kaydı bölümünü açıp Snaplet'i etkinleştirin. Snaplet zaten listede ve açıksa, kapatıp yeniden açın, sonra Snaplet'ten çıkıp tekrar başlatın — macOS bu izni tam olarak o derlemeye bağlar, dolayısıyla Snaplet her yeniden derlendiğinde izin düşer."
+          }
+        }
+      }
+    },
+    "Open in the editor": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open in the editor"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Düzenleyicide aç"
           }
         }
       }
@@ -3520,7 +3766,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tanınan metin üzerinde örüntü eşleştirme yapılır. Bazı şeyleri kaçırır, zararsız olanları da işaretleyebilir; bu yüzden her öneriyi gözden geçirin — siz onaylamadan hiçbir şey gizlenmez."
+            "value": "Tanınan metinde örüntü araması yapılır. Bazı şeyleri kaçırır, zararsız olanları işaretleyebilir; bu yüzden her öneriyi gözden geçirin — siz onaylamadan hiçbir şey gizlenmez."
           }
         }
       }
@@ -3537,6 +3783,102 @@
           "stringUnit": {
             "state": "translated",
             "value": "Duraklat"
+          }
+        }
+      }
+    },
+    "Pause Recording": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pause Recording"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydı Duraklat"
+          }
+        }
+      }
+    },
+    "Pause recording": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pause recording"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydı duraklat"
+          }
+        }
+      }
+    },
+    "Paused at %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paused at %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Duraklatıldı, %@"
+          }
+        }
+      }
+    },
+    "Pin": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pin"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sabitle"
+          }
+        }
+      }
+    },
+    "Pin to screen": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pin to screen"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ekrana sabitle"
+          }
+        }
+      }
+    },
+    "Pinned capture, %@ pixels": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pinned capture, %@ pixels"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sabitlenmiş görüntü, %@ piksel"
           }
         }
       }
@@ -3584,7 +3926,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Çekim başarılı olduğunda ses çal"
+            "value": "Çekim tamamlanınca ses çal"
           }
         }
       }
@@ -3664,7 +4006,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kayıt sırasında ⌫ tuşuna basarak bir kısayolu kaldırabilirsiniz. Snaplet varsayılanları ⌃⌥⌘ kullanır; böylece macOS'un yerleşik ekran görüntüsü kısayollarıyla çakışmaz."
+            "value": "Kısayolu atarken ⌫ tuşuna basarak atamayı kaldırabilirsiniz. Snaplet'in varsayılanları ⌃⌥⌘ kullanır; böylece macOS'un yerleşik ekran görüntüsü kısayollarıyla çakışmaz."
           }
         }
       }
@@ -3728,7 +4070,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tanıma bu Mac'te Apple'ın Vision çatısıyla çalışır. Hiçbir yere veri gönderilmez."
+            "value": "Metin tanıma, Apple Vision ile bu Mac'te çalışır. Hiçbir veri dışarı gönderilmez."
           }
         }
       }
@@ -3904,7 +4246,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sansürle"
+            "value": "Karart"
           }
         }
       }
@@ -3920,7 +4262,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tüm önerileri sansürle"
+            "value": "Tüm önerileri karart"
           }
         }
       }
@@ -3936,7 +4278,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sansür opak bir blok çizer ve önerilen seçenektir. Bulanıklaştırma ve pikselleştirme görsel efektlerdir: ekran görüntüsünü derli toplu tutar ama geri çevrilemezlik garantisi vermez. Hangisini seçerseniz seçin, dışa aktarma sonucu rasterize eder — orijinal pikseller dışa aktarılan dosyaya yazılmaz."
+            "value": "Karartma opak bir blok çizer ve önerilen seçenektir. Bulanıklaştırma ve pikselleştirme görsel efektlerdir: ekran görüntüsünü derli toplu tutar ama geri çevrilemezlik garantisi vermez. Hangisini seçerseniz seçin, dışa aktarma sonucu rasterize eder — orijinal pikseller dışa aktarılan dosyaya yazılmaz."
           }
         }
       }
@@ -3952,7 +4294,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sansür"
+            "value": "Karartma"
           }
         }
       }
@@ -4064,7 +4406,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tüm görüntüye döndür"
+            "value": "Kırpmayı kaldır"
           }
         }
       }
@@ -4113,6 +4455,54 @@
           "stringUnit": {
             "state": "translated",
             "value": "Varsayılan kısayolları geri yükle"
+          }
+        }
+      }
+    },
+    "Resume": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resume"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sürdür"
+          }
+        }
+      }
+    },
+    "Resume Recording": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resume Recording"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydı Sürdür"
+          }
+        }
+      }
+    },
+    "Resume recording": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resume recording"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydı sürdür"
           }
         }
       }
@@ -4224,7 +4614,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Çekimleri otomatik olarak bir klasöre kaydet"
+            "value": "Çekimleri klasöre otomatik kaydet"
           }
         }
       }
@@ -4241,6 +4631,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kareyi kaydet"
+          }
+        }
+      }
+    },
+    "Save to the output folder": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save to the output folder"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çıktı klasörüne kaydet"
           }
         }
       }
@@ -4592,7 +4998,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Çekimden sonra önizleme panelini göster"
+            "value": "Çekimden sonra önizlemeyi göster"
           }
         }
       }
@@ -4736,7 +5142,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Webcam katmanı için Snaplet'in Kamera iznine ihtiyacı var."
+            "value": "Webcam katmanı için Kamera izni gerekiyor."
           }
         }
       }
@@ -4752,7 +5158,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Anlatım kaydetmek için Snaplet'in Mikrofon iznine ihtiyacı var."
+            "value": "Anlatım kaydetmek için Mikrofon izni gerekiyor."
           }
         }
       }
@@ -4768,7 +5174,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Snaplet'in Ekran ve Sistem Sesi Kaydı iznine ihtiyacı var."
+            "value": "Snaplet için Ekran ve Sistem Sesi Kaydı izni gerekiyor."
           }
         }
       }
@@ -4784,7 +5190,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Snaplet asla büyütmez. Sınır yalnızca kaynak daha büyük olduğunda uygulanır."
+            "value": "Snaplet görüntüyü asla büyütmez. Sınır yalnızca kaynak daha büyükse uygulanır."
           }
         }
       }
@@ -4896,7 +5302,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld içinde başlıyor"
+            "value": "%lld saniye sonra"
           }
         }
       }
@@ -4928,7 +5334,23 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Yeniden üretme adımları"
+            "value": "Yeniden oluşturma adımları"
+          }
+        }
+      }
+    },
+    "Stop": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stop"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Durdur"
           }
         }
       }
@@ -5088,7 +5510,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bu veri Snaplet'in açabileceği bir görüntü değil."
+            "value": "Bu veri, Snaplet'in açabileceği bir görüntü değil."
           }
         }
       }
@@ -5104,7 +5526,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Blok, bu aralıktaki dışa aktarılan her kareye, yakınlaştırmadan önce çizilir."
+            "value": "Bu aralıktaki her kareye, yakınlaştırma uygulanmadan önce çizilir."
           }
         }
       }
@@ -5152,7 +5574,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Katman yalnızca ekranda gösterilmez; dışa aktarılan dosyaya da işlenir."
+            "value": "Katman yalnızca ekranda görünmez; dışa aktarılan videoya da işlenir."
           }
         }
       }
@@ -5168,7 +5590,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Yakalanan pencere artık kullanılabilir değil."
+            "value": "Kaydedilen pencere artık açık değil."
           }
         }
       }
@@ -5216,7 +5638,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bu, dosyanın kendisini Çöp Kutusu'na taşır. Bunun yerine geçmişten kaldırmak dosyayı yerinde bırakır."
+            "value": "Bu, dosyanın kendisini Çöp Sepeti'ne taşır. Bunun yerine geçmişten kaldırmak dosyayı yerinde bırakır."
           }
         }
       }
@@ -5408,7 +5830,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Çekimlerinizin yerel kaydını tutmak için Ayarlar › Kitaplık bölümünden açın."
+            "value": "Çekim geçmişini tutmak için Ayarlar › Kitaplık bölümünden açın."
           }
         }
       }
@@ -5424,7 +5846,23 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ekran görüntüsünü boşluk, yuvarlatılmış köşe ve isteğe bağlı başlıkla bir arka plana yerleştirmek için bunu açın."
+            "value": "Ekran görüntüsünü arka plan, boşluk, yuvarlatılmış köşe ve isteğe bağlı bir başlıkla sunuma hazırlamak için açın."
+          }
+        }
+      }
+    },
+    "Type": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Type"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tür"
           }
         }
       }
@@ -5488,7 +5926,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Snaplet'i biraz kullanın, sonra yenileyin."
+            "value": "Snaplet'i biraz kullanıp yenileyin."
           }
         }
       }
@@ -5666,6 +6104,38 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yakınlaştırma"
+          }
+        }
+      }
+    },
+    "Zoom in": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zoom in"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yakınlaştır"
+          }
+        }
+      }
+    },
+    "Zoom out": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zoom out"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uzaklaştır"
           }
         }
       }

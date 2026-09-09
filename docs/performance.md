@@ -35,6 +35,20 @@ Two sources:
    they cannot run in CI. Use the **Copy** button in that panel to get a plain
    text report.
 
+   `LiveCaptureIntegrationTests.testMeasuresCaptureLatency` measures the same
+   two paths from the test suite. It needs the test host signed with the same
+   certificate as the app so the granted permission applies:
+
+   ```bash
+   rm -f /tmp/snaplet-perf.txt
+   xcodebuild -project Snaplet.xcodeproj -scheme Snaplet -configuration Release \
+     -destination 'platform=macOS,arch=arm64' \
+     test -only-testing:SnapletTests/LiveCaptureIntegrationTests/testMeasuresCaptureLatency \
+     CODE_SIGN_IDENTITY="Snaplet Dev" CODE_SIGN_STYLE=Manual \
+     ENABLE_DEBUG_DYLIB=NO ENABLE_HARDENED_RUNTIME=NO ENABLE_TESTABILITY=YES
+   cat /tmp/snaplet-perf.txt
+   ```
+
 ## Measured results
 
 Machine: Apple M5 Pro, 24 GB, macOS 26.6.2, Xcode 26.6.
@@ -52,10 +66,27 @@ AVFoundation rather than in Snaplet's own Swift code.
 
 The `max` column is the first, cold run in each case.
 
-**Not measured yet, so not claimed:** capture latency on a real display
-(`shortcut→overlay`, `selection→clipboard`), sustained recording throughput,
-memory use during long recordings, and Intel Mac performance. If you measure
-any of these, open a pull request with the numbers and the machine.
+### Capture latency
+
+Measured in a **Release** build on the same machine, with two displays attached
+(1512×982 at 2× and 1920×1080 at 1×) and Screen & System Audio Recording
+granted.
+
+| Path | Samples | Median | Min | p90 |
+| --- | --- | --- | --- | --- |
+| Hot key pressed → selection overlay ready, 2 displays | 7 | 56 ms | 45 ms | 59 ms |
+| Selection released → image on the clipboard, 600×400 pt | 7 | 11 ms | 10 ms | 12 ms |
+
+The first figure is dominated by ScreenCaptureKit reading both displays; it
+scales with the number and resolution of attached monitors, so a single-display
+Mac should be faster and a three-monitor desk slower. The second covers
+composing the region, encoding it and writing the pasteboard — confirming the
+selection needs no second capture, because the pixels were already taken before
+the overlay appeared.
+
+**Still not measured, so not claimed:** sustained recording throughput, memory
+use during long recordings, and Intel Mac performance. If you measure any of
+these, open a pull request with the numbers and the machine.
 
 ## Design choices that affect these paths
 

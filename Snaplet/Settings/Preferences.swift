@@ -75,6 +75,11 @@ enum OverlayCorner: String, Codable, CaseIterable, Identifiable, Sendable {
 
 /// Everything the user can configure, in one Codable blob stored in
 /// `UserDefaults`. Media never goes in here — only preferences.
+///
+/// Decoding is written by hand rather than synthesised. The synthesised version
+/// throws `keyNotFound` for any key the stored blob does not contain, so adding
+/// a single new preference would have thrown away every existing setting the
+/// next time Snaplet started. Each field falls back to its default instead.
 struct Preferences: Codable, Equatable, Sendable {
     // Capture
     var copyImageToClipboard = true
@@ -84,6 +89,9 @@ struct Preferences: Codable, Equatable, Sendable {
     var jpegQuality: Double = 0.9
     var showPreviewPanel = true
     var playCaptureSound = true
+    /// Seconds to wait after choosing what to capture, so menus and hover states
+    /// can be opened first. 0 captures immediately.
+    var captureDelaySeconds = 0
 
     // Appearance
     var appearance: AppearancePreference = .system
@@ -138,5 +146,94 @@ struct Preferences: Codable, Equatable, Sendable {
             return URL(fileURLWithPath: path, isDirectory: true)
         }
         return Self.defaultOutputDirectory
+    }
+}
+
+extension Preferences {
+
+    enum CodingKeys: String, CodingKey {
+        case copyImageToClipboard
+        case autoSaveToDisk
+        case imageFormat
+        case jpegQuality
+        case showPreviewPanel
+        case playCaptureSound
+        case captureDelaySeconds
+        case appearance
+        case language
+        case defaultStylePresetID
+        case videoFrameRate
+        case resolutionCap
+        case recordMicrophone
+        case recordSystemAudio
+        case showCursorInRecording
+        case highlightMouseClicks
+        case countdownSeconds
+        case webcamEnabled
+        case webcamShape
+        case webcamCorner
+        case webcamSizePercent
+        case historyEnabled
+        case launchAtLogin
+        case outputDirectoryPath
+        case webcamDeviceID
+        case shortcuts
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let defaults = Preferences()
+        self.init()
+
+        copyImageToClipboard = try container.decodeIfPresent(Bool.self, forKey: .copyImageToClipboard)
+            ?? defaults.copyImageToClipboard
+        autoSaveToDisk = try container.decodeIfPresent(Bool.self, forKey: .autoSaveToDisk)
+            ?? defaults.autoSaveToDisk
+        imageFormat = try container.decodeIfPresent(ImageFormat.self, forKey: .imageFormat)
+            ?? defaults.imageFormat
+        jpegQuality = try container.decodeIfPresent(Double.self, forKey: .jpegQuality)
+            ?? defaults.jpegQuality
+        showPreviewPanel = try container.decodeIfPresent(Bool.self, forKey: .showPreviewPanel)
+            ?? defaults.showPreviewPanel
+        playCaptureSound = try container.decodeIfPresent(Bool.self, forKey: .playCaptureSound)
+            ?? defaults.playCaptureSound
+        captureDelaySeconds = try container.decodeIfPresent(Int.self, forKey: .captureDelaySeconds)
+            ?? defaults.captureDelaySeconds
+        appearance = try container.decodeIfPresent(AppearancePreference.self, forKey: .appearance)
+            ?? defaults.appearance
+        language = try container.decodeIfPresent(LanguagePreference.self, forKey: .language)
+            ?? defaults.language
+        defaultStylePresetID = try container.decodeIfPresent(String.self, forKey: .defaultStylePresetID)
+            ?? defaults.defaultStylePresetID
+        videoFrameRate = try container.decodeIfPresent(Int.self, forKey: .videoFrameRate)
+            ?? defaults.videoFrameRate
+        resolutionCap = try container.decodeIfPresent(ResolutionCap.self, forKey: .resolutionCap)
+            ?? defaults.resolutionCap
+        recordMicrophone = try container.decodeIfPresent(Bool.self, forKey: .recordMicrophone)
+            ?? defaults.recordMicrophone
+        recordSystemAudio = try container.decodeIfPresent(Bool.self, forKey: .recordSystemAudio)
+            ?? defaults.recordSystemAudio
+        showCursorInRecording = try container.decodeIfPresent(Bool.self, forKey: .showCursorInRecording)
+            ?? defaults.showCursorInRecording
+        highlightMouseClicks = try container.decodeIfPresent(Bool.self, forKey: .highlightMouseClicks)
+            ?? defaults.highlightMouseClicks
+        countdownSeconds = try container.decodeIfPresent(Int.self, forKey: .countdownSeconds)
+            ?? defaults.countdownSeconds
+        webcamEnabled = try container.decodeIfPresent(Bool.self, forKey: .webcamEnabled)
+            ?? defaults.webcamEnabled
+        webcamShape = try container.decodeIfPresent(WebcamShape.self, forKey: .webcamShape)
+            ?? defaults.webcamShape
+        webcamCorner = try container.decodeIfPresent(OverlayCorner.self, forKey: .webcamCorner)
+            ?? defaults.webcamCorner
+        webcamSizePercent = try container.decodeIfPresent(Double.self, forKey: .webcamSizePercent)
+            ?? defaults.webcamSizePercent
+        historyEnabled = try container.decodeIfPresent(Bool.self, forKey: .historyEnabled)
+            ?? defaults.historyEnabled
+        launchAtLogin = try container.decodeIfPresent(Bool.self, forKey: .launchAtLogin)
+            ?? defaults.launchAtLogin
+        outputDirectoryPath = try container.decodeIfPresent(String.self, forKey: .outputDirectoryPath)
+        webcamDeviceID = try container.decodeIfPresent(String.self, forKey: .webcamDeviceID)
+        shortcuts = try container.decodeIfPresent([String: KeyboardShortcut?].self,
+                                                 forKey: .shortcuts) ?? defaults.shortcuts
     }
 }

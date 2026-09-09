@@ -62,11 +62,13 @@ sürükleyip yakalayın; tuşu bırakmadan görüntü panonuzda olur.
 
 | | |
 |---|---|
-| **Anında yakalama** | Alan, pencere, tam ekran, son alanı tekrarla — her biri değiştirilebilir kendi genel kısayoluyla |
+| **Anında yakalama** | Alan, pencere, tam ekran, son alanı tekrarla — her biri değiştirilebilir kendi genel kısayoluyla, isteğe bağlı gecikmeli çekimle |
+| **Ekrana sabitleme** | Bir çekimi tüm pencerelerin üstünde tutup ona bakarak çalışın |
+| **Renk seçici** | İmlecin altındaki hex değerini doğrudan seçim büyütecinden okuyun |
 | **Ekran görüntüsü düzenleyicisi** | Tahribatsız: ok, şekil, serbest çizim, metin, açıklama balonu, numaralı adımlar, büyüteç, blur, pixelate, opak sansür |
 | **Paylaşıma hazır tasarım** | Arka planlar, boşluk, gölge, nötr pencere çerçevesi, başlık, sosyal medya oranları, kaydedilebilir presetler |
-| **Ekran kaydı** | Sistem sesi, mikrofon, imleç, tıklama vurgusu ve videoya işlenen webcam katmanıyla MP4 |
-| **Hafif video düzenleme** | Kırpma, zoom vurguları, zaman aralıklı metin ve sansür, ilerleme ve iptalli MP4 ile GIF dışa aktarma |
+| **Ekran kaydı** | Sistem sesi, mikrofon, imleç, tıklama vurgusu, duraklat/sürdür ve videoya işlenen webcam katmanıyla MP4 |
+| **Hafif video düzenleme** | Herhangi bir kaydı açın, kırpın, zoom vurguları ve zaman aralıklı metin/sansür ekleyin, MP4 veya GIF olarak aktarın |
 | **Cihaz üzerinde metin tanıma** | Ekrandaki metni kopyalayın, geçmişte metne göre arayın, hassas görünen alanlar için öneri alın |
 | **Yerel geçmiş** | Küçük önizlemeler, favoriler, filtreler, dosya adı ve tanınan metinde arama |
 | **Hata raporu akışı** | Medyası yanında duran yerel Markdown raporu; işaretlemediğiniz hiçbir bilgi eklenmez |
@@ -84,13 +86,23 @@ sürükleyip yakalayın; tuşu bırakmadan görüntü panonuzda olur.
 - Katman, kendisi görünmeden *önce* alınmış bir anlık görüntüyü çizer; bu yüzden
   Snaplet'in kendi katmanı, önizleme paneli ve kayıt kontrolü çıktıya asla
   giremez — ve seçimi onaylamak ikinci bir yakalama gerektirmez.
-- Retina ve farklı ölçekli ekranlar desteklenir; bu sürümde seçim tek ekran
-  sınırında kalır.
+- Seçim ekranlar arasında geçebilir. Sonuç her ekrandan birleştirilir ve
+  aralarındaki en yüksek ölçekte işlenir; böylece Retina ekrandan 1× monitöre
+  sürüklemek ayrıntıyı kaybettirmez. Hiçbir ekranın kapsamadığı alan
+  doldurulmaz, saydam kalır.
 - Son alan tekrarlanırken ekranın hâlâ bağlı olduğu ve dikdörtgenin hâlâ o
   ekranın içinde kaldığı yeniden doğrulanır.
+- İsteğe bağlı gecikme (3, 5 veya 10 saniye) neyi yakalayacağınızı seçtikten
+  *sonra* işler; böylece önce bir menü açabilir veya bir şeyin üzerine gelebilirsiniz.
+- Seçim sırasında <kbd>C</kbd> tuşu imlecin altındaki hex rengini kopyalar.
+  Büyüteç bunu canlı gösterir, yani ne kopyalayacağınızı görürsünüz.
 - Çekimler anında panoya gider. Dosya yazmak isteğe bağlıdır.
-- Küçük önizleme paneli odağı çalmadan açılır: düzenleyin, kaydedin, Finder'da
-  gösterin veya dosyayı doğrudan başka bir uygulamaya sürükleyin.
+- Küçük önizleme paneli odağı çalmadan açılır: düzenleyin, kaydedin, sabitleyin,
+  Finder'da gösterin veya dosyayı doğrudan başka bir uygulamaya sürükleyin.
+- **Ekrana sabitleme** bir çekimi tüm pencerelerin üstünde tutar — iki durumu
+  karşılaştırmak veya yeniden yaptığınız şeyin yanında referans tutmak için.
+  Sabitlenmiş görüntüler sonraki çekimlere girmez; menü çubuğundan hepsi birden
+  kapatılabilir.
 
 </details>
 
@@ -106,6 +118,11 @@ işaretleme ayrı saklanır ve yalnızca dışa aktarırken uygulanır.
 - Blur, pixelate ve opak sansür.
 - Renk, kalınlık ve yazı boyutu; nesne seçme, taşıma, yeniden boyutlandırma, ok
   tuşlarıyla kaydırma ve silme; geri al/yinele.
+- Yazılar göründükleri yerde yazılır: üzerine çift tıklayın veya seçiliyken
+  Return'e basın.
+- ⌘+ / ⌘− / ⌘0 (sığdır) / ⌘1 (gerçek boyut), trackpad'de kıstırma ya da ⌥ ile
+  kaydırma tekerleği yakınlaştırır. Düz kaydırma ise büyük bir ekran
+  görüntüsünde gezinmenizi sağlar.
 - Kalite ayarıyla PNG veya JPEG dışa aktarma.
 
 Sansür opak bir blok çizer ve bir şeyi gizlemenin önerilen yoludur. Blur ve
@@ -140,17 +157,22 @@ aktarılan pikselleri geri okur.
   1080p/1440p/4K üst sınırı (asla büyütmez), isteğe bağlı geri sayım.
 - Yakalandıkça doğrudan diske yazılan MP4 (H.264) çıktısı.
 - Menü çubuğunda süre, taşınabilir bir kontrol ve kısayolla durdurma.
+- Yüzen kontrolden veya menü çubuğundan duraklat ve sürdür. Duraklama zaman
+  çizelgesinden kesilir, dondurulmaz: bir dakikası duraklamış iki dakikalık bir
+  oturum, ölü boşluk içermeyen bir dakikalık dosya üretir.
 - İsteğe bağlı yuvarlak veya yuvarlatılmış webcam katmanı; yalnızca ekranda
   gösterilmez, kodlanan karelere de işlenir.
-- Kayıtlar iki saniyelik parçalar hâlinde diske aktarılır; kesintiye uğrayan bir
-  oturum bile oynatılabilir bir dosya bırakır. Snaplet başarıyı yalnızca dosya
-  sonlandırıldıktan sonra bildirir.
+- Kayıt sürerken Snaplet'ten çıkarsanız dosya önce sonlandırılır; kısmi kayıt
+  saklanır ve oynatılabilir. Snaplet başarıyı yalnızca dosya sonlandırıldıktan
+  sonra bildirir.
 
 </details>
 
 <details>
 <summary><strong>Hafif video düzenleme — ayrıntılar</strong></summary>
 
+- Bir kaydı menü çubuğundan (<kbd>⌘O</kbd>), geçmişten, önizleme panelinden veya
+  dosyayı Snaplet'in Dock simgesine bırakarak açın.
 - Başlangıç/bitiş kırpma, önizlemede scrub, herhangi bir kareyi görüntü olarak
   kaydetme.
 - Çıktı için sunum stili ve en boy oranı.
@@ -351,13 +373,15 @@ basılması, kayıt sürerken yeniden başlatma, hedef pencerenin kapanması, mo
 çıkarılması, uyku, diskin dolması, dışa aktarmanın iptali ve kayıt sürerken
 uygulamadan çıkma (kısmi dosya sonlandırılıp saklanır).
 
-**Testler.** 122 birim ve entegrasyon testi; hataların pahalıya mal olduğu
+**Testler.** 176 birim ve entegrasyon testi; hataların pahalıya mal olduğu
 yerlere odaklanır: koordinat dönüşümü, döndürme dönüşümleri, kayıt durum
 geçişleri, ses karıştırma, zaman aralıkları, dosya bütünlüğü ve sansürlü çıktı —
 testin kendi yazdığı gerçek bir MP4'ü geri işleyip sansürün zoom ve stil altında
 aralığın her karesini kapattığını doğrulamak dahil.
 
-Ölçülmüş performans sayıları ve nasıl tekrarlanacağı
+Bu makinede, iki ekranlı Release derlemesinde yakalama gecikmesi: kısayoldan
+seçim katmanına **56 ms**, seçimi bıraktıktan panoya **11 ms**. Bu sayılar,
+diğer ölçümler ve nasıl tekrarlanacakları
 [docs/performance.md](docs/performance.md) dosyasındadır.
 
 ---
@@ -373,9 +397,15 @@ Güvenlik konuları: bkz. [SECURITY.md](SECURITY.md).
 
 ## Bilinen sınırlamalar
 
-- Seçim iki ekrana yayılamaz; sürüklemenin başladığı ekranda kalır.
-- Kayıt duraklatılıp sürdürülemez. Durdurmak dosyayı sonlandırır.
-- Otomatik nesne takibi ve otomatik sinematik zoom yoktur; zoom vurguları elle
+- *Kayıt* alanı iki ekrana yayılamaz; yakalama akışı tek bir ekrana bağlıdır.
+  Ekran görüntüsü seçimleri yayılabilir.
+- Kaydırmalı (scrolling) yakalama yok. Uzun bir sayfayı birleştirmek, kaydırma
+  çubuğunu sentetik olaylarla sürmeyi gerektirir; bu da Erişilebilirlik izni
+  ister — Snaplet bilinçli olarak ekran, mikrofon ve kamera dışında hiçbir izin
+  istemiyor.
+- Ekran üzerinde ölçüm cetveli yok; seçim katmanı bunun yerine canlı piksel
+  ölçülerini gösteriyor.
+- İmleç yumuşatma ve tıklamayı takip eden otomatik zoom yok; zoom vurguları elle
   yerleştirilir.
 - Video düzenleme bilinçli olarak küçüktür: kırpma, stil, zoom, metin ve sansür.
   Zaman çizelgeli bir editör değildir ve çoklu klip desteği yoktur.

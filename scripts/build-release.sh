@@ -14,6 +14,19 @@ cd "$(dirname "$0")/.."
 
 SIGN_IDENTITY="${SIGN_IDENTITY:--}"
 DEVELOPMENT_TEAM="${DEVELOPMENT_TEAM:-}"
+
+# Automatic signing insists on a development team the moment a real identity is
+# named, which a self-signed certificate does not have. Naming an identity means
+# the choice is already made, so sign manually.
+if [ "$SIGN_IDENTITY" = "-" ]; then
+  CODE_SIGN_STYLE="Automatic"
+  INJECT_BASE_ENTITLEMENTS="YES"
+else
+  CODE_SIGN_STYLE="Manual"
+  # Xcode otherwise injects com.apple.security.get-task-allow, which lets a
+  # debugger attach to the release build and makes notarisation reject it.
+  INJECT_BASE_ENTITLEMENTS="NO"
+fi
 BUILD_DIR="$(pwd)/build/release"
 DIST_DIR="$(pwd)/dist"
 
@@ -28,7 +41,10 @@ xcodebuild \
   -destination 'platform=macOS' \
   -derivedDataPath "$BUILD_DIR" \
   CODE_SIGN_IDENTITY="$SIGN_IDENTITY" \
+  CODE_SIGN_STYLE="$CODE_SIGN_STYLE" \
   DEVELOPMENT_TEAM="$DEVELOPMENT_TEAM" \
+  PROVISIONING_PROFILE_SPECIFIER="" \
+  CODE_SIGN_INJECT_BASE_ENTITLEMENTS="$INJECT_BASE_ENTITLEMENTS" \
   build
 
 APP="$BUILD_DIR/Build/Products/Release/Snaplet.app"

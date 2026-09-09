@@ -95,3 +95,66 @@ final class AnnotationDocumentTests: XCTestCase {
         XCTAssertNil(document.selectedID)
     }
 }
+
+@MainActor
+final class EditorZoomTests: XCTestCase {
+
+    private func makeDocument() -> EditorDocument {
+        EditorDocument(image: TestImages.solid(width: 400, height: 300),
+                       scale: 2,
+                       sourceURL: nil,
+                       capturedAt: Date(timeIntervalSince1970: 0))
+    }
+
+    func testTheEditorOpensFittedToTheWindow() {
+        XCTAssertEqual(makeDocument().zoom, 0)
+        // Compared against the localised string: the test host may run in any language.
+        XCTAssertEqual(makeDocument().zoomDescription, String(localized: "Fit"))
+    }
+
+    func testZoomingInStepsUpFromWhatIsOnScreen() {
+        let document = makeDocument()
+        // Fitted at 40%, so the first step in is the next stop above it.
+        document.effectiveZoom = 0.4
+        document.zoomIn()
+        XCTAssertEqual(document.zoom, 0.5)
+        document.effectiveZoom = 0.5
+        document.zoomIn()
+        XCTAssertEqual(document.zoom, 0.67)
+    }
+
+    func testZoomingOutStepsDown() {
+        let document = makeDocument()
+        document.effectiveZoom = 1
+        document.zoomOut()
+        XCTAssertEqual(document.zoom, 0.67)
+    }
+
+    func testZoomStopsAtTheEndsInsteadOfRunningAway() {
+        let document = makeDocument()
+        document.effectiveZoom = 4
+        document.zoomIn()
+        XCTAssertEqual(document.zoom, 4, "already at the largest step")
+
+        document.effectiveZoom = 0.25
+        document.zoomOut()
+        XCTAssertEqual(document.zoom, 0.25, "already at the smallest step")
+    }
+
+    func testFitAndActualSizeAreDistinctStates() {
+        let document = makeDocument()
+        document.zoomToActualSize()
+        XCTAssertEqual(document.zoom, 1)
+        XCTAssertEqual(document.zoomDescription, "100%")
+
+        document.zoomToFit()
+        XCTAssertEqual(document.zoom, 0)
+        XCTAssertEqual(document.zoomDescription, String(localized: "Fit"))
+    }
+
+    func testZoomDescriptionRoundsToWholePercent() {
+        let document = makeDocument()
+        document.zoom = 0.67
+        XCTAssertEqual(document.zoomDescription, "67%")
+    }
+}

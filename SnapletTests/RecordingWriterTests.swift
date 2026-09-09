@@ -268,6 +268,108 @@ final class RecordingWriterTests: XCTestCase {
         XCTAssertNotNil(try? result?.get())
     }
 
+    func testDiagnosticSummaryNamesWhatTheWriterAccepted() throws {
+        let writer = try RecordingWriter(outputURL: outputURL,
+                                         videoSize: CGSize(width: 640, height: 480),
+                                         frameRate: 30,
+                                         hasAudio: true,
+                                         needsPixelBufferInput: false)
+        XCTAssertTrue(writer.diagnosticSummary.contains("no frames"), writer.diagnosticSummary)
+
+        for frame in 0..<3 {
+            while !writer.isReadyForVideo { usleep(500) }
+            writer.appendVideo(videoSampleAt(CMTime(seconds: Double(frame) / 30, preferredTimescale: 600),
+                                             width: 640, height: 480))
+            writer.appendAudio(audioSample(at: Double(frame) / 30))
+        }
+
+        let summary = writer.diagnosticSummary
+        XCTAssertTrue(summary.contains("640x480"), summary)
+        XCTAssertTrue(summary.contains("48000Hz"), summary)
+        XCTAssertTrue(summary.contains("2ch"), summary)
+
+        let semaphore = DispatchSemaphore(value: 0)
+        writer.finish { _ in semaphore.signal() }
+        _ = semaphore.wait(timeout: .now() + 30)
+    }
+
+    func testDiagnosticSummarySaysWhenAudioIsOff() throws {
+        let writer = try RecordingWriter(outputURL: outputURL,
+                                         videoSize: CGSize(width: 320, height: 240),
+                                         frameRate: 30,
+                                         hasAudio: false,
+                                         needsPixelBufferInput: false)
+        XCTAssertTrue(writer.diagnosticSummary.contains("audio off"), writer.diagnosticSummary)
+        writer.cancel()
+    }
+
+    // MARK: - Pausing
+
+    /// Pausing must remove the gap rather than freeze a frame: a two second
+    /// wall-clock session with one second paused should produce a one second file.
+    func testPausingShortensTheTimelineInsteadOfLeavingDeadAir() throws {
+        let writer = try RecordingWriter(outputURL: outputURL,
+                                         videoSize: CGSize(width: 320, height: 240),
+                                         frameRate: 30,
+                                         hasAudio: false,
+                                         needsPixelBufferInput: false)
+
+        func append(_ seconds: Double) {
+            while !writer.isReadyForVideo { usleep(500) }
+            writer.appendVideo(videoSampleAt(CMTime(seconds: seconds, preferredTimescale: 600),
+                                             width: 320, height: 240))
+        }
+
+        // 0.0 – 0.5 s recorded.
+        for frame in 0..<15 { append(Double(frame) / 30) }
+        XCTAssertEqual(writer.appendedVideoFrames, 15)
+
+        // 0.5 – 1.5 s paused: everything in that window is dropped.
+        writer.setPaused(true)
+        XCTAssertTrue(writer.isCurrentlyPaused)
+        for frame in 15..<45 { append(Double(frame) / 30) }
+        XCTAssertEqual(writer.appendedVideoFrames, 15, "frames arriving while paused must be dropped")
+
+        // 1.5 – 2.0 s recorded again.
+        writer.setPaused(false)
+        XCTAssertFalse(writer.isCurrentlyPaused)
+        for frame in 45..<60 { append(Double(frame) / 30) }
+        XCTAssertEqual(writer.appendedVideoFrames, 30)
+        XCTAssertEqual(writer.pausedDuration.seconds, 1.0, accuracy: 0.05)
+
+        let semaphore = DispatchSemaphore(value: 0)
+        var result: Result<URL, Error>!
+        writer.finish { result = $0; semaphore.signal() }
+        _ = semaphore.wait(timeout: .now() + 30)
+
+        let url = try XCTUnwrap(try? result?.get())
+        let expectation = expectation(description: "duration")
+        var duration = Double.nan
+        Task {
+            duration = (try? await AVURLAsset(url: url).load(.duration).seconds) ?? .nan
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 10)
+        XCTAssertEqual(duration, 1.0, accuracy: 0.2, "the paused second must not appear in the file")
+    }
+
+    func testPausingTwiceInARowIsIgnored() throws {
+        let writer = try RecordingWriter(outputURL: outputURL,
+                                         videoSize: CGSize(width: 320, height: 240),
+                                         frameRate: 30,
+                                         hasAudio: false,
+                                         needsPixelBufferInput: false)
+        while !writer.isReadyForVideo { usleep(500) }
+        writer.appendVideo(videoSampleAt(.zero, width: 320, height: 240))
+
+        writer.setPaused(true)
+        writer.setPaused(true)
+        writer.setPaused(false)
+        writer.setPaused(false)
+        XCTAssertFalse(writer.isCurrentlyPaused)
+        writer.cancel()
+    }
+
     func testWriteFailuresCarryTheDomainAndCode() {
         let underlying = NSError(domain: "SomeCodec", code: -12345)
         let error = NSError(domain: AVFoundationErrorDomain,

@@ -16,6 +16,9 @@ enum MainMenu {
         if menu.items.isEmpty {
             menu.addItem(applicationMenuItem(environment: environment))
         }
+        if !menu.items.contains(where: { $0.submenu?.title == fileMenuTitle }) {
+            menu.addItem(fileMenuItem())
+        }
         if !menu.items.contains(where: { $0.submenu?.title == editMenuTitle }) {
             menu.addItem(editMenuItem())
         }
@@ -27,6 +30,7 @@ enum MainMenu {
         NSApp.mainMenu = menu
     }
 
+    private static let fileMenuTitle = String(localized: "File", comment: "Main menu title")
     private static let editMenuTitle = String(localized: "Edit", comment: "Main menu title")
     private static let windowMenuTitle = String(localized: "Window", comment: "Main menu title")
 
@@ -53,6 +57,18 @@ enum MainMenu {
                         action: #selector(NSApplication.terminate(_:)),
                         keyEquivalent: "q")
 
+        item.submenu = submenu
+        return item
+    }
+
+    private static func fileMenuItem() -> NSMenuItem {
+        let item = NSMenuItem()
+        let submenu = NSMenu(title: fileMenuTitle)
+        let open = NSMenuItem(title: String(localized: "Open Image or Video…"),
+                              action: #selector(MenuActions.openFile),
+                              keyEquivalent: "o")
+        open.target = MenuActions.shared
+        submenu.addItem(open)
         item.submenu = submenu
         return item
     }
@@ -98,5 +114,9 @@ final class MenuActions: NSObject {
 
     @objc func openSettings() {
         environment?.showSettings()
+    }
+
+    @objc func openFile() {
+        environment?.openFilePicker()
     }
 }

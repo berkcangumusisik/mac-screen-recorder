@@ -59,11 +59,13 @@ drag to capture; the image is on your clipboard before you let go of the key.
 
 | | |
 |---|---|
-| **Instant capture** | Area, window, full screen, repeat-last-area — each on its own configurable global shortcut |
+| **Instant capture** | Area, window, full screen, repeat-last-area — each on its own configurable global shortcut, with an optional self-timer |
+| **Pin to screen** | Keep a capture floating above every window while you work from it |
+| **Colour picker** | Read the hex value under the pointer straight from the selection loupe |
 | **Screenshot editor** | Non-destructive: arrows, shapes, freehand, text, callouts, numbered steps, magnifier, blur, pixelate, opaque redaction |
 | **Share-ready styling** | Backgrounds, padding, shadows, a neutral window frame, captions, social aspect ratios, savable presets |
-| **Screen recording** | MP4 with system audio, microphone, cursor, click highlighting and a composited webcam overlay |
-| **Light video editing** | Trim, zoom emphases, time-ranged text and redaction, MP4 and GIF export with progress and cancel |
+| **Screen recording** | MP4 with system audio, microphone, cursor, click highlighting, pause and resume, and a composited webcam overlay |
+| **Light video editing** | Open any recording, trim, add zoom emphases and time-ranged text or redaction, export MP4 or GIF |
 | **On-device text recognition** | Copy text off the screen, search your history by it, get suggestions for regions that look sensitive |
 | **Local history** | Thumbnails, favourites, filters, search over file names and recognised text |
 | **Bug report flow** | A local Markdown report with the media beside it, and nothing added that you didn't tick |
@@ -80,13 +82,23 @@ drag to capture; the image is on your clipboard before you let go of the key.
 - The overlay draws a snapshot taken *before* it appeared, so Snaplet's own
   overlay, preview panel and recording control can never appear in a capture —
   and confirming a selection needs no second capture.
-- Retina and mixed-scale displays are handled; a selection stays within one
-  display in this version.
+- A selection can cross displays. The result is stitched from each one and
+  rendered at the sharpest scale involved, so dragging from a Retina screen onto
+  a 1× monitor does not throw away detail. Anything no display covers stays
+  transparent rather than being filled in.
 - Repeating the last area re-checks that the display is still connected and that
   the rectangle is still inside it.
+- An optional delay (3, 5 or 10 seconds) runs *after* you choose what to
+  capture, so you can open a menu or hover something first.
+- Press <kbd>C</kbd> while selecting to copy the hex colour under the pointer.
+  The loupe shows it live, so you can see what you are about to copy.
 - Captures go to the clipboard immediately. Writing a file is optional.
-- A small preview panel appears without stealing focus: edit, save, reveal in
-  Finder, or drag the file straight into another app.
+- A small preview panel appears without stealing focus: edit, save, pin, reveal
+  in Finder, or drag the file straight into another app.
+- **Pin to screen** keeps a capture floating above every window — useful for
+  comparing two states or keeping a reference next to what you are rebuilding.
+  Pinned shots are excluded from later captures, and the menu bar can close them
+  all at once.
 
 </details>
 
@@ -102,6 +114,10 @@ annotation are stored separately and applied when you export.
 - Blur, pixelate and opaque redaction.
 - Colour, thickness and font size; select, move, resize, nudge and delete;
   undo/redo.
+- Captions are typed on the canvas where they will appear: double-click one, or
+  press Return with it selected.
+- Zoom with ⌘+ / ⌘− / ⌘0 (fit) / ⌘1 (actual size), the trackpad pinch, or ⌥ and
+  the scroll wheel. A plain scroll pans, which is what a large screenshot needs.
 - Export to PNG or JPEG with a quality setting.
 
 Redaction draws an opaque block and is the recommended way to hide something.
@@ -136,17 +152,22 @@ exported pixels back to prove it.
   1080p/1440p/4K limit (never upscaled), optional countdown.
 - MP4 (H.264) output written straight to disk as it is captured.
 - Menu-bar timer, a movable floating control, and stopping from the shortcut.
+- Pause and resume, from the floating control or the menu bar. The pause is cut
+  out of the timeline rather than frozen, so a two-minute session with a
+  one-minute pause produces a one-minute file with no dead air.
 - Optional round or rounded-rectangle webcam overlay, composited into the
   encoded frames rather than only shown on screen.
-- Recordings are flushed in two-second fragments, so an interrupted session
-  still leaves a playable file. Snaplet only reports success after the file is
-  finalised.
+- Quitting Snaplet while it is recording finalises the file first, so the
+  partial recording is kept and plays. Snaplet only reports success after the
+  file is finalised.
 
 </details>
 
 <details>
 <summary><strong>Light video editing — details</strong></summary>
 
+- Open a recording from the menu bar (<kbd>⌘O</kbd>), from the history, from
+  the preview panel, or by dropping a file on Snaplet's Dock icon.
 - Trim start and end, scrub the preview, save any frame as an image.
 - Presentation styling and aspect ratio for the output.
 - Zoom emphases over a time range with an eased ramp.
@@ -343,13 +364,16 @@ presses, starting a recording while one is running, the target window closing, a
 display being unplugged, sleep, a full disk, export cancellation, and quitting
 with a recording in progress (the partial file is finalised and kept).
 
-**Tests.** 122 unit and integration tests, aimed at the places where mistakes
+**Tests.** 176 unit and integration tests, aimed at the places where mistakes
 are expensive: coordinate conversion, rotation transforms, recording-state
 transitions, audio mixing, time ranges, file integrity, and censored output —
 including a real MP4 written by the test and rendered back to confirm a
 redaction covers every frame of its range under zoom and styling.
 
-Measured performance numbers, and how to reproduce them, are in
+Capture latency on this machine, in a Release build with two displays: **56 ms**
+from the hot key to the selection overlay, **11 ms** from releasing the selection
+to the image being on the clipboard. Those numbers, the rest of the
+measurements, and how to reproduce them are in
 [docs/performance.md](docs/performance.md).
 
 ---
@@ -365,10 +389,14 @@ Security issues: see [SECURITY.md](SECURITY.md).
 
 ## Known limitations
 
-- A selection cannot span two displays; it stays within the display where the
-  drag started.
-- Recording cannot be paused and resumed. Stopping finalises the file.
-- There is no automatic object tracking and no automatic cinematic zoom; zoom
+- A *recording* area cannot span two displays, because a capture stream is bound
+  to one display. Screenshot selections can.
+- There is no scrolling capture. Stitching a long page means driving the
+  scrollbar with synthetic events, which needs Accessibility permission —
+  Snaplet deliberately asks for nothing beyond screen, microphone and camera.
+- There is no on-screen measurement ruler; the selection overlay reports live
+  pixel dimensions instead.
+- There is no automatic cursor smoothing or auto-zoom that follows clicks; zoom
   emphases are placed by hand.
 - Video editing is deliberately small: trim, styling, zoom, text and redaction.
   It is not a timeline editor and has no multi-clip support.

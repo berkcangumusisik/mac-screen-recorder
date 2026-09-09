@@ -20,6 +20,8 @@ final class RecordingPresenter: ObservableObject {
     private var ticker: Timer?
     private var countdownTask: Task<Void, Never>?
     private var startedAt: Date?
+    private var pausedAccumulated: TimeInterval = 0
+    private var pausedAt: Date?
     private var lastTarget: TargetKind = .screen
     private var observers: [NSObjectProtocol] = []
 
@@ -34,6 +36,40 @@ final class RecordingPresenter: ObservableObject {
         state.respondsToStop
             ? String(localized: "Stop Recording")
             : String(localized: "Start Recording")
+    }
+
+    var canPause: Bool { state.canPause || state.isPaused }
+
+    var pauseMenuTitle: String {
+        state.isPaused ? String(localized: "Resume Recording") : String(localized: "Pause Recording")
+    }
+
+    /// Pausing keeps the file open; the timeline simply skips the gap.
+    func togglePause() {
+        switch state {
+        case .recording:
+            guard state.canTransition(to: .paused(since: Date())) else { return }
+            session?.setPaused(true)
+            pausedAt = Date()
+            state = .paused(since: Date())
+            control.update(elapsed: elapsedSeconds, isCountingDown: false, countdown: 0, isPaused: true)
+        case .paused:
+            guard let startedAt else { return }
+            session?.setPaused(false)
+            if let pausedAt { pausedAccumulated += Date().timeIntervalSince(pausedAt) }
+            pausedAt = nil
+            state = .recording(startedAt: startedAt)
+        default:
+            return
+        }
+        environment.menuBar?.setRecordingIndicator(TimeFormatting.clock(elapsedSeconds))
+    }
+
+    /// Wall-clock time actually recorded, with pauses taken out.
+    private var elapsedSeconds: TimeInterval {
+        guard let startedAt else { return 0 }
+        let paused = pausedAccumulated + (pausedAt.map { Date().timeIntervalSince($0) } ?? 0)
+        return max(0, Date().timeIntervalSince(startedAt) - paused)
     }
 
     // MARK: - Entry points
@@ -123,6 +159,7 @@ final class RecordingPresenter: ObservableObject {
         transition(to: .recording(startedAt: startedAt ?? Date()))
         control.show()
         control.onStop = { [weak self] in self?.stop(reason: .user) }
+        control.onTogglePause = { [weak self] in self?.togglePause() }
         startTicker()
     }
 
@@ -172,6 +209,8 @@ final class RecordingPresenter: ObservableObject {
 
     private func stop(reason: StopReason) {
         switch state {
+        case .paused:
+            session?.setPaused(false)
         case .countingDown:
             // Cancel before anything was captured.
             countdownTask?.cancel()
@@ -185,6 +224,7 @@ final class RecordingPresenter: ObservableObject {
         default:
             return
         }
+        pausedAt = nil
 
         transition(to: .stopping)
         stopTicker()
@@ -304,9 +344,12 @@ final class RecordingPresenter: ObservableObject {
         stopTicker()
         let timer = Timer(timeInterval: 0.5, repeats: true) { [weak self] _ in
             MainActor.assumeIsolated {
-                guard let self, let startedAt = self.startedAt else { return }
-                let elapsed = Date().timeIntervalSince(startedAt)
-                self.control.update(elapsed: elapsed, isCountingDown: false, countdown: 0)
+                guard let self, self.startedAt != nil else { return }
+                let elapsed = self.elapsedSeconds
+                self.control.update(elapsed: elapsed,
+                                    isCountingDown: false,
+                                    countdown: 0,
+                                    isPaused: self.state.isPaused)
                 self.environment.menuBar?.setRecordingIndicator(TimeFormatting.clock(elapsed))
             }
         }
@@ -318,6 +361,8 @@ final class RecordingPresenter: ObservableObject {
         ticker?.invalidate()
         ticker = nil
         startedAt = nil
+        pausedAccumulated = 0
+        pausedAt = nil
     }
 
     // MARK: - State

@@ -8,7 +8,6 @@ struct EditorView: View {
 
     @ObservedObject private var settings = SettingsStore.shared
     @State private var inspectorTab: InspectorTab = .annotate
-    @State private var zoom: Double = 0
 
     enum InspectorTab: String, CaseIterable, Identifiable {
         case annotate, style, text
@@ -27,7 +26,7 @@ struct EditorView: View {
             toolPalette
             Divider()
             VStack(spacing: 0) {
-                EditorCanvas(document: document, zoom: zoom)
+                EditorCanvas(document: document, zoom: document.zoom)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 Divider()
                 bottomBar
@@ -38,7 +37,8 @@ struct EditorView: View {
         }
         .frame(minWidth: 820, minHeight: 560)
         .onReceive(NotificationCenter.default.publisher(for: .snapletEditTextRequested)) { _ in
-            // Double-clicking a text annotation reveals the field that edits it.
+            // Kept for anything that asks for the inspector explicitly; the
+            // canvas now edits captions in place on a double-click.
             inspectorTab = .annotate
         }
     }
@@ -109,15 +109,28 @@ struct EditorView: View {
 
             Spacer()
 
-            Picker(String(localized: "Zoom"), selection: $zoom) {
-                Text(String(localized: "Fit")).tag(0.0)
-                Text("50%").tag(0.5)
-                Text("100%").tag(1.0)
-                Text("200%").tag(2.0)
+            Button { document.zoomOut() } label: { Image(systemName: "minus.magnifyingglass") }
+                .keyboardShortcut("-", modifiers: .command)
+                .help(String(localized: "Zoom out"))
+
+            Menu(document.zoomDescription) {
+                Button(String(localized: "Fit")) { document.zoomToFit() }
+                    .keyboardShortcut("0", modifiers: .command)
+                Button(String(localized: "Actual size")) { document.zoomToActualSize() }
+                    .keyboardShortcut("1", modifiers: .command)
+                Divider()
+                ForEach(EditorDocument.zoomSteps, id: \.self) { step in
+                    Button("\(Int(step * 100))%") { document.zoom = step }
+                }
             }
-            .pickerStyle(.menu)
-            .frame(width: 110)
-            .labelsHidden()
+            .menuStyle(.button)
+            .menuIndicator(.hidden)
+            .fixedSize()
+            .help(String(localized: "Zoom"))
+
+            Button { document.zoomIn() } label: { Image(systemName: "plus.magnifyingglass") }
+                .keyboardShortcut("+", modifiers: .command)
+                .help(String(localized: "Zoom in"))
 
             Text(sizeDescription)
                 .font(.caption.monospacedDigit())
@@ -129,6 +142,12 @@ struct EditorView: View {
                 copyToClipboard()
             } label: { Label(String(localized: "Copy"), systemImage: "doc.on.doc") }
                 .keyboardShortcut("c", modifiers: [.command, .shift])
+
+            Button {
+                guard let image = renderedImage() else { return }
+                environment.pin(image: image, scale: document.scale)
+            } label: { Label(String(localized: "Pin"), systemImage: "pin") }
+                .help(String(localized: "Keep this on top of every window"))
 
             Button {
                 environment.openBugReport(forRenderedImage: renderedImage(),

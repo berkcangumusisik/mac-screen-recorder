@@ -21,13 +21,10 @@ final class SelectionOverlayView: NSView {
     private let loupeCrosshair = CAShapeLayer()
     private let loupeReadout: PillLabel
 
-    private var anchorPoint: CGPoint?
-    private var currentPoint: CGPoint?
-    private var isMovingSelection = false
-    private var moveOrigin: CGPoint?
-    private var movedRectAtStart: CGRect?
     private var hoveredCandidate: WindowCandidate?
     private var trackingArea: NSTrackingArea?
+    /// Colour under the pointer, kept current so pressing C can copy it.
+    private var colorUnderPointer: NSColor?
 
     private static let loupeSide: CGFloat = 152
     private static let loupeSourcePixels: CGFloat = 30
@@ -118,15 +115,16 @@ final class SelectionOverlayView: NSView {
 
     private func updateHintText() {
         hintLabel.string = mode == .area
-            ? String(localized: "Drag to select · Space to move · ⇧ square · ⌥ from center · Esc to cancel")
+            ? String(localized: "Drag to select · Space to move · ⇧ square · ⌥ from center · C copies the colour · Esc to cancel")
             : String(localized: "Click a window to capture it · Esc to cancel")
         positionHint()
     }
 
     private func positionHint() {
-        let width: CGFloat = 620
+        let text = (hintLabel.string ?? "")
         let height: CGFloat = 28
-        hintLabel.frame = CGRect(x: (bounds.width - width) / 2,
+        let width = min(bounds.width - 48, hintLabel.preferredWidth(for: text))
+        hintLabel.frame = CGRect(x: ((bounds.width - width) / 2).rounded(),
                                  y: bounds.height - height - 40,
                                  width: width,
                                  height: height)
@@ -149,35 +147,24 @@ final class SelectionOverlayView: NSView {
 
     // MARK: - Selection state
 
-    /// Current selection in this view's coordinates, or `nil` when idle.
+    /// The part of the global selection that falls on this display, in local
+    /// coordinates. The selection itself lives on the controller so it can cross
+    /// displays.
     var selectionRect: CGRect? {
-        guard let anchorPoint, let currentPoint else { return nil }
-        var rect = ScreenGeometry.rect(from: anchorPoint, to: currentPoint)
-
-        let flags = NSEvent.modifierFlags
-        if flags.contains(.shift) {
-            let side = max(rect.width, rect.height)
-            let signX: CGFloat = currentPoint.x >= anchorPoint.x ? 1 : -1
-            let signY: CGFloat = currentPoint.y >= anchorPoint.y ? 1 : -1
-            rect = ScreenGeometry.rect(from: anchorPoint,
-                                       to: CGPoint(x: anchorPoint.x + side * signX,
-                                                   y: anchorPoint.y + side * signY))
-        }
-        if flags.contains(.option) {
-            rect = CGRect(x: anchorPoint.x - rect.width,
-                          y: anchorPoint.y - rect.height,
-                          width: rect.width * 2,
-                          height: rect.height * 2)
-        }
-        return rect.intersection(bounds)
+        guard let global = controller?.globalSelection else { return nil }
+        let local = localRect(fromGlobal: global)
+        let clipped = local.intersection(bounds)
+        return clipped.isNull ? nil : clipped
     }
 
     func reset() {
-        anchorPoint = nil
-        currentPoint = nil
-        isMovingSelection = false
         hoveredCandidate = nil
         refresh()
+    }
+
+    /// Called by the controller when the shared drag changes.
+    func refreshFromController() {
+        refresh(at: window.map { convert($0.mouseLocationOutsideOfEventStream, from: nil) })
     }
 
     // MARK: - Mouse
@@ -188,38 +175,20 @@ final class SelectionOverlayView: NSView {
             handleWindowClick(at: point)
             return
         }
-        anchorPoint = point
-        currentPoint = point
-        refresh()
+        controller?.beginDrag(at: globalPoint(from: point))
     }
 
     override func mouseDragged(with event: NSEvent) {
         guard mode == .area else { return }
-        let point = convert(event.locationInWindow, from: nil)
-        if isMovingSelection, let moveOrigin, let movedRectAtStart {
-            let delta = CGPoint(x: point.x - moveOrigin.x, y: point.y - moveOrigin.y)
-            let moved = movedRectAtStart.offsetBy(dx: delta.x, dy: delta.y)
-            anchorPoint = CGPoint(x: moved.minX, y: moved.minY)
-            currentPoint = CGPoint(x: moved.maxX, y: moved.maxY)
-        } else {
-            currentPoint = point
-        }
-        refresh()
+        // Dragging past this display's edge keeps arriving here, which is how
+        // the selection is allowed to continue onto the next monitor.
+        controller?.updateDrag(to: globalPoint(from: convert(event.locationInWindow, from: nil)))
     }
 
     override func mouseUp(with event: NSEvent) {
         guard mode == .area else { return }
-        currentPoint = convert(event.locationInWindow, from: nil)
-        let rect = selectionRect
-        anchorPoint = nil
-        currentPoint = nil
-        isMovingSelection = false
-        refresh()
-        guard let rect, rect.width >= 2, rect.height >= 2 else {
-            // A bare click is treated as "no selection", not a capture.
-            return
-        }
-        controller?.viewDidSelectArea(rect, in: self)
+        controller?.updateDrag(to: globalPoint(from: convert(event.locationInWindow, from: nil)))
+        controller?.endDrag()
     }
 
     override func mouseMoved(with event: NSEvent) {
@@ -247,11 +216,15 @@ final class SelectionOverlayView: NSView {
         switch event.keyCode {
         case 53: // Escape
             controller?.cancel()
+        case 8: // C copies the colour under the pointer, the way a picker should
+            if mode == .area, let colorUnderPointer {
+                Clipboard.copy(text: ColorFormatting.hex(colorUnderPointer))
+                controller?.cancel()
+            }
         case 49: // Space
-            if anchorPoint != nil, !isMovingSelection, let rect = selectionRect {
-                isMovingSelection = true
-                movedRectAtStart = rect
-                moveOrigin = convert(window?.mouseLocationOutsideOfEventStream ?? .zero, from: nil)
+            if let window {
+                let local = convert(window.mouseLocationOutsideOfEventStream, from: nil)
+                controller?.beginMovingSelection(from: globalPoint(from: local))
             }
         case 36, 76: // Return / keypad enter confirms window selection
             if mode == .window, let hoveredCandidate {
@@ -264,9 +237,7 @@ final class SelectionOverlayView: NSView {
 
     override func keyUp(with event: NSEvent) {
         if event.keyCode == 49 {
-            isMovingSelection = false
-            moveOrigin = nil
-            movedRectAtStart = nil
+            controller?.endMovingSelection()
         } else {
             super.keyUp(with: event)
         }
@@ -350,7 +321,7 @@ final class SelectionOverlayView: NSView {
         }
         infoLabel.string = text
 
-        let width = max(96, CGFloat(text.count) * 7.4 + 18)
+        let width = max(96, infoLabel.preferredWidth(for: text, horizontalPadding: 10))
         let height: CGFloat = 24
         var origin = CGPoint(x: rect.midX - width / 2, y: rect.minY - height - 8)
         if origin.y < 6 { origin.y = min(rect.maxY + 8, bounds.height - height - 6) }
@@ -378,7 +349,13 @@ final class SelectionOverlayView: NSView {
         }
 
         loupeContent.contents = cropped
-        loupeReadout.string = "\(Int(pixelX))  \(Int(pixelYFromTop))"
+        let color = Self.color(in: snapshot.image, atX: Int(pixelX), y: Int(pixelYFromTop))
+        colorUnderPointer = color
+        if let color {
+            loupeReadout.string = ColorFormatting.hex(color)
+        } else {
+            loupeReadout.string = "\(Int(pixelX))  \(Int(pixelYFromTop))"
+        }
 
         // Centre crosshair sized to one source pixel.
         let cell = Self.loupeSide / source
@@ -396,6 +373,48 @@ final class SelectionOverlayView: NSView {
         origin.x = max(8, origin.x)
         loupeLayer.frame = CGRect(origin: origin, size: loupeLayer.bounds.size)
         loupeLayer.isHidden = false
+    }
+}
+
+extension SelectionOverlayView {
+    /// Reads one pixel out of the display snapshot. Drawing a single pixel into
+    /// a one-by-one context is cheap enough to do on every mouse move, and it
+    /// avoids keeping a full uncompressed copy of a 5K display in memory.
+    static func color(in image: CGImage, atX x: Int, y: Int) -> NSColor? {
+        guard x >= 0, y >= 0, x < image.width, y < image.height,
+              let cropped = image.cropping(to: CGRect(x: x, y: y, width: 1, height: 1)),
+              let colorSpace = CGColorSpace(name: CGColorSpace.sRGB) else { return nil }
+
+        var pixel = [UInt8](repeating: 0, count: 4)
+        let drawn: Bool = pixel.withUnsafeMutableBytes { raw in
+            guard let context = CGContext(data: raw.baseAddress,
+                                          width: 1,
+                                          height: 1,
+                                          bitsPerComponent: 8,
+                                          bytesPerRow: 4,
+                                          space: colorSpace,
+                                          bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else {
+                return false
+            }
+            context.draw(cropped, in: CGRect(x: 0, y: 0, width: 1, height: 1))
+            return true
+        }
+        guard drawn else { return nil }
+        return NSColor(srgbRed: CGFloat(pixel[0]) / 255,
+                       green: CGFloat(pixel[1]) / 255,
+                       blue: CGFloat(pixel[2]) / 255,
+                       alpha: 1)
+    }
+}
+
+/// Colour values in the form people paste into code.
+enum ColorFormatting {
+    static func hex(_ color: NSColor) -> String {
+        let srgb = color.usingColorSpace(.sRGB) ?? color
+        let red = Int((srgb.redComponent * 255).rounded())
+        let green = Int((srgb.greenComponent * 255).rounded())
+        let blue = Int((srgb.blueComponent * 255).rounded())
+        return String(format: "#%02X%02X%02X", red, green, blue)
     }
 }
 
@@ -443,5 +462,14 @@ final class PillLabel {
                                      width: newValue.width,
                                      height: lineHeight)
         }
+    }
+
+    /// Width this pill needs for `text`, measured with the font it actually
+    /// draws in. Guessing from character count silently truncates as soon as a
+    /// translation is longer or the font changes.
+    func preferredWidth(for text: String, horizontalPadding: CGFloat = 20) -> CGFloat {
+        let font = NSFont.monospacedDigitSystemFont(ofSize: fontSize, weight: .medium)
+        let measured = (text as NSString).size(withAttributes: [.font: font]).width
+        return ceil(measured) + horizontalPadding * 2
     }
 }

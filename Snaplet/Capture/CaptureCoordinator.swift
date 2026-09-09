@@ -18,6 +18,7 @@ final class CaptureCoordinator {
 
     private let screenshots = ScreenshotService()
     private let overlay = SelectionOverlayController()
+    private let countdown = CountdownOverlay()
     private var isBusy = false
 
     private struct LastArea {
@@ -38,21 +39,30 @@ final class CaptureCoordinator {
             let snapshots = try await screenshots.captureAllDisplays()
             Metrics.shared.record(MetricName.shortcutToOverlay, duration: start.secondsElapsed)
 
+            overlay.confinesSelectionToOneDisplay = false
             let outcome = await overlay.present(mode: .area, snapshots: snapshots, candidates: [])
-            guard case .area(let snapshot, let rect) = outcome else { return nil }
+            guard case .area(let image, let scale, let rect, let displayID) = outcome else { return nil }
 
             let deliveryStart = ContinuousClock.now
-            guard let cropRect = ScreenGeometry.pixelCropRect(selection: rect,
-                                                              inDisplayFrame: snapshot.frame,
-                                                              scale: snapshot.scale,
-                                                              imagePixelSize: snapshot.pixelSize),
-                  let cropped = snapshot.image.cropping(to: cropRect) else {
-                throw SnapletError.captureFailed("selection was empty")
+            lastArea = LastArea(displayID: displayID, rect: rect)
+
+            // With a delay the point is to capture what the screen looks like
+            // *after* the wait, so the pre-selection snapshots are thrown away
+            // and every display the selection touches is read again.
+            var finalImage = image
+            var finalScale = scale
+            if await runCaptureDelay() {
+                let fresh = try await screenshots.captureAllDisplays()
+                guard let composed = MultiDisplayCompositor.composite(selection: rect, from: fresh) else {
+                    throw SnapletError.captureFailed("the selected area is no longer on screen")
+                }
+                finalImage = composed.image
+                finalScale = composed.scale
             }
-            lastArea = LastArea(displayID: snapshot.displayID, rect: rect)
-            let result = CaptureResult(image: cropped,
-                                       scale: snapshot.scale,
-                                       source: .area(displayID: snapshot.displayID, rect: rect))
+
+            let result = CaptureResult(image: finalImage,
+                                       scale: finalScale,
+                                       source: .area(displayID: displayID, rect: rect))
             Metrics.shared.record(MetricName.selectionToClipboard, duration: deliveryStart.secondsElapsed)
             return result
         }
@@ -68,6 +78,8 @@ final class CaptureCoordinator {
             let outcome = await overlay.present(mode: .window, snapshots: snapshots, candidates: candidates)
             guard case .window(let candidate) = outcome else { return nil }
 
+            _ = await runCaptureDelay()
+
             let start = ContinuousClock.now
             // The window may have closed while the picker was open.
             let fresh = try await screenshots.shareableContent()
@@ -82,6 +94,8 @@ final class CaptureCoordinator {
 
     func captureFullScreen() async {
         await run { [self] in
+            _ = await runCaptureDelay()
+
             let start = ContinuousClock.now
             let screen = NSScreen.screenUnderMouse ?? NSScreen.main
             guard let screen else { throw SnapletError.noCaptureSource }
@@ -106,29 +120,35 @@ final class CaptureCoordinator {
             return
         }
         await run { [self] in
-            guard let screen = NSScreen.screens.first(where: { $0.displayID == lastArea.displayID }) else {
+            // The stored rectangle may now fall on a display that has been
+            // unplugged or moved, so the whole layout is re-read and the area is
+            // clipped to whatever is still on screen.
+            let snapshots = try await screenshots.captureAllDisplays()
+            let covered = snapshots
+                .map { $0.frame.intersection(lastArea.rect) }
+                .filter { !$0.isNull && $0.width >= 1 && $0.height >= 1 }
+            guard !covered.isEmpty else {
                 self.lastArea = nil
                 throw SnapletError.displayDisconnected
             }
-            let clipped = lastArea.rect.intersection(screen.frame)
-            guard clipped.width >= 2, clipped.height >= 2 else {
+
+            // Keep the original rectangle when every part of it is still
+            // visible; otherwise fall back to the part that is.
+            let visible = covered.reduce(covered[0]) { $0.union($1) }
+            let rect = visible.intersection(lastArea.rect)
+            guard rect.width >= 2, rect.height >= 2 else {
                 self.lastArea = nil
                 throw SnapletError.displayDisconnected
             }
-            let content = try await screenshots.shareableContent()
-            guard let snapshot = try await screenshots.captureDisplay(screen: screen, content: content) else {
-                throw SnapletError.noCaptureSource
+
+            guard let composed = MultiDisplayCompositor.composite(selection: rect, from: snapshots) else {
+                throw SnapletError.captureFailed("the stored area is no longer on screen")
             }
-            guard let cropRect = ScreenGeometry.pixelCropRect(selection: clipped,
-                                                              inDisplayFrame: snapshot.frame,
-                                                              scale: snapshot.scale,
-                                                              imagePixelSize: snapshot.pixelSize),
-                  let cropped = snapshot.image.cropping(to: cropRect) else {
-                throw SnapletError.captureFailed("stored area no longer valid")
-            }
-            return CaptureResult(image: cropped,
-                                 scale: snapshot.scale,
-                                 source: .area(displayID: snapshot.displayID, rect: clipped))
+            let displayID = snapshots.first { $0.frame.intersects(rect) }?.displayID ?? lastArea.displayID
+            self.lastArea = LastArea(displayID: displayID, rect: rect)
+            return CaptureResult(image: composed.image,
+                                 scale: composed.scale,
+                                 source: .area(displayID: displayID, rect: rect))
         }
     }
 
@@ -140,17 +160,13 @@ final class CaptureCoordinator {
         defer { isBusy = false }
         do {
             let snapshots = try await screenshots.captureAllDisplays()
+            overlay.confinesSelectionToOneDisplay = false
             let outcome = await overlay.present(mode: .area, snapshots: snapshots, candidates: [])
-            guard case .area(let snapshot, let rect) = outcome,
-                  let cropRect = ScreenGeometry.pixelCropRect(selection: rect,
-                                                              inDisplayFrame: snapshot.frame,
-                                                              scale: snapshot.scale,
-                                                              imagePixelSize: snapshot.pixelSize),
-                  let cropped = snapshot.image.cropping(to: cropRect) else { return nil }
-            lastArea = LastArea(displayID: snapshot.displayID, rect: rect)
-            return CaptureResult(image: cropped,
-                                 scale: snapshot.scale,
-                                 source: .area(displayID: snapshot.displayID, rect: rect))
+            guard case .area(let image, let scale, let rect, let displayID) = outcome else { return nil }
+            lastArea = LastArea(displayID: displayID, rect: rect)
+            return CaptureResult(image: image,
+                                 scale: scale,
+                                 source: .area(displayID: displayID, rect: rect))
         } catch {
             report(error)
             return nil
@@ -165,10 +181,14 @@ final class CaptureCoordinator {
         defer { isBusy = false }
         do {
             let snapshots = try await screenshots.captureAllDisplays()
+            // A capture stream is bound to one display, so a recording area
+            // cannot span monitors the way a screenshot selection can.
+            overlay.confinesSelectionToOneDisplay = true
+            defer { overlay.confinesSelectionToOneDisplay = false }
             let outcome = await overlay.present(mode: .area, snapshots: snapshots, candidates: [])
-            guard case .area(let snapshot, let rect) = outcome,
+            guard case .area(_, _, let rect, let displayID) = outcome,
                   rect.width >= 16, rect.height >= 16 else { return nil }
-            return (snapshot.displayID, rect)
+            return (displayID, rect)
         } catch {
             report(error)
             return nil
@@ -192,6 +212,21 @@ final class CaptureCoordinator {
             report(error)
             return nil
         }
+    }
+
+    /// Counts down before capturing, so a menu or hover state can be opened
+    /// first. Returns whether it actually waited.
+    @discardableResult
+    private func runCaptureDelay() async -> Bool {
+        let seconds = SettingsStore.shared.preferences.captureDelaySeconds
+        guard seconds > 0 else { return false }
+        countdown.show(seconds: seconds)
+        defer { countdown.hide() }
+        for remaining in stride(from: seconds, through: 1, by: -1) {
+            countdown.update(remaining: remaining)
+            try? await Task.sleep(for: .seconds(1))
+        }
+        return true
     }
 
     // MARK: - Plumbing

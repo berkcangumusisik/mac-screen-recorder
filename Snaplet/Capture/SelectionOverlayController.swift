@@ -21,14 +21,28 @@ final class SelectionOverlayController {
     }
 
     enum Outcome {
-        /// `rect` is in global AppKit points and is guaranteed to be inside `snapshot.frame`.
-        case area(snapshot: DisplaySnapshot, rect: CGRect)
+        /// The composed selection. `rect` is in global AppKit points and may
+        /// cross displays, in which case the image is stitched from each one.
+        case area(image: CGImage, scale: CGFloat, rect: CGRect, displayID: CGDirectDisplayID)
         case window(WindowCandidate)
         case cancelled
     }
 
     private var windows: [SelectionOverlayWindow] = []
     private var views: [SelectionOverlayView] = []
+    private var snapshots: [DisplaySnapshot] = []
+
+    // The drag lives here, in global coordinates, rather than in whichever view
+    // the mouse went down on — that is what lets a selection cross displays.
+    private var dragAnchor: CGPoint?
+    private var dragCurrent: CGPoint?
+    private var isMovingSelection = false
+    private var moveOrigin: CGPoint?
+    private var movedRectAtStart: CGRect?
+    /// The display the drag started on, used to replay the selection later.
+    private var originDisplayID: CGDirectDisplayID?
+    /// Set for flows that cannot span displays, such as choosing a recording area.
+    var confinesSelectionToOneDisplay = false
     private var continuation: CheckedContinuation<Outcome, Never>?
     private var previousApplication: NSRunningApplication?
     private var screenChangeObserver: NSObjectProtocol?
@@ -41,6 +55,11 @@ final class SelectionOverlayController {
         guard !isPresenting else { return .cancelled }
         guard !snapshots.isEmpty else { return .cancelled }
 
+        self.snapshots = snapshots
+        dragAnchor = nil
+        dragCurrent = nil
+        isMovingSelection = false
+        originDisplayID = nil
         previousApplication = NSWorkspace.shared.frontmostApplication
 
         for snapshot in snapshots {
@@ -88,12 +107,93 @@ final class SelectionOverlayController {
         finish(.cancelled)
     }
 
-    func viewDidSelectArea(_ rect: CGRect, in view: SelectionOverlayView) {
-        let global = CGRect(x: view.snapshot.frame.minX + rect.minX,
-                            y: view.snapshot.frame.minY + rect.minY,
-                            width: rect.width,
-                            height: rect.height)
-        finish(.area(snapshot: view.snapshot, rect: global))
+    // MARK: - Dragging, in global coordinates
+
+    func beginDrag(at global: CGPoint) {
+        dragAnchor = global
+        dragCurrent = global
+        isMovingSelection = false
+        originDisplayID = snapshots.first { $0.frame.contains(global) }?.displayID
+        refreshViews()
+    }
+
+    func updateDrag(to global: CGPoint) {
+        guard dragAnchor != nil else { return }
+        if isMovingSelection, let moveOrigin, let movedRectAtStart {
+            let moved = movedRectAtStart.offsetBy(dx: global.x - moveOrigin.x,
+                                                  dy: global.y - moveOrigin.y)
+            dragAnchor = CGPoint(x: moved.minX, y: moved.minY)
+            dragCurrent = CGPoint(x: moved.maxX, y: moved.maxY)
+        } else {
+            dragCurrent = global
+        }
+        refreshViews()
+    }
+
+    func beginMovingSelection(from global: CGPoint) {
+        guard dragAnchor != nil, let rect = globalSelection else { return }
+        isMovingSelection = true
+        moveOrigin = global
+        movedRectAtStart = rect
+    }
+
+    func endMovingSelection() {
+        isMovingSelection = false
+        moveOrigin = nil
+        movedRectAtStart = nil
+    }
+
+    func endDrag() {
+        defer {
+            dragAnchor = nil
+            dragCurrent = nil
+            endMovingSelection()
+        }
+        guard let rect = globalSelection, rect.width >= 2, rect.height >= 2 else {
+            refreshViews()
+            return
+        }
+        guard let composed = MultiDisplayCompositor.composite(selection: rect, from: snapshots) else {
+            refreshViews()
+            return
+        }
+        let displayID = originDisplayID
+            ?? snapshots.first { $0.frame.intersects(rect) }?.displayID
+            ?? 0
+        finish(.area(image: composed.image, scale: composed.scale, rect: rect, displayID: displayID))
+    }
+
+    /// The selection in global points, with the live modifier keys applied.
+    var globalSelection: CGRect? {
+        guard let dragAnchor, let dragCurrent else { return nil }
+        var rect = ScreenGeometry.rect(from: dragAnchor, to: dragCurrent)
+
+        let flags = NSEvent.modifierFlags
+        if flags.contains(.shift) {
+            let side = max(rect.width, rect.height)
+            let signX: CGFloat = dragCurrent.x >= dragAnchor.x ? 1 : -1
+            let signY: CGFloat = dragCurrent.y >= dragAnchor.y ? 1 : -1
+            rect = ScreenGeometry.rect(from: dragAnchor,
+                                       to: CGPoint(x: dragAnchor.x + side * signX,
+                                                   y: dragAnchor.y + side * signY))
+        }
+        if flags.contains(.option) {
+            rect = CGRect(x: dragAnchor.x - rect.width,
+                          y: dragAnchor.y - rect.height,
+                          width: rect.width * 2,
+                          height: rect.height * 2)
+        }
+
+        if confinesSelectionToOneDisplay,
+           let origin = originDisplayID,
+           let display = snapshots.first(where: { $0.displayID == origin }) {
+            rect = rect.intersection(display.frame)
+        }
+        return rect.isNull ? nil : rect
+    }
+
+    private func refreshViews() {
+        for view in views { view.refreshFromController() }
     }
 
     func viewDidSelectWindow(_ candidate: WindowCandidate) {
@@ -114,6 +214,10 @@ final class SelectionOverlayController {
         }
         windows.removeAll()
         views.removeAll()
+        snapshots.removeAll()
+        dragAnchor = nil
+        dragCurrent = nil
+        endMovingSelection()
 
         // Give focus back to whatever the user was actually working in.
         if let previousApplication, previousApplication.bundleIdentifier != Bundle.main.bundleIdentifier {
