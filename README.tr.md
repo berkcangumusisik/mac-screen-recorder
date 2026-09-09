@@ -45,7 +45,23 @@ Snaplet dördü birden ve ekranınızı hiçbir yere göndermiyor.
 
 ---
 
-## Hızlı başlangıç
+## Kurulum
+
+Disk imajını
+[son sürümden](https://github.com/berkcangumusisik/mac-screen-recorder/releases/latest)
+indirin, açın ve Snaplet'i Applications klasörüne sürükleyin. macOS 15 veya üzeri
+gerekir.
+
+> [!NOTE]
+> Sürümler henüz Apple tarafından notarize edilmiyor; bu yüzden macOS ilk açılışta
+> reddeder. Applications içindeki Snaplet'e sağ tıklayıp **Aç** deyin ve onaylayın.
+> Bu, Apple'ın kendi uygulama bazlı istisnasıdır — Gatekeeper'ı kapatmanız
+> gerekmez ve bu proje sizden bunu asla istemez. Notarization ücretli bir Apple
+> Developer hesabı gerektiriyor; sürüm akışı bunu zaten destekliyor ve kimlik
+> bilgileri eklendiği anda devreye giriyor. Bkz.
+> [docs/releasing.md](docs/releasing.md).
+
+## Kaynaktan çalıştırma
 
 ```bash
 git clone https://github.com/berkcangumusisik/mac-screen-recorder.git
@@ -263,6 +279,7 @@ xcodebuild -project Snaplet.xcodeproj -scheme Snaplet -configuration Debug -dest
 ```bash
 ./scripts/run-tests.sh        # tüm test paketi
 ./scripts/build-release.sh    # dist/ içine Release .app + zip
+./scripts/build-dmg.sh        # dist/ içine disk imajı
 ```
 
 Varsayılan derleme ad-hoc imzalar; bu, Snaplet'i derlendiği Mac'te çalıştırmak

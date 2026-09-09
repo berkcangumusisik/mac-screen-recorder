@@ -42,7 +42,21 @@ and it never sends your screen anywhere.
 
 ---
 
-## Quick start
+## Install
+
+Grab the disk image from the
+[latest release](https://github.com/berkcangumusisik/mac-screen-recorder/releases/latest),
+open it and drag Snaplet to Applications. macOS 15 or later.
+
+> [!NOTE]
+> Releases are not yet notarised by Apple, so macOS refuses them on first
+> launch. Right-click Snaplet in Applications and choose **Open**, then confirm.
+> That is Apple's own per-app override — you never need to turn Gatekeeper off,
+> and this project will never ask you to. Notarising needs a paid Apple
+> Developer account; the release workflow already supports it and switches on
+> the moment the credentials exist. See [docs/releasing.md](docs/releasing.md).
+
+## Build from source
 
 ```bash
 git clone https://github.com/berkcangumusisik/mac-screen-recorder.git
@@ -247,7 +261,7 @@ by you.
 | Architecture | Apple silicon is the development and test target. The project builds for Intel, but Snaplet has not been tested there, so no claim is made about it. |
 | Dependencies | None. Apple frameworks only. |
 
-## Build from source
+### From the command line
 
 ```bash
 xcodebuild -project Snaplet.xcodeproj -scheme Snaplet -configuration Debug -destination 'platform=macOS' build
@@ -256,6 +270,7 @@ xcodebuild -project Snaplet.xcodeproj -scheme Snaplet -configuration Debug -dest
 ```bash
 ./scripts/run-tests.sh        # full test suite
 ./scripts/build-release.sh    # Release .app + zip into dist/
+./scripts/build-dmg.sh        # a disk image in dist/
 ```
 
 The default build signs ad hoc, which is enough to run Snaplet on the Mac that
