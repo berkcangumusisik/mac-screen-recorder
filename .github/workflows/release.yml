@@ -98,7 +98,14 @@ jobs:
       - name: Write the install notes
         id: notes
         run: |
-          DMG=$(ls dist/*.dmg | head -1)
+          # `ls | head` hides its own failure behind head's exit status, so an
+          # absent disk image once produced release notes for a file called "".
+          DMG=$(ls -1 dist/*.dmg | head -1)
+          if [ ! -f "$DMG" ]; then
+            echo "The disk image step produced no .dmg in dist/." >&2
+            ls -la dist/ >&2 || true
+            exit 1
+          fi
           {
             echo "## Install"
             echo

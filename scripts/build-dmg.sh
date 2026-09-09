@@ -39,7 +39,9 @@ if [ -f "$APP/Contents/Resources/AppIcon.icns" ]; then
 fi
 
 rm -f "$DMG"
-echo "Creating $DMG…"
+# Braces are load-bearing: an ellipsis straight after $DMG is read as part
+# of the variable name under a UTF-8 locale, which is what CI runs.
+echo "Creating ${DMG}…"
 hdiutil create \
   -volname "Snaplet" \
   -srcfolder "$STAGING" \
