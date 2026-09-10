@@ -7,6 +7,16 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ## [Unreleased]
 
+### Fixed
+
+- Corrected the install instructions. A first launch of an unnotarised build is
+  not a warning you can click past: macOS moves the app to the Trash. Verified
+  twice on macOS 26.6.2 against the published 0.2.0 disk image, downloaded and
+  quarantined the way a browser would. The READMEs, the generated release notes
+  and the published 0.2.0 notes now say so before telling anyone to drag the app
+  anywhere, and point at the source build, which is the path that keeps the
+  Screen & System Audio Recording grant across launches.
+
 ## [0.2.0] — 2026-09-09
 
 First release with a download. The disk image is signed ad hoc rather than

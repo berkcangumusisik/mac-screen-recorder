@@ -52,14 +52,23 @@ Disk imajını
 indirin, açın ve Snaplet'i Applications klasörüne sürükleyin. macOS 15 veya üzeri
 gerekir.
 
-> [!NOTE]
-> Sürümler henüz Apple tarafından notarize edilmiyor; bu yüzden macOS ilk açılışta
-> reddeder. Applications içindeki Snaplet'e sağ tıklayıp **Aç** deyin ve onaylayın.
-> Bu, Apple'ın kendi uygulama bazlı istisnasıdır — Gatekeeper'ı kapatmanız
-> gerekmez ve bu proje sizden bunu asla istemez. Notarization ücretli bir Apple
-> Developer hesabı gerektiriyor; sürüm akışı bunu zaten destekliyor ve kimlik
-> bilgileri eklendiği anda devreye giriyor. Bkz.
-> [docs/releasing.md](docs/releasing.md).
+> [!IMPORTANT]
+> **İlk açılışta Snaplet'e çift tıklamayın.** Bu yapılar Apple tarafından
+> notarize edilmiyor ve düz bir ilk açılış sizi yalnızca uyarmıyor: macOS 26'da
+> sistem uygulamayı doğrudan Çöp Sepeti'ne taşıyor. Applications içindeki
+> Snaplet'e Control tuşuyla tıklayıp **Aç** deyin ve onaylayın. Bu, Apple'ın
+> kendi uygulama bazlı istisnasıdır — Gatekeeper'ı kapatmanız gerekmez ve bu
+> proje sizden bunu asla istemez.
+
+macOS, notarize edilmemiş bir uygulamayı bundan sonra da her açılışta yolu
+değişen geçici bir salt okunur kopyadan çalıştırabiliyor. Ekran ve Sistem Sesi
+Kaydı izni uygulamaya bağlı olduğu için izin bir sonraki açılışa kalmıyor.
+Snaplet notarize edilene kadar normal davranan yol
+[kaynaktan derlemek](#kaynaktan-çalıştırma).
+
+Notarization ücretli bir Apple Developer hesabı gerektiriyor. Sürüm akışı bunu
+zaten destekliyor ve kimlik bilgileri eklendiği anda devreye giriyor. Bkz.
+[docs/releasing.md](docs/releasing.md).
 
 ## Kaynaktan çalıştırma
 
@@ -68,6 +77,19 @@ git clone https://github.com/berkcangumusisik/mac-screen-recorder.git
 cd mac-screen-recorder
 open Snaplet.xcodeproj      # Snaplet şemasını seçip çalıştırın
 ```
+
+Saklayabileceğiniz bir kopya kurmak için önce sabit, kendi kendine imzalanmış bir
+sertifikayla imzalayın:
+
+```bash
+./scripts/setup-dev-signing.sh                        # bir kez
+SIGN_IDENTITY="Snaplet Dev" ./scripts/build-release.sh
+cp -R dist/Snaplet.app /Applications/
+```
+
+Bu ek adımın tüm anlamı sertifikada. macOS, Ekran ve Sistem Sesi Kaydı iznini
+imzaya bağlıyor; imza sabit kalınca izni her derlemeden sonra değil, yalnızca bir
+kez veriyorsunuz.
 
 Snaplet menü çubuğunda belirir — Dock simgesi yok, pencere yok. **⌃⌥⌘A** ile
 sürükleyip yakalayın; tuşu bırakmadan görüntü panonuzda olur.

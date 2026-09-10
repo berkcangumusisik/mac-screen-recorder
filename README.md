@@ -44,17 +44,26 @@ and it never sends your screen anywhere.
 
 ## Install
 
-Grab the disk image from the
+Download the disk image from the
 [latest release](https://github.com/berkcangumusisik/mac-screen-recorder/releases/latest),
 open it and drag Snaplet to Applications. macOS 15 or later.
 
-> [!NOTE]
-> Releases are not yet notarised by Apple, so macOS refuses them on first
-> launch. Right-click Snaplet in Applications and choose **Open**, then confirm.
-> That is Apple's own per-app override — you never need to turn Gatekeeper off,
-> and this project will never ask you to. Notarising needs a paid Apple
-> Developer account; the release workflow already supports it and switches on
-> the moment the credentials exist. See [docs/releasing.md](docs/releasing.md).
+> [!IMPORTANT]
+> **Do not double-click Snaplet the first time.** These builds are not notarised
+> by Apple, and a plain first launch does not merely warn you: on macOS 26 the
+> system moves the app straight to the Trash. Control-click Snaplet in
+> Applications, choose **Open**, then confirm. That is Apple's own per-app
+> override — you never need to turn Gatekeeper off, and this project will never
+> ask you to.
+
+macOS may still run an unnotarised app from a temporary read-only copy whose
+path changes on every launch. Screen & System Audio Recording is bound to the
+app, so the permission will not survive a relaunch. Until Snaplet is notarised,
+[building from source](#build-from-source) is the path that behaves normally.
+
+Notarising needs a paid Apple Developer account. The release workflow already
+supports it and switches on the moment the credentials exist. See
+[docs/releasing.md](docs/releasing.md).
 
 ## Build from source
 
@@ -63,6 +72,19 @@ git clone https://github.com/berkcangumusisik/mac-screen-recorder.git
 cd mac-screen-recorder
 open Snaplet.xcodeproj      # select the Snaplet scheme and Run
 ```
+
+To install a copy you can keep, sign it with a stable self-signed certificate
+first:
+
+```bash
+./scripts/setup-dev-signing.sh                        # once
+SIGN_IDENTITY="Snaplet Dev" ./scripts/build-release.sh
+cp -R dist/Snaplet.app /Applications/
+```
+
+The certificate is the point of that detour. macOS ties Screen & System Audio
+Recording to the signature, so a stable one means you grant the permission once
+instead of after every build.
 
 Snaplet appears in the menu bar — no dock icon, no window. Press **⌃⌥⌘A** and
 drag to capture; the image is on your clipboard before you let go of the key.

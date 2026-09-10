@@ -115,9 +115,16 @@ jobs:
               echo "This build is signed with a Developer ID and notarised by Apple, so it opens normally."
             else
               echo "> [!IMPORTANT]"
-              echo "> This build is **not notarised by Apple**, so macOS will refuse it on the first launch."
-              echo "> Right-click Snaplet in Applications and choose **Open**, then confirm. That is Apple's"
-              echo "> own per-app override — you do not need to turn Gatekeeper off, and you should not."
+              echo "> **Do not double-click Snaplet the first time.** This build is not notarised by"
+              echo "> Apple, and a plain first launch does not merely warn you: on macOS 26 the system"
+              echo "> moves the app straight to the Trash. Control-click Snaplet in Applications, choose"
+              echo "> **Open**, then confirm. That is Apple's own per-app override — you do not need to"
+              echo "> turn Gatekeeper off, and you should not."
+              echo
+              echo "macOS may still run an unnotarised app from a temporary read-only copy whose path"
+              echo "changes on every launch, so the Screen & System Audio Recording grant will not"
+              echo "survive a relaunch. Until this is notarised, building from source is the path that"
+              echo "behaves normally. The README has the four commands."
             fi
             echo
             echo "Snaplet needs macOS 15 or later. On first capture it asks for Screen & System Audio"
@@ -131,9 +138,16 @@ jobs:
               echo "Bu sürüm Developer ID ile imzalı ve Apple tarafından noter onaylı, normal şekilde açılır."
             else
               echo "> [!IMPORTANT]"
-              echo "> Bu sürüm **Apple tarafından noter onaylı değil**, bu yüzden macOS ilk açılışta reddeder."
-              echo "> Uygulamalar klasöründe Snaplet'e sağ tıklayıp **Aç** deyin ve onaylayın. Bu, Apple'ın"
-              echo "> kendi uygulama bazlı istisnası — Gatekeeper'ı kapatmanız gerekmez, kapatmayın da."
+              echo "> **İlk açılışta Snaplet'e çift tıklamayın.** Bu yapı Apple tarafından notarize"
+              echo "> edilmiyor ve düz bir ilk açılış sizi yalnızca uyarmıyor: macOS 26'da sistem"
+              echo "> uygulamayı doğrudan Çöp Sepeti'ne taşıyor. Uygulamalar klasöründe Snaplet'e"
+              echo "> Control tuşuyla tıklayıp **Aç** deyin ve onaylayın. Bu, Apple'ın kendi uygulama"
+              echo "> bazlı istisnası — Gatekeeper'ı kapatmanız gerekmez, kapatmayın da."
+              echo
+              echo "macOS bundan sonra da uygulamayı her açılışta yolu değişen geçici bir salt okunur"
+              echo "kopyadan çalıştırabiliyor; bu yüzden Ekran ve Sistem Sesi Kaydı izni bir sonraki"
+              echo "açılışa kalmıyor. Notarize edilene kadar normal davranan yol kaynaktan derlemek."
+              echo "Gereken dört komut README'de."
             fi
             echo
             echo "Snaplet macOS 15 veya sonrasını ister. İlk çekimde Ekran ve Sistem Sesi Kaydı izni"
